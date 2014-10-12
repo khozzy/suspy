@@ -1,17 +1,15 @@
 package com.pwr.teamfinder.domain;
 
+import com.pwr.teamfinder.generic.domain.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Team {
-
-    @Id
-    @Column(name = "id", nullable = false, updatable = false)
-    @NotNull
-    private Long id;
+@Table(name = "_team")
+public class Team extends BaseEntity{
 
     @Column(name = "membersIDs")
     @NotNull
@@ -24,14 +22,6 @@ public class Team {
     @Column(name = "leaderID") //nullable or not??
     @NotNull
     private Long leaderID;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long[] getMembersIDs() {
         return membersIDs;

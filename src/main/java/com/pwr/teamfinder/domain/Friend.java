@@ -1,17 +1,15 @@
 package com.pwr.teamfinder.domain;
 
+import com.pwr.teamfinder.generic.domain.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Friend {
-
-    @Id
-    @Column(name = "id", nullable = false, updatable = false)
-    @NotNull
-    private Long id;
+@Table(name = "_friend")
+public class Friend extends BaseEntity{
 
     @Column(name = "user1ID", nullable = false)
     @NotNull
@@ -20,14 +18,6 @@ public class Friend {
     @Column(name = "user2ID", nullable = false)
     @NotNull
     private Long user2ID;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getUser1ID() {
         return user1ID;

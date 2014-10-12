@@ -1,20 +1,20 @@
 package com.pwr.teamfinder.service;
 
 import com.pwr.teamfinder.domain.Event;
+import com.pwr.teamfinder.generic.service.GenericServiceImpl;
 import com.pwr.teamfinder.repository.Events;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
-public class EventService {
+public class EventService extends GenericServiceImpl<Event, Long, Events> {
 
     @Autowired
     private Events repository;
 
-    public Event save(final Event event) {
-        return repository.save(event);
+    @Override
+    public Events getRepository() {
+        return repository;
     }
 
     public void someMethod() {
