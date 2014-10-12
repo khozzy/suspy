@@ -13,17 +13,17 @@ public class Team {
     @NotNull
     private Long id;
 
-    @Column(name = "members")
+    @Column(name = "membersIDs")
     @NotNull
-    private User[] members;
+    private Long[] membersIDs;
 
     @Column(name = "name", nullable = false)
     @NotNull
     private String name;
 
-    @Column(name = "leader") //nullable or not??
+    @Column(name = "leaderID") //nullable or not??
     @NotNull
-    private User leader;
+    private Long leaderID;
 
     public Long getId() {
         return id;
@@ -33,12 +33,12 @@ public class Team {
         this.id = id;
     }
 
-    public User[] getMembers() {
-        return members;
+    public Long[] getMembersIDs() {
+        return membersIDs;
     }
 
-    public void setMembers(User[] members) {
-        this.members = members;
+    public void setMembersIDs(Long[] membersIDs) {
+        this.membersIDs = membersIDs;
     }
 
     public String getName() {
@@ -49,11 +49,11 @@ public class Team {
         this.name = name;
     }
 
-    public User getLeader() {
-        return leader;
+    public Long getLeaderID() {
+        return leaderID;
     }
 
-    public void setLeader(User leader) {
-        this.leader = leader;
+    public void setLeaderID(Long leaderID) {
+        this.leaderID = leaderID;
     }
 }

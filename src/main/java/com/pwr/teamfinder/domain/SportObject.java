@@ -37,13 +37,13 @@ public class SportObject {
     @NotNull
     private Byte capacity;
 
-    @Column(name = "owner", nullable = false)
+    @Column(name = "ownerID", nullable = false)
     @NotNull
-    private User owner;
+    private Long ownerID;
 
-    @Column(name = "time_slots", nullable = false)
+    @Column(name = "timeSlotsIDs", nullable = false)
     @NotNull
-    private TimeSlot[] timeSlots;
+    private Long[] timeSlotsIDs;
 
     @Column(name = "accepted", nullable = false)
     @NotNull
@@ -105,20 +105,20 @@ public class SportObject {
         this.capacity = capacity;
     }
 
-    public User getOwner() {
-        return owner;
+    public Long getOwnerID() {
+        return ownerID;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setOwnerID(Long ownerID) {
+        this.ownerID = ownerID;
     }
 
-    public TimeSlot[] getTime_slots() {
-        return timeSlots;
+    public Long[] getTimeSlotsIDs() {
+        return timeSlotsIDs;
     }
 
-    public void setTime_slots(TimeSlot[] time_slots) {
-        this.timeSlots = time_slots;
+    public void setTimeSlotsIDs(Long[] timeSlotsIDs) {
+        this.timeSlotsIDs = timeSlotsIDs;
     }
 
     public Boolean getAccepted() {

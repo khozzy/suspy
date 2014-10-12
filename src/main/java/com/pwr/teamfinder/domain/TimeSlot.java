@@ -26,9 +26,9 @@ public class TimeSlot {
     @NotNull
     private Double price;
 
-    @Column(name = "event")
+    @Column(name = "eventID")
     @NotNull
-    private Event event;
+    private Long eventID;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class TimeSlot {
         this.price = price;
     }
 
-    public Event getEvent() {
-        return event;
+    public Long getEventID() {
+        return eventID;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEventID(Long eventID) {
+        this.eventID = eventID;
     }
 }

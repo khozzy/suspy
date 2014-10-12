@@ -17,13 +17,13 @@ public class Event {
     @NotNull
     private String name;
 
-    @Column(name = "timeSlot", nullable = false)
+    @Column(name = "timeSlotID", nullable = false)
     @NotNull
-    private TimeSlot timeSlot;
+    private Long timeSlotID;
 
-    @Column(name = "team")
+    @Column(name = "teamID")
     @NotNull
-    private Team team;
+    private Long teamID;
 
     @Column(name = "priv", nullable = false)
     @NotNull
@@ -45,20 +45,20 @@ public class Event {
         this.name = name;
     }
 
-    public TimeSlot getTimeSlot() {
-        return timeSlot;
+    public Long getTimeSlotID() {
+        return timeSlotID;
     }
 
-    public void setTimeSlot(TimeSlot timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setTimeSlotID(Long timeSlotID) {
+        this.timeSlotID = timeSlotID;
     }
 
-    public Team getTeam() {
-        return team;
+    public Long getTeamID() {
+        return teamID;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeamID(Long teamID) {
+        this.teamID = teamID;
     }
 
     public Boolean getPriv() {

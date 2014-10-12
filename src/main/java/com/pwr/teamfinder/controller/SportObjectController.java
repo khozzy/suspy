@@ -1,6 +1,6 @@
 package com.pwr.teamfinder.controller;
 
-import com.pwr.teamfinder.service.UserService;
+import com.pwr.teamfinder.service.SportObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UserController {
+public class SportObjectController {
 
     @Autowired
-    UserService userService;
+    SportObjectService sportObjectService;
 
-    @RequestMapping(value = "/greetingUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/greetingSportObject", method = RequestMethod.GET)
     public String greeting(
-            final @RequestParam(value = "name", required = false, defaultValue = "User") String name,
+            final @RequestParam(value = "name", required = false, defaultValue = "Sport Object") String name,
             final Model model) {
 
-        userService.someMethod();
+        sportObjectService.someMethod();
 
         model.addAttribute("name", name);
 

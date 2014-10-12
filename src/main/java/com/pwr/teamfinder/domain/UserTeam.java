@@ -13,13 +13,13 @@ public class UserTeam {
     @NotNull
     private Long id;
 
-    @Column(name = "user", nullable = false)
+    @Column(name = "userID", nullable = false)
     @NotNull
-    private User user;
+    private Long userID;
 
-    @Column(name = "team", nullable = false)
+    @Column(name = "teamID", nullable = false)
     @NotNull
-    private Team team;
+    private Long teamID;
 
     public Long getId() {
         return id;
@@ -29,19 +29,19 @@ public class UserTeam {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
-    public Team getTeam() {
-        return team;
+    public Long getTeamID() {
+        return teamID;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeamID(Long teamID) {
+        this.teamID = teamID;
     }
 }
