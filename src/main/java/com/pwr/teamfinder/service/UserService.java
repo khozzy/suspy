@@ -1,20 +1,20 @@
 package com.pwr.teamfinder.service;
 
 import com.pwr.teamfinder.domain.User;
+import com.pwr.teamfinder.generic.service.GenericServiceImpl;
 import com.pwr.teamfinder.repository.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
-public class UserService {
+public class UserService extends GenericServiceImpl<User, Long, Users> {
 
     @Autowired
     private Users repository;
 
-    public User save(final User user) {
-        return repository.save(user);
+    @Override
+    public Users getRepository() {
+        return repository;
     }
 
     public void someMethod() {
