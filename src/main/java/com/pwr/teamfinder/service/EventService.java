@@ -1,8 +1,8 @@
 package com.pwr.teamfinder.service;
 
 import com.pwr.teamfinder.domain.Event;
-import com.pwr.teamfinder.generic.service.GenericServiceImpl;
 import com.pwr.teamfinder.repository.Events;
+import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

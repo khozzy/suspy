@@ -11,17 +11,25 @@ import java.util.Set;
 @Transactional
 public class FriendshipService {
 
-    public void addFriend(User user, User newFriend) {
-        System.out.println("Calling some method from service FriendshipService");
+    public void sendFriendRequest(final User user, final User newFriend) {
+       // Dodanie znajomego
     }
 
-    public void rejectFriend(User user, User rejectedFriend) {
-        System.out.println("rejecting friend");
+    public void cancelFriendRequest(final User user, final User newFriend) {
+        // Anuluje wyslane zaproszenie do grona znajomych
     }
 
-    public Set<User> showFriends(User user) {
-        System.out.println("show all friends of the user");
-        return Collections.emptySet();
+    public void rejectFriendRequest(final User user, final User rejectedFriend) {
+        // odrzucenie zaproszenia do grona znajomych
+    }
+
+    public void removeFriend(final User user, final User friendToBeRemoved) {
+        // Usuwanie usera z grona znajomych
+    }
+
+    public Set<User> showFriends(final User user) {
+        // wyswietleni listy wszystkich znajomych
+        return null;
     }
 
 }

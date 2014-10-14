@@ -1,5 +1,8 @@
 package com.pwr.teamfinder.controller;
 
+import com.pwr.teamfinder.domain.Role;
+import com.pwr.teamfinder.domain.User;
+import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,20 +12,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/greetingUser", method = RequestMethod.GET)
-    public String greeting(
-            final @RequestParam(value = "name", required = false, defaultValue = "User") String name,
-            final Model model) {
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(
+            final @RequestParam(value = "name", required = true) String name,
+            final @RequestParam(value = "surname", required = true) String surname,
+            final @RequestParam(value = "email", required = true) String email,
+            final @RequestParam(value = "password", required = true) String password,
+            final @RequestParam(value = "role", required = false, defaultValue = "SPORTSMAN") Role role,
+            final @RequestParam(value = "city", required = true) String city,
+            final @RequestParam(value = "houseNumber", required = false) String houseNo,
+            final @RequestParam(value = "street", required = false) String street,
+            final @RequestParam(value = "about", required = false) String about,
+            final Model model) throws UserAlreadyExistsException {
 
-        userService.someMethod();
+        User user = userService.createNewUser(name, surname, email, password, role, city, houseNo, street, about);
 
-        model.addAttribute("name", name);
+        model.addAttribute("id", user.getId());
 
-        return "greeting";
+        return "create/user";
     }
 }

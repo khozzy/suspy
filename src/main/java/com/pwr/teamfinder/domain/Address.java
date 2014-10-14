@@ -42,6 +42,15 @@ public class Address {
         this.city = city;
     }
 
+    public Address() {
+    }
+
+    public Address(String street, String houseNumber, String city) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) { return false; }

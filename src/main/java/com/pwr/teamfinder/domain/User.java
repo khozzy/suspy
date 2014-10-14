@@ -1,6 +1,5 @@
 package com.pwr.teamfinder.domain;
 
-import com.pwr.teamfinder.generic.domain.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -43,7 +42,6 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @NotNull
     @Column(name = "about")
     private String about;
 

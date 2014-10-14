@@ -1,6 +1,5 @@
 package com.pwr.teamfinder.domain;
 
-import com.pwr.teamfinder.generic.domain.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

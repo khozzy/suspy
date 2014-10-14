@@ -1,10 +1,14 @@
 package com.pwr.teamfinder.service;
 
+import com.pwr.teamfinder.domain.Gym;
 import com.pwr.teamfinder.domain.TimeSlot;
-import com.pwr.teamfinder.generic.service.GenericServiceImpl;
 import com.pwr.teamfinder.repository.TimeSlots;
+import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Service
 public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlots> {
@@ -17,8 +21,9 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         return repository;
     }
 
-    public void someMethod() {
-        System.out.println("Calling some method from service TimeSlotService");
+    public TimeSlot addTimeSlot(final Gym gym, final Date from, final Date to, final BigDecimal price) {
+        // Dodanie slotu czasowego do obiektu sportowego
+        return null;
     }
 
 }

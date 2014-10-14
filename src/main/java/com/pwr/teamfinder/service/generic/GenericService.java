@@ -1,7 +1,7 @@
-package com.pwr.teamfinder.generic.service;
+package com.pwr.teamfinder.service.generic;
 
 
-import com.pwr.teamfinder.generic.domain.BaseEntity;
+import com.pwr.teamfinder.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
