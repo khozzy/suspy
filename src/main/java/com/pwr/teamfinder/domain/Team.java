@@ -17,12 +17,13 @@ import java.util.Set;
 @Table(name = "team")
 public class Team extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
     @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "leader_id")
+    @JoinColumn(name = "leader_id", nullable = false)
     private User leader;
 
     @ManyToMany(mappedBy = "teams")

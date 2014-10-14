@@ -15,21 +15,20 @@ import java.util.Date;
 public class BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="generatorName")
-    @TableGenerator(name="generatorName", allocationSize=1)
+    @GeneratedValue
     @Column(name = "id")
     protected Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false)
     protected Date createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_date")
     private Date deletedDate;
 
-    @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT b'0'")
-    protected boolean deleted;
+    @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
+    protected boolean deleted = false;
 
     public Long getId() {
         return id;

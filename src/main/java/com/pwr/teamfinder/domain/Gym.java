@@ -39,14 +39,14 @@ public class Gym extends BaseEntity {
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
     @OneToMany(mappedBy = "gym")
     private Set<TimeSlot> timeSlots;
 
     @NotNull
-    @Column(name = "accepted", nullable = false)
+    @Column(name = "accepted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
     private Boolean accepted = false;
 
     public String getName() {
