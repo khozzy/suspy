@@ -23,3 +23,6 @@ mvn clean spring-boot:run
 ```
 
 The application by default will run on localhost:8080.
+
+###Continuous Integration
+[![Build Status](https://travis-ci.org/khozzy/teamfinder.png)](https://travis-ci.org/khozzy/teamfinder)
