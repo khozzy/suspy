@@ -4,27 +4,31 @@ import com.pwr.teamfinder.generic.domain.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "_event")
-public class Event extends BaseEntity{
+@Table(name = "event")
+public class Event extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
     @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "timeSlotID", nullable = false)
-    @NotNull
-    private Long timeSlotID;
+    @OneToOne
+    @JoinColumn(name = "time_slot_id")
+    private TimeSlot timeSlot;
 
-    @Column(name = "teamID")
-    @NotNull
-    private Long teamID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
+    @NotNull
     @Column(name = "priv", nullable = false)
-    @NotNull
     private Boolean priv;
 
     public String getName() {
@@ -35,20 +39,20 @@ public class Event extends BaseEntity{
         this.name = name;
     }
 
-    public Long getTimeSlotID() {
-        return timeSlotID;
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setTimeSlotID(Long timeSlotID) {
-        this.timeSlotID = timeSlotID;
+    public void setTimeSlot(TimeSlot timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
-    public Long getTeamID() {
-        return teamID;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamID(Long teamID) {
-        this.teamID = teamID;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Boolean getPriv() {

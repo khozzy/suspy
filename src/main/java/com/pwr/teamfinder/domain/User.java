@@ -3,13 +3,28 @@ package com.pwr.teamfinder.domain;
 import com.pwr.teamfinder.generic.domain.BaseEntity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
-@Table(name = "_user")
+@Table(name = "user")
 public class User extends BaseEntity {
+
+    @Column(name = "name", nullable = false)
+    @NotNull
+    private String name;
+
+    @Column(name = "surname", nullable = false)
+    @NotNull
+    private String surname;
 
     @Column(name = "email", nullable = false)
     @NotNull
@@ -19,40 +34,38 @@ public class User extends BaseEntity {
     @NotNull
     private String password;
 
-    @Column(name = "city") //nullable or not??
-    @NotNull
-    private String city;
-
-    @Column(name = "street", nullable = false)
-    @NotNull
-    private String street;
-
-    @Column(name = "number", nullable = false)
-    @NotNull
-    private Short number;
+    @Embedded
+    private Address address;
 
     @Column(name = "role", nullable = false)
-    @NotNull
-    private Byte role;
-
-    @Column(name = "name", nullable = false) //nullable or not??
-    @NotNull
-    private String name;
-
-    @Column(name = "surname", nullable = false) //nullable or not??
-    @NotNull
-    private String surname;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "about")
     @NotNull
     private String about;
 
-    public Long getId() {
-        return id;
+    @ManyToMany
+    @JoinTable(
+            name = "user_team",
+            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "team_id", referencedColumnName = "id")})
+    private Set<Team> teams;
+
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -71,52 +84,20 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public String getCity() {
-        return city;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public Short getNumber() {
-        return number;
-    }
-
-    public void setNumber(Short number) {
-        this.number = number;
-    }
-
-    public Byte getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Byte role) {
+    public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getAbout() {
@@ -125,5 +106,13 @@ public class User extends BaseEntity {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

@@ -4,59 +4,79 @@ import com.pwr.teamfinder.generic.domain.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "_timeSlot")
-public class TimeSlot extends BaseEntity{
+@Table(name = "time_slot")
+public class TimeSlot extends BaseEntity {
 
-    @Column(name = "dateFrom", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
     @NotNull
-    private Date dateFrom;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_from", nullable = false)
+    private Date from;
 
-    @Column(name = "dateTo", nullable = false)
     @NotNull
-    private Date dateTo;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_to", nullable = false)
+    private Date to;
 
+    @NotNull
     @Column(name = "price", nullable = false)
-    @NotNull
-    private Double price;
+    private BigDecimal price;
 
-    @Column(name = "eventID")
-    @NotNull
-    private Long eventID;
+    @OneToOne(mappedBy = "timeSlot")
+    private Event event;
 
-    public Date getDateFrom() {
-        return dateFrom;
+    public Gym getGym() {
+        return gym;
     }
 
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setGym(Gym gym) {
+        this.gym = gym;
     }
 
-    public Date getDateTo() {
-        return dateTo;
+    public Date getFrom() {
+        return from;
     }
 
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
+    public void setFrom(Date from) {
+        this.from = from;
     }
 
-    public Double getPrice() {
+    public Date getTo() {
+        return to;
+    }
+
+    public void setTo(Date to) {
+        this.to = to;
+    }
+
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Long getEventID() {
-        return eventID;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventID(Long eventID) {
-        this.eventID = eventID;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
