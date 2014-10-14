@@ -1,6 +1,8 @@
 package com.pwr.teamfinder.domain;
 
 import com.pwr.teamfinder.generic.domain.BaseEntity;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,5 +64,31 @@ public class Team extends BaseEntity {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        Team rhs = (Team) obj;
+
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(name, rhs.getName())
+                .append(leader, rhs.getLeader())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(193, 541)
+                .appendSuper(super.hashCode())
+                .append(name)
+                .append(leader)
+                .toHashCode();
     }
 }

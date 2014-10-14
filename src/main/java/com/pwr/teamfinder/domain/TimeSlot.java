@@ -1,6 +1,8 @@
 package com.pwr.teamfinder.domain;
 
 import com.pwr.teamfinder.generic.domain.BaseEntity;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +22,7 @@ import java.util.Date;
 public class TimeSlot extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(name = "gym_id", nullable = false)
     private Gym gym;
 
     @NotNull
@@ -78,5 +80,35 @@ public class TimeSlot extends BaseEntity {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        TimeSlot rhs = (TimeSlot) obj;
+
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(gym, rhs.getGym())
+                .append(from, rhs.getFrom())
+                .append(to, rhs.getTo())
+                .append(price, rhs.getPrice())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(193, 541)
+                .appendSuper(super.hashCode())
+                .append(gym)
+                .append(from)
+                .append(to)
+                .append(price)
+                .toHashCode();
     }
 }

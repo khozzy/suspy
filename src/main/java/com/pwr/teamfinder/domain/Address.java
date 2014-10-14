@@ -1,5 +1,8 @@
 package com.pwr.teamfinder.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -37,5 +40,31 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        Address rhs = (Address) obj;
+
+        return new EqualsBuilder()
+                .append(street, rhs.getStreet())
+                .append(houseNumber, rhs.getHouseNumber())
+                .append(city, rhs.getCity())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(193, 541)
+                .append(street)
+                .append(houseNumber)
+                .append(city)
+                .toHashCode();
     }
 }

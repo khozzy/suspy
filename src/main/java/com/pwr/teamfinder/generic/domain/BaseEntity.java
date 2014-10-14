@@ -1,5 +1,8 @@
 package com.pwr.teamfinder.generic.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,5 +63,29 @@ public class BaseEntity implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        BaseEntity rhs = (BaseEntity) obj;
+
+        return new EqualsBuilder()
+                .append(id, rhs.getId())
+                .append(createdDate, rhs.getCreatedDate())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31)
+                .append(id)
+                .append(createdDate)
+                .toHashCode();
     }
 }

@@ -14,6 +14,7 @@
         <start-class>com.pwr.teamfinder.Application</start-class>
         <java.version>1.8</java.version>
         <mysql.version>5.1.14</mysql.version>
+        <org.apache.lang.version>3.1</org.apache.lang.version>
     </properties>
 
     <repositories>
@@ -47,10 +48,9 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Hibernate validator -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <!-- MySQL -->
@@ -62,9 +62,17 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Hibernate validator -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <!-- Commons Lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${org.apache.lang.version}</version>
         </dependency>
     </dependencies>
 

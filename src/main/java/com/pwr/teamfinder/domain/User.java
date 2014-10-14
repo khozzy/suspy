@@ -1,6 +1,8 @@
 package com.pwr.teamfinder.domain;
 
 import com.pwr.teamfinder.generic.domain.BaseEntity;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,20 +20,20 @@ import java.util.Set;
 @Table(name = "user")
 public class User extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
     @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname", nullable = false)
     @NotNull
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "email", nullable = false)
     @NotNull
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = false)
     @NotNull
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Embedded
@@ -41,8 +43,8 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "about")
     @NotNull
+    @Column(name = "about")
     private String about;
 
     @ManyToMany
@@ -114,5 +116,39 @@ public class User extends BaseEntity {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        User rhs = (User) obj;
+
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(name, rhs.getName())
+                .append(surname, rhs.getSurname())
+                .append(email, rhs.getEmail())
+                .append(password, rhs.getPassword())
+                .append(role, rhs.getRole())
+                .append(about, rhs.getAbout())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(193, 541)
+                .appendSuper(super.hashCode())
+                .append(name)
+                .append(surname)
+                .append(email)
+                .append(password)
+                .append(role)
+                .append(about)
+                .toHashCode();
     }
 }
