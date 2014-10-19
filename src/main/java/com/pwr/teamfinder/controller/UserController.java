@@ -18,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/create/user", method = RequestMethod.GET)
-    public String create(
+    public String createUser(
             final @RequestParam(value = "name", required = true) String name,
             final @RequestParam(value = "surname", required = true) String surname,
             final @RequestParam(value = "email", required = true) String email,

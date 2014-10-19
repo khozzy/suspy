@@ -1,3 +1,3 @@
 <%@include file="includes/header.jsp"%>
-<spring:message code="login.en" />
+<spring:message code="login" />
 <%@include file="includes/footer.jsp"%>
