@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/create/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/create/user", method = RequestMethod.POST)
     public String createUser(
             final @RequestParam(value = "name", required = true) String name,
             final @RequestParam(value = "surname", required = true) String surname,
