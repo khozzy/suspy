@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/team")
 public class TeamController {
 
     @RequestMapping(value = "/greetingTeam", method = RequestMethod.GET)
-    public String greeting(
+    public String greetingTeam(
             final @RequestParam(value = "name", required = false, defaultValue = "Team") String name,
             final Model model) {
 

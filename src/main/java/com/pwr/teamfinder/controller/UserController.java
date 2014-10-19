@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/create/user", method = RequestMethod.GET)
     public String create(
             final @RequestParam(value = "name", required = true) String name,
             final @RequestParam(value = "surname", required = true) String surname,
