@@ -1,55 +1,64 @@
 package com.pwr.teamfinder.dto;
 
+import com.pwr.teamfinder.config.I18nConfiguration;
 import com.pwr.teamfinder.domain.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Properties;
 
 public class SignupForm {
 
-    @NotBlank
-    @Size(min=2,max=50)
-    @Pattern(regexp="[A-Za-z ,.'-]+")
+    @Resource
+    I18nConfiguration messageSource;
+
+    @NotBlank(message = "blad 1")
+    @Size(min = 2,max = 50, message = "blad 1")
+    @Pattern(regexp="[A-Za-z ,.'-]+", message = "blad 1")
     private String name;
 
-    @NotBlank
-    @Size(min=2,max=50)
-    @Pattern(regexp="[A-Za-z ,.'-]+")
+    @NotBlank(message = "blad 1")
+    @Size(min = 2,max = 50, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]+",  message = "blad 1")
     private String surname;
 
-    @NotBlank
-    @Size(min=5,max=50)
-    @Email
+    @NotBlank(message = "blad 1")
+    @Size(min = 5,max = 50,  message = "blad 1")
+    @Email(message = "blad 1")
     private String email;
 
-    @NotBlank
-    @Size(min=8,max=20)
+    @NotBlank(message = "blad 1")
+    @Size(min = 8,max = 20,  message = "blad 1")
     private String password;
 
-    @NotBlank
-    @Size(min=2,max=50)
-    @Pattern(regexp="[A-Za-z ,.'-]+")
+    @NotBlank(message = "blad 1")
+    @Size(min = 2,max = 50, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
     private String city;
 
-    @Max(value = 50)
-    @Pattern(regexp = "[A-Za-z ,.'-]+")
+    @Max(value = 50, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
     private String street;
 
-    @Max(value = 10)
-    @Pattern(regexp = "[0-9]+")
+    @Max(value = 10, message = "blad 1")
+    @Pattern(regexp = "[0-9]+", message = "blad 1")
     private String houseNumber;
 
-    @NotBlank
-    private Role role;
+    @NotBlank(message = "blad 1")
+    private String role;
 
-    @Max(value = 500)
+    @Max(value = 500, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
     private String about;
 
-    @NotBlank
-    private boolean termsAcceptance;
+    @NotBlank(message = "blad 1")
+    private String termsAcceptance;
 
     public String getName() {
         return name;
@@ -107,11 +116,11 @@ public class SignupForm {
         this.houseNumber = houseNumber;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -123,11 +132,11 @@ public class SignupForm {
         this.about = about;
     }
 
-    public boolean isTermsAcceptance() {
+    public String getTermsAcceptance() {
         return termsAcceptance;
     }
 
-    public void setTermsAcceptance(boolean termsAcceptance) {
+    public void setTermsAcceptance(String termsAcceptance) {
         this.termsAcceptance = termsAcceptance;
     }
 }
