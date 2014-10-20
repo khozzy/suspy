@@ -8,13 +8,17 @@ z languages--%>
         <h3 class="panel-title"><spring:message code="signup"/></h3>
     </div>
     <div class="panel-body">
+
         <form:form modelAttribute="signupForm" class="form-horizontal" role="form" action="/signup" method="post">
+
+            <form:errors />
 
             <div class="form-group">
                 <form:label path="name" for="name" class="col-sm-2 control-label"><spring:message code='name.header'/></form:label>
                 <div class="col-sm-10">
                     <spring:message code='name.placeholder' var="namePlaceholder"/>
                     <form:input path="name" class="form-control" id="name" placeholder="${namePlaceholder}"/>
+                    <form:errors path="name" cssClass="error"/>
                 </div>
             </div>
 
@@ -23,6 +27,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='surname.placeholder' var="surnamePlaceholder"/>
                     <form:input path="surname" class="form-control" id="surname" placeholder="${surnamePlaceholder}"/>
+                    <form:errors path="surname" cssClass="error"/>
                 </div>
             </div>
 
@@ -31,6 +36,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='email.placeholder' var="emailPlaceholder"/>
                     <form:input path="email" type="email" class="form-control" id="email" placeholder="${emailPlaceholder}"/>
+                    <form:errors path="email" cssClass="error"/>
                 </div>
             </div>
 
@@ -47,6 +53,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='password.placeholder' var="passwordPlaceholder"/>
                     <form:input path="password" type="password" class="form-control" id="password" placeholder="${passwordPlaceholder}"/>
+                    <form:errors path="password" cssClass="error"/>
                 </div>
             </div>
 
@@ -66,6 +73,7 @@ z languages--%>
                         <form:option value="SPORTSMAN"><spring:message code='role.sportsman.header'/></form:option>
                         <form:option value="GYM_OWNER"><spring:message code='role.gym_owner.header'/></form:option>
                     </form:select>
+                    <form:errors path="role" cssClass="error"/>
                 </div>
             </div>
 
@@ -74,6 +82,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='city.placeholder' var="cityPlaceholder"/>
                     <form:input path="city" class="form-control" id="city" placeholder="${cityPlaceholder}"/>
+                    <form:errors path="city" cssClass="error"/>
                 </div>
             </div>
 
@@ -82,6 +91,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='street.placeholder' var="streetPlaceholder"/>
                     <form:input path="street" class="form-control" id="street" placeholder="${streetPlaceholder}"/>
+                    <form:errors path="street" cssClass="error"/>
                 </div>
             </div>
 
@@ -90,6 +100,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='houseNumber.placeholder' var="houseNumberPlaceholder"/>
                     <form:input path="houseNumber" class="form-control" id="houseNumber" placeholder="${houseNumberPlaceholder}"/>
+                    <form:errors path="houseNumber" cssClass="error"/>
                 </div>
             </div>
 
@@ -98,6 +109,7 @@ z languages--%>
                 <div class="col-sm-10">
                     <spring:message code='about.placeholder' var="aboutPlaceholder"/>
                     <form:textarea path="about" class="form-control" rows="3" placeholder="${aboutPlaceholder}"></form:textarea>
+                    <form:errors path="about" cssClass="error"/>
                 </div>
             </div>
 
@@ -105,7 +117,8 @@ z languages--%>
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <form:label path="termsAcceptance">
-                            <form:checkbox path="termsAcceptance" id="termsAcceptance"/> <spring:message code='termsAcceptance.header'/>
+                            <form:checkbox path="termsAcceptance" id="termsAcceptance" value="true"/> <spring:message code='termsAcceptance.header'/>
+                            <form:errors path="termsAcceptance" cssClass="error"/>
                         </form:label>
                     </div>
                 </div>
