@@ -1,24 +1,14 @@
 package com.pwr.teamfinder.dto;
 
-import com.pwr.teamfinder.config.I18nConfiguration;
-import com.pwr.teamfinder.domain.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-
-import javax.annotation.Resource;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Properties;
 
 public class SignupForm {
 
-    @Resource
-    I18nConfiguration messageSource;
-
-    @NotBlank(message = "blad 1")
+    @NotBlank(message = "{name.error}")
     @Size(min = 2,max = 50, message = "blad 1")
     @Pattern(regexp="[A-Za-z ,.'-]+", message = "blad 1")
     private String name;
@@ -42,19 +32,19 @@ public class SignupForm {
     @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
     private String city;
 
-    @Max(value = 50, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
+    @Size(max = 50, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "blad 1")
     private String street;
 
-    @Max(value = 10, message = "blad 1")
-    @Pattern(regexp = "[0-9]+", message = "blad 1")
+    @Size(max = 10, message = "blad 1")
+    @Pattern(regexp = "[0-9]*", message = "blad 1")
     private String houseNumber;
 
     @NotBlank(message = "blad 1")
     private String role;
 
-    @Max(value = 500, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
+    @Size(max = 500, message = "blad 1")
+    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "blad 1")
     private String about;
 
     @NotBlank(message = "blad 1")

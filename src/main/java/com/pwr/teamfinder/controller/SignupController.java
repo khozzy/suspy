@@ -22,17 +22,17 @@ public class SignupController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value="/signup")
-    public String signupForm(Model model){
+    @RequestMapping(value = "/signup")
+    public String signup(Model model){
 
         model.addAttribute(new SignupForm());
 
         return "signup";
     }
 
-    @RequestMapping(value="/signup", method=RequestMethod.POST)
-    public String signupSubmit(@ModelAttribute @Valid SignupForm signupForm, Model model,
-                               BindingResult result) throws UserAlreadyExistsException {
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signup(@ModelAttribute @Valid SignupForm signupForm, BindingResult result,
+                         Model model) throws UserAlreadyExistsException {
 
         if(result.hasErrors()){
             return "signup";
