@@ -37,7 +37,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> {
         Optional<User> existing = repository.findByEmail(email);
 
         if (existing.isPresent()) {
-            throw new UserAlreadyExistsException("User already exists.");
+            throw new UserAlreadyExistsException();
         }
 
         Address address = new Address(street, houseNo, city);
