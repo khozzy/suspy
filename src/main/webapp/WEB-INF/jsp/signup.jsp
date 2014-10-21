@@ -20,7 +20,6 @@ z languages--%>
                             <spring:message code='name.placeholder' var="namePlaceholder"/>
                             <form:input path="name" class="form-control" id="name" placeholder="${namePlaceholder}"/>
                             <form:errors path="name" cssClass="error"/>
-                            <p class="help-block"><spring:message code='name.help-block'/></p>
                         </div>
                     </div>
 
@@ -30,7 +29,6 @@ z languages--%>
                             <spring:message code='surname.placeholder' var="surnamePlaceholder"/>
                             <form:input path="surname" class="form-control" id="surname" placeholder="${surnamePlaceholder}"/>
                             <form:errors path="surname" cssClass="error"/>
-                            <p class="help-block"><spring:message code='surname.help-block'/></p>
                         </div>
                     </div>
 
@@ -40,7 +38,6 @@ z languages--%>
                             <spring:message code='email.placeholder' var="emailPlaceholder"/>
                             <form:input path="email" type="email" class="form-control" id="email" placeholder="${emailPlaceholder}"/>
                             <form:errors path="email" cssClass="error"/>
-                            <p class="help-block"><spring:message code='email.help-block'/></p>
                         </div>
                     </div>
 
@@ -49,7 +46,6 @@ z languages--%>
                         <div class="col-sm-9">
                             <spring:message code='email.confirm.placeholder' var="emailConfirmPlaceholder"/>
                             <input type="email" class="form-control" id="emailConfirm" placeholder="${emailConfirmPlaceholder}"/>
-                            <p class="help-block"><spring:message code='email.confirm.help-block'/></p>
                         </div>
                     </div>
 
@@ -59,7 +55,6 @@ z languages--%>
                             <spring:message code='password.placeholder' var="passwordPlaceholder"/>
                             <form:input path="password" type="password" class="form-control" id="password" placeholder="${passwordPlaceholder}"/>
                             <form:errors path="password" cssClass="error"/>
-                            <p class="help-block"><spring:message code='password.help-block'/></p>
                         </div>
                     </div>
 
@@ -68,7 +63,6 @@ z languages--%>
                         <div class="col-sm-9">
                             <spring:message code='password.confirm.placeholder' var="passwordConfirmPlaceholder"/>
                             <input type="password" class="form-control" id="passwordConfirm" placeholder="${passwordConfirmPlaceholder}"/>
-                            <p class="help-block"><spring:message code='password.confirm.help-block'/></p>
                         </div>
                     </div>
 
@@ -81,7 +75,6 @@ z languages--%>
                                 <form:option value="GYM_OWNER"><spring:message code='role.gym_owner.header'/></form:option>
                             </form:select>
                             <form:errors path="role" cssClass="error"/>
-                            <p class="help-block"><spring:message code='role.help-block'/></p>
                         </div>
                     </div>
 
@@ -91,7 +84,6 @@ z languages--%>
                             <spring:message code='city.placeholder' var="cityPlaceholder"/>
                             <form:input path="city" class="form-control" id="city" placeholder="${cityPlaceholder}"/>
                             <form:errors path="city" cssClass="error"/>
-                            <p class="help-block"><spring:message code='city.help-block'/></p>
                         </div>
                     </div>
 
@@ -101,7 +93,6 @@ z languages--%>
                             <spring:message code='street.placeholder' var="streetPlaceholder"/>
                             <form:input path="street" class="form-control" id="street" placeholder="${streetPlaceholder}"/>
                             <form:errors path="street" cssClass="error"/>
-                            <p class="help-block"><spring:message code='street.help-block'/></p>
                         </div>
                     </div>
 
@@ -111,7 +102,6 @@ z languages--%>
                             <spring:message code='houseNumber.placeholder' var="houseNumberPlaceholder"/>
                             <form:input path="houseNumber" class="form-control" id="houseNumber" placeholder="${houseNumberPlaceholder}"/>
                             <form:errors path="houseNumber" cssClass="error"/>
-                            <p class="help-block"><spring:message code='houseNumber.help-block'/></p>
                         </div>
                     </div>
 
@@ -121,7 +111,6 @@ z languages--%>
                             <spring:message code='about.placeholder' var="aboutPlaceholder"/>
                             <form:textarea path="about" class="form-control" rows="3" placeholder="${aboutPlaceholder}"></form:textarea>
                             <form:errors path="about" cssClass="error"/>
-                            <p class="help-block"><spring:message code='about.help-block'/></p>
                         </div>
                     </div>
 
@@ -131,8 +120,8 @@ z languages--%>
                                 <form:label path="termsAcceptance">
                                     <form:checkbox path="termsAcceptance" id="termsAcceptance" value="true"/> <spring:message code='termsAcceptance.header'/>
                                 </form:label>
-                                <form:errors path="termsAcceptance" cssClass="error"/>
                             </div>
+                            <form:errors path="termsAcceptance" cssClass="error"/>
                         </div>
                     </div>
 

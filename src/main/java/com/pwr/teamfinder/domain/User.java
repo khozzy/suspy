@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usr")
 public class User extends BaseEntity {
 
     @NotNull
