@@ -39,16 +39,7 @@ public class SignupController {
             return "signup";
         }
 
-        User user = userService.createNewUser(
-                signupForm.getName(),
-                signupForm.getSurname(),
-                signupForm.getEmail(),
-                signupForm.getPassword(),
-                Role.valueOf(signupForm.getRole()),
-                signupForm.getCity(),
-                signupForm.getHouseNumber(),
-                signupForm.getStreet(),
-                signupForm.getAbout());
+        User user = userService.createNewUser(signupForm);
 
         model.addAttribute("id", user.getId());
         return "create/user";

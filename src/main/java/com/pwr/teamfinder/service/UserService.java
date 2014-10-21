@@ -3,6 +3,7 @@ package com.pwr.teamfinder.service;
 import com.pwr.teamfinder.domain.Address;
 import com.pwr.teamfinder.domain.Role;
 import com.pwr.teamfinder.domain.User;
+import com.pwr.teamfinder.dto.SignupForm;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.repository.Users;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
@@ -23,16 +24,17 @@ public class UserService extends GenericServiceImpl<User, Long, Users> {
         return repository;
     }
 
-    public User createNewUser(
-            final String name,
-            final String surname,
-            final String email,
-            final String password,
-            final Role role,
-            final String city,
-            final String houseNo,
-            final String street,
-            final String about) throws UserAlreadyExistsException {
+    public User createNewUser(final SignupForm signupForm) throws UserAlreadyExistsException {
+
+        final String name = signupForm.getName();
+        final String surname = signupForm.getSurname();
+        final String email = signupForm.getEmail();
+        final String password = signupForm.getPassword();
+        final Role role = Role.valueOf(signupForm.getRole());
+        final String city = signupForm.getCity();
+        final String houseNo = signupForm.getHouseNumber();
+        final String street = signupForm.getStreet();
+        final String about = signupForm.getAbout();
 
         Optional<User> existing = repository.findByEmail(email);
 
