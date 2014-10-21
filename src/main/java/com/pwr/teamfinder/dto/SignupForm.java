@@ -8,46 +8,46 @@ import javax.validation.constraints.Size;
 
 public class SignupForm {
 
-    @NotBlank(message = "{name.error}")
-    @Size(min = 2,max = 50, message = "blad 1")
-    @Pattern(regexp="[A-Za-z ,.'-]+", message = "blad 1")
+    @NotBlank(message = "{name.error.blank}")
+    @Size(min = 2,max = 50, message = "{name.error.size}")
+    @Pattern(regexp="[A-Za-z ,.'-]+", message = "{name.error.pattern}")
     private String name;
 
-    @NotBlank(message = "blad 1")
-    @Size(min = 2,max = 50, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]+",  message = "blad 1")
+    @NotBlank(message = "{surname.error.blank}")
+    @Size(min = 2,max = 50, message = "{surname.error.size}")
+    @Pattern(regexp = "[A-Za-z ,.'-]+",  message = "{surname.error.pattern}")
     private String surname;
 
-    @NotBlank(message = "blad 1")
-    @Size(min = 5,max = 50,  message = "blad 1")
-    @Email(message = "blad 1")
+    @NotBlank(message = "{email.error.blank}")
+    @Size(max = 50,  message = "{email.error.size}")
+    @Email(message = "{email.error.pattern}")
     private String email;
 
-    @NotBlank(message = "blad 1")
-    @Size(min = 8,max = 20,  message = "blad 1")
+    @NotBlank(message = "{password.error.blank}")
+    @Size(min = 8,max = 20,  message = "{password.error.size}")
     private String password;
 
-    @NotBlank(message = "blad 1")
-    @Size(min = 2,max = 50, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "blad 1")
+    @NotBlank(message = "{city.error.blank}")
+    @Size(min = 2,max = 50, message = "{city.error.size}")
+    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "{city.error.pattern}")
     private String city;
 
-    @Size(max = 50, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "blad 1")
+    @Size(max = 50, message = "{street.error.size}")
+    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "{street.error.pattern}")
     private String street;
 
-    @Size(max = 10, message = "blad 1")
-    @Pattern(regexp = "[0-9]*", message = "blad 1")
+    @Size(max = 10, message = "{houseNumber.error.size}")
+    @Pattern(regexp = "[0-9]*", message = "{houseNumber.error.pattern}")
     private String houseNumber;
 
-    @NotBlank(message = "blad 1")
+    @NotBlank(message = "{role.error.blank}")
     private String role;
 
-    @Size(max = 500, message = "blad 1")
-    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "blad 1")
+    @Size(max = 500, message = "{about.error.size}")
+    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "{about.error.pattern}")
     private String about;
 
-    @NotBlank(message = "blad 1")
+    @NotBlank(message = "{termsAcceptance.error.blank}")
     private String termsAcceptance;
 
     public String getName() {

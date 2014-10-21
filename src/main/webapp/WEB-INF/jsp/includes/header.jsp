@@ -13,6 +13,8 @@
 
     <!-- Bootstrap -->
     <link href="/public/lib/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Our CSS Styles -->
+    <link href="/public/lib/css/styles.css" rel="stylesheet">
 
 </head>
 <body>
