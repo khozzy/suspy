@@ -5,7 +5,7 @@ import com.pwr.teamfinder.domain.Role;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.SignupForm;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
-import com.pwr.teamfinder.repository.Users;
+import com.pwr.teamfinder.repository.UserRepository;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +14,18 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl extends GenericServiceImpl<User, Long, Users> implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User, Long, UserRepository> implements UserService {
+
+    private UserRepository userRepository;
 
     @Autowired
-    private Users repository;
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public Users getRepository() {
-        return repository;
+    public UserRepository getRepository() {
+        return userRepository;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long, Users> imple
         final String street = signupForm.getStreet();
         final String about = signupForm.getAbout();
 
-        Optional<User> existing = repository.findByEmail(email);
+        Optional<User> existing = userRepository.findByEmail(email);
 
         if (existing.isPresent()) {
             throw new UserAlreadyExistsException();
@@ -56,7 +60,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long, Users> imple
         newUser.setAddress(address);
         newUser.setAbout(about);
 
-        return repository.save(newUser);
+        return userRepository.save(newUser);
     }
 
     private String hashPassword(final String password) {
