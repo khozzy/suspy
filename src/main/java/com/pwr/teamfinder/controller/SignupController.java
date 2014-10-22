@@ -51,6 +51,7 @@ public class SignupController {
                 signupForm.getAbout());
 
         model.addAttribute("id", user.getId());
+
         return "create/user";
     }
 
