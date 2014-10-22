@@ -120,9 +120,7 @@ public class User extends BaseEntity {
     public boolean equals(Object obj) {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) {
-            return false;
-        }
+        if (obj.getClass() != getClass()) { return false; }
 
         User rhs = (User) obj;
 
