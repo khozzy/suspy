@@ -1,7 +1,6 @@
 # Startup data
 
-## Polish Character encoding
-ALTER TABLE user CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
+ALTER TABLE user CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 ## Users
 INSERT INTO user (id, created_date, name, surname, email, password, role, city, street, house_number, about) VALUES

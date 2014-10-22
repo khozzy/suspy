@@ -6,14 +6,13 @@ import com.pwr.teamfinder.dto.SignupForm;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.service.UserService;
 import com.pwr.teamfinder.util.MyUtil;
+import com.pwr.teamfinder.validators.SignupFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -23,6 +22,14 @@ public class SignupController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SignupFormValidator signupFormValidator;
+
+    @InitBinder("signupForm")
+    protected void initSignupBinder(WebDataBinder binder) {
+        binder.setValidator(signupFormValidator);
+    }
 
     @RequestMapping(value = "/signup")
     public String signup(Model model){

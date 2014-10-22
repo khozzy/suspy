@@ -10,12 +10,12 @@ public class SignupForm {
 
     @NotBlank(message = "{name.error.blank}")
     @Size(min = 2,max = 50, message = "{name.error.size}")
-    @Pattern(regexp="[A-Za-z ,.'-]+", message = "{name.error.pattern}")
+    @Pattern(regexp="[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "{name.error.pattern}")
     private String name;
 
     @NotBlank(message = "{surname.error.blank}")
     @Size(min = 2,max = 50, message = "{surname.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-]+",  message = "{surname.error.pattern}")
+    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+",  message = "{surname.error.pattern}")
     private String surname;
 
     @NotBlank(message = "{email.error.blank}")
@@ -29,11 +29,11 @@ public class SignupForm {
 
     @NotBlank(message = "{city.error.blank}")
     @Size(min = 2,max = 50, message = "{city.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-]+", message = "{city.error.pattern}")
+    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "{city.error.pattern}")
     private String city;
 
     @Size(max = 50, message = "{street.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "{street.error.pattern}")
+    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]*", message = "{street.error.pattern}")
     private String street;
 
     @Size(max = 10, message = "{houseNumber.error.size}")
@@ -44,7 +44,7 @@ public class SignupForm {
     private String role;
 
     @Size(max = 500, message = "{about.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-]*", message = "{about.error.pattern}")
+    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]*", message = "{about.error.pattern}")
     private String about;
 
     @NotBlank(message = "{termsAcceptance.error.blank}")
