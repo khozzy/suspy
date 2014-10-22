@@ -4,7 +4,7 @@ package com.pwr.teamfinder.controller;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.SignupForm;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
-import com.pwr.teamfinder.service.UserServiceImpl;
+import com.pwr.teamfinder.service.UserService;
 import com.pwr.teamfinder.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,8 @@ import javax.validation.Valid;
 @Controller
 public class SignupController {
 
-    UserServiceImpl userServiceImpl;
-
     @Autowired
-    public SignupController(UserServiceImpl userServiceImpl){
-        this.userServiceImpl = userServiceImpl;
-    }
+    UserService userService;
 
     @RequestMapping(value = "/signup")
     public String signup(Model model){
@@ -44,7 +40,7 @@ public class SignupController {
             return "signup";
         }
 
-        User user = userServiceImpl.signup(signupForm);
+        User user = userService.signup(signupForm);
 
         //model.addAttribute("id", user.getId());
 

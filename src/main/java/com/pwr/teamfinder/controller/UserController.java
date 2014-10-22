@@ -1,9 +1,8 @@
 package com.pwr.teamfinder.controller;
 
 import com.pwr.teamfinder.domain.Role;
-import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
-import com.pwr.teamfinder.service.UserServiceImpl;
+import com.pwr.teamfinder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     @Autowired
-    UserServiceImpl userServiceImpl;
+    UserService userService;
 
     @RequestMapping(value = "/create/user", method = RequestMethod.POST)
     public String createUser(
