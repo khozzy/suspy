@@ -7,10 +7,13 @@ import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.service.UserService;
 import com.pwr.teamfinder.util.MyUtil;
 import com.pwr.teamfinder.validators.SignupFormValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +28,8 @@ public class SignupController {
 
     @Autowired
     SignupFormValidator signupFormValidator;
+
+    private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
 
     @InitBinder("signupForm")
     protected void initSignupBinder(WebDataBinder binder) {
@@ -44,7 +49,15 @@ public class SignupController {
                          Model model, RedirectAttributes redirectAttributes) throws UserAlreadyExistsException {
 
         if(result.hasErrors()){
+
+            for(ObjectError err : result.getAllErrors()){
+
+                logger.info(String.valueOf(err.toString()));
+
+            }
             return "signup";
+            //tu najlepiej returnować JSONa używająć Jackson API
+            //http://www.concretepage.com/spring-4/spring-4-rest-web-service-json-example-tomcat
         }
 
         User user = userService.signup(signupForm);

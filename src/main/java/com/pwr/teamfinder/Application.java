@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan
 @EnableTransactionManagement(proxyTargetClass = true)
 @EnableAutoConfiguration
-@EnableJpaRepositories
+//@EnableJpaRepositories
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
