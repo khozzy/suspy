@@ -3,16 +3,17 @@ package com.pwr.teamfinder.dto;
 import java.util.Collection;
 import java.util.HashSet;
 
+import com.pwr.teamfinder.domain.Role;
 import com.pwr.teamfinder.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContext;
 
 
 public class UserDetailsImpl implements UserDetails {
 
-
-    private static final long serialVersionUID = 5197941260523577515L;
 
     private User user;
 
@@ -23,7 +24,12 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(1);
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if(user.getRole().equals(Role.ADMIN))
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        if(user.getRole().equals(Role.GYM_OWNER))
+            authorities.add(new SimpleGrantedAuthority("GYM_OWNER"));
+        if(user.getRole().equals(Role.SPORTSMAN))
+            authorities.add(new SimpleGrantedAuthority("SPORTSMAN"));
         return authorities;
     }
 
@@ -55,6 +61,14 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

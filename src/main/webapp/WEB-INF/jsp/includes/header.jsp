@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,28 +60,32 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<c:url value='/signup' />"><span class="glyphicon glyphicon-list-alt"></span> <spring:message code='signup'/></a></li>
-                    <li>
-                        <a href="/login"><spring:message code='signin'/> <span class="glyphicon glyphicon-log-in"></span></a>
-                    </li>
-                    <li>
-                        <c:url var="logoutUrl" value="/logout" />
-                        <form:form	id="logoutForm" action="${logoutUrl}" method="post">
-                        </form:form>
-                        <a href="#" onclick="document.getElementById('logoutForm').submit()"><spring:message code='signout'/> <span class="glyphicon glyphicon-log-out"></span></a>
-                    </li>
-                    <!--
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                    -->
+                    <sec:authorize access="isAnonymous()">
+                        <li><a href="<c:url value='/signup' />"><spring:message code='signup'/> <span class="glyphicon glyphicon-list-alt"></span></a></li>
+                        <li>
+                            <a href="<c:url value='/login' />"><spring:message code='signin'/> <span class="glyphicon glyphicon-log-in"></span></a>
+                        </li>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <spring:message code='greeting'/>, <sec:authentication property="principal.user.name" /><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<c:url value='/login/' /><sec:authentication property='principal.user.id' />"><span class="glyphicon glyphicon-user"></span>
+                                    <spring:message code='profile'/></a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <c:url var="logoutUrl" value="/logout" />
+                                    <form:form	id="logoutForm" action="${logoutUrl}" method="post">
+                                    </form:form>
+                                    <a href="#" onclick="document.getElementById('logoutForm').submit()">
+                                    <spring:message code='signout'/> <span class="glyphicon glyphicon-log-out"></span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </sec:authorize>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
