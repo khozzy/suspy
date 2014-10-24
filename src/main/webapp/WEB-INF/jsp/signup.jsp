@@ -11,8 +11,8 @@ z languages--%>
             </div>
 
             <div class="panel-body">
-
-                <form:form modelAttribute="signupForm" class="form-horizontal" role="form" action="/signup" method="post">
+                <c:url var="signupUrl" value="/signup" />
+                <form:form modelAttribute="signupForm" class="form-horizontal" role="form" action="${signupUrl}" method="post">
                     <form:errors />
                     <div class="form-group">
                         <form:label path="name" for="name" class="col-sm-2 control-label"><spring:message code='name.header'/></form:label>
@@ -35,7 +35,7 @@ z languages--%>
                     <div class="form-group">
                         <form:label path="email" for="email" class="col-sm-2 control-label"><spring:message code='email.header'/></form:label>
                         <div class="col-sm-9">
-                            <spring:message code='email.placeholder' var="emailPlaceholder"/>
+                            <spring:message code='email.signup.placeholder' var="emailPlaceholder"/>
                             <form:input path="email" type="email" class="form-control" id="email" placeholder="${emailPlaceholder}"/>
                             <form:errors path="email" cssClass="error"/>
                         </div>
@@ -52,7 +52,7 @@ z languages--%>
                     <div class="form-group">
                         <form:label path="password" for="password" class="col-sm-2 control-label"><spring:message code='password.header'/> </form:label>
                         <div class="col-sm-9">
-                            <spring:message code='password.placeholder' var="passwordPlaceholder"/>
+                            <spring:message code='password.signup.placeholder' var="passwordPlaceholder"/>
                             <form:input path="password" type="password" class="form-control" id="password" placeholder="${passwordPlaceholder}"/>
                             <form:errors path="password" cssClass="error"/>
                         </div>

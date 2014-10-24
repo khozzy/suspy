@@ -58,7 +58,17 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/signup"><spring:message code='signup'/></a></li>
+                    <li><a href="<c:url value='/signup' />"><span class="glyphicon glyphicon-list-alt"></span> <spring:message code='signup'/></a></li>
+                    <li>
+                        <a href="/login"><spring:message code='signin'/> <span class="glyphicon glyphicon-log-in"></span></a>
+                    </li>
+                    <li>
+                        <c:url var="logoutUrl" value="/logout" />
+                        <form:form	id="logoutForm" action="${logoutUrl}" method="post">
+                        </form:form>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit()"><spring:message code='signout'/> <span class="glyphicon glyphicon-log-out"></span></a>
+                    </li>
+                    <!--
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -69,6 +79,7 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </li>
+                    -->
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

@@ -4,10 +4,14 @@ import com.pwr.teamfinder.domain.Address;
 import com.pwr.teamfinder.domain.Role;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.SignupForm;
+import com.pwr.teamfinder.dto.UserDetailsImpl;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.repository.UserRepository;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +21,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class UserService extends GenericServiceImpl<User, Long, UserRepository> {
+public class UserService extends GenericServiceImpl<User, Long, UserRepository> implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -40,9 +44,9 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         final String street = signupForm.getStreet();
         final String about = signupForm.getAbout();
 
-        Optional<User> existing = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
 
-        if (existing.isPresent()) {
+        if (user.isPresent()) {
             throw new UserAlreadyExistsException();
         }
 
@@ -65,5 +69,19 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
     private String hashPassword(final String password) {
         // metoda hashujaca haslo dla uzytkownika
         return password;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+
+        //username==email address
+        Optional<User> user = userRepository.findByEmail(username);
+
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new UserDetailsImpl(user.get());
     }
 }
