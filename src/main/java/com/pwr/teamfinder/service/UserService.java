@@ -8,6 +8,7 @@ import com.pwr.teamfinder.dto.UserDetailsImpl;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.repository.UserRepository;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
