@@ -4,10 +4,10 @@ import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Session;
 
-import com.pwr.teamfinder.service.mail.MailSender;
-import com.pwr.teamfinder.service.mail.MockMailSender;
-import com.pwr.teamfinder.service.mail.SmtpAuthenticator;
-import com.pwr.teamfinder.service.mail.SmtpMailSender;
+import com.pwr.teamfinder.mail.MailSender;
+import com.pwr.teamfinder.mail.MockMailSender;
+import com.pwr.teamfinder.mail.SmtpAuthenticator;
+import com.pwr.teamfinder.mail.SmtpMailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.pwr.teamfinder.service.mail;
+package com.pwr.teamfinder.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

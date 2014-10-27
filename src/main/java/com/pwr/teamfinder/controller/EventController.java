@@ -1,6 +1,6 @@
 package com.pwr.teamfinder.controller;
 
-import com.pwr.teamfinder.service.mail.MailSender;
+import com.pwr.teamfinder.mail.MailSender;
 import com.pwr.teamfinder.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

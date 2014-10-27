@@ -35,6 +35,14 @@
                 <form:errors cssClass="error" path="password" />
             </div>
 
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input name="_spring_security_remember_me" type="checkbox"> <spring:message code='signin.rememberme'/>
+                    </label>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary"><spring:message code='signin'/></button>
 
         </form:form>

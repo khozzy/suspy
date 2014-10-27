@@ -1,4 +1,4 @@
-package com.pwr.teamfinder.service.mail;
+package com.pwr.teamfinder.mail;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

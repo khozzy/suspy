@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,9 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserRepository getRepository() {
@@ -59,17 +63,12 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         newUser.setName(name);
         newUser.setSurname(surname);
         newUser.setEmail(email);
-        newUser.setPassword(hashPassword(password));
+        newUser.setPassword(passwordEncoder.encode(password));
         newUser.setRole(role);
         newUser.setAddress(address);
         newUser.setAbout(about);
 
         return userRepository.save(newUser);
-    }
-
-    private String hashPassword(final String password) {
-        // metoda hashujaca haslo dla uzytkownika
-        return password;
     }
 
     @Override
