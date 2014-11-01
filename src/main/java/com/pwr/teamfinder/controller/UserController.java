@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
@@ -26,7 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/users/{verificationCode}/verify")
+    @RequestMapping("/{verificationCode}/verify")
     public String verify(@PathVariable("verificationCode") String verificationCode,
             RedirectAttributes redirectAttributes,
             HttpServletRequest request) throws ServletException {
@@ -39,7 +40,7 @@ public class UserController {
 
     }
 
-    @RequestMapping("/users/resend-verification-email")
+    @RequestMapping("/resend-verification-email")
     public String resendVerificationEmail( RedirectAttributes redirectAttributes )
             throws ServletException {
 

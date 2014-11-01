@@ -18,6 +18,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -138,6 +141,11 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         user.setVerificationCode(null);
         userRepository.save(user);
 
+        //to check if password change is doing well when it is used
+        UserDetails userDetails = new UserDetailsImpl(user);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
     }
 
     public void resendVerificationEmail() {
@@ -157,8 +165,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public void forgotPassword(ForgotPasswordForm form){
 
-        final Optional<User> existing = userRepository.findByEmail(form.getEmail());
-        final User user = existing.get();
+        final User user = userRepository.findByEmail(form.getEmail()).get();
         final String resetPasswordCode = RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH);
 
         user.setResetPasswordCode(resetPasswordCode);
@@ -183,7 +190,6 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
 
         String resetPasswordLink =
                 MyUtil.hostUrl() + "/reset-password/" +
-                        user.getId()+"/"+
                         user.getResetPasswordCode();
         mailSender.send(user.getEmail(),
                 MyUtil.getMessage("resetPasswordSubject"),
@@ -192,14 +198,18 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
     }
 
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-    public void resetPassword(Long userID,
+    public void resetPassword(String resetPasswordCode,
                               ResetPasswordForm resetPasswordForm) {
 
-        User user = userRepository.findOne(userID);
+        User user = findByResetPasswordCode(resetPasswordCode).get();
 
         user.setResetPasswordCode(null);
         user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword().trim()));
         userRepository.save(user);
+    }
+
+    public Optional<User> findByResetPasswordCode(String resetPasswordCode){
+        return getRepository().findByResetPasswordCode(resetPasswordCode);
     }
 
 }

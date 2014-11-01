@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class RootController {
@@ -127,15 +128,14 @@ public class RootController {
         binder.setValidator(resetPasswordFormValidator);
     }
 
-    @RequestMapping(value = "/reset-password/{userID}/{resetPasswordCode}")
+    @RequestMapping(value = "/reset-password/{resetPasswordCode}")
     public String resetPassword(@PathVariable("resetPasswordCode") String resetPasswordCode,
-                                @PathVariable("userID") String userID,
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
 
-        User user = userService.findById(Long.parseLong(userID));
+        Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
-        if(user == null || !user.getResetPasswordCode().equals(resetPasswordCode)){
+        if(!existing.isPresent()){
             MyUtil.flash(redirectAttributes, "danger", "resetPasswordCodeNotValid");
             return "redirect:/";
         }
@@ -145,18 +145,17 @@ public class RootController {
 
     }
 
-    @RequestMapping(value = "/reset-password/{userID}/{resetPasswordCode}",
+    @RequestMapping(value = "/reset-password/{resetPasswordCode}",
             method = RequestMethod.POST)
     public String resetPassword(
             @PathVariable("resetPasswordCode") String resetPasswordCode,
-            @PathVariable("userID") String userID,
             @ModelAttribute("resetPasswordForm") @Valid ResetPasswordForm resetPasswordForm,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
 
-        User user = userService.findById(Long.parseLong(userID));
+        Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
-        if(user == null || !user.getResetPasswordCode().equals(resetPasswordCode)){
+        if(!existing.isPresent()){
             MyUtil.flash(redirectAttributes, "danger", "resetPasswordCodeNotValid");
             return "redirect:/";
         }
@@ -164,7 +163,7 @@ public class RootController {
         if (result.hasErrors())
             return "reset-password";
 
-        userService.resetPassword(Long.parseLong(userID), resetPasswordForm);
+        userService.resetPassword(resetPasswordCode,resetPasswordForm);
 
         MyUtil.flash(redirectAttributes, "success", "passwordChanged");
 
