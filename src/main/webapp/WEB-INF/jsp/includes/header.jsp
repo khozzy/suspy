@@ -71,7 +71,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <spring:message code='greeting'/>, <sec:authentication property="principal.user.name" /><b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<c:url value='/login/' /><sec:authentication property='principal.user.id' />"><span class="glyphicon glyphicon-user"></span>
+                                <li><a href="<c:url value='/users/' /><sec:authentication property='principal.user.id' />"><span class="glyphicon glyphicon-user"></span>
                                     <spring:message code='profile'/></a></li>
                                 <li><a href="#">Another action</a></li>
                                 <li><a href="#">Something else here</a></li>
@@ -90,6 +90,13 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+
+    <sec:authorize access="hasRole('ROLE_UNVERIFIED')">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <spring:message code='emailNotVerified.1'/>  <a href="<c:url value='/users/resend-verification-email'/>"><spring:message code='clickHere'/></a><spring:message code='emailNotVerified.2'/>
+        </div>
+    </sec:authorize>
 
     <c:if test="${not empty flashMessage}">
         <div class="alert alert-${flashKind} alert-dismissable">

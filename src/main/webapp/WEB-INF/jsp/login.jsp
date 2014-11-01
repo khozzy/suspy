@@ -44,6 +44,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary"><spring:message code='signin'/></button>
+            <a class="btn btn-default" href="<c:url value='/forgot-password'/>"><spring:message code='forgotPassword'/>?</a>
 
         </form:form>
     </div>

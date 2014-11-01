@@ -5,24 +5,39 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "user", indexes = {
-        @Index(columnList = "email", unique = true)
+        @Index(columnList = "email", unique = true),
+        @Index(columnList = "resetPasswordCode", unique=true)
 })
 public class User extends BaseEntity {
 
+    public static final int NAME_MIN = 2;
+    public static final int NAME_MAX = 50;
+    public static final int SURNAME_MIN = 2;
+    public static final int SURNAME_MAX = 50;
+    public static final int EMAIL_MAX = 250;
+    public static final String EMAIL_PATTERN = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    public static final String REQUIRED_PATTERN = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+";
+    public static final String NON_REQUIRED_PATTERN = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]*";
+    public static final int PASSWORD_MIN = 8;
+    public static final int PASSWORD_MAX = 30;
+    public static final int RANDOM_CODE_LENGTH = 16;
+    public static final int ABOUT_MAX = 500;
+
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = NAME_MAX)
     private String name;
 
     @NotNull
-    @Column(name = "surname", nullable = false)
+    @Column(name = "surname", nullable = false, length = SURNAME_MAX)
     private String surname;
 
     @NotNull
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = EMAIL_MAX)
     private String email;
 
     @NotNull
@@ -32,12 +47,17 @@ public class User extends BaseEntity {
     @Embedded
     private Address address;
 
-    @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<Role>();
 
-    @Column(name = "about")
+    @Column(name = "about", length = ABOUT_MAX)
     private String about;
+
+    @Column(length = RANDOM_CODE_LENGTH)
+    private String verificationCode;
+
+    @Column(length = RANDOM_CODE_LENGTH)
+    private String resetPasswordCode;
 
     @ManyToMany
     @JoinTable(
@@ -86,12 +106,12 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getAbout() {
@@ -100,6 +120,22 @@ public class User extends BaseEntity {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public String getResetPasswordCode() {
+        return resetPasswordCode;
+    }
+
+    public void setResetPasswordCode(String forgotPasswordCode) {
+        this.resetPasswordCode = forgotPasswordCode;
     }
 
     public Set<Team> getTeams() {
@@ -124,8 +160,11 @@ public class User extends BaseEntity {
                 .append(surname, rhs.getSurname())
                 .append(email, rhs.getEmail())
                 .append(password, rhs.getPassword())
-                .append(role, rhs.getRole())
+                .append(address, rhs.getAddress())
+                .append(roles, rhs.getRoles())
                 .append(about, rhs.getAbout())
+                .append(verificationCode, rhs.getVerificationCode())
+                .append(resetPasswordCode, rhs.getResetPasswordCode())
                 .isEquals();
     }
 
@@ -137,8 +176,11 @@ public class User extends BaseEntity {
                 .append(surname)
                 .append(email)
                 .append(password)
-                .append(role)
+                .append(address)
+                .append(roles)
                 .append(about)
+                .append(verificationCode)
+                .append(resetPasswordCode)
                 .toHashCode();
     }
 }

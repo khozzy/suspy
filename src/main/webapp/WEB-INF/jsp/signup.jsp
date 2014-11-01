@@ -11,8 +11,7 @@ z languages--%>
             </div>
 
             <div class="panel-body">
-                <c:url var="signupUrl" value="/signup" />
-                <form:form modelAttribute="signupForm" class="form-horizontal" role="form" action="${signupUrl}" method="post">
+                <form:form modelAttribute="signupForm" class="form-horizontal" role="form" method="post">
                     <form:errors />
                     <div class="form-group">
                         <form:label path="name" for="name" class="col-sm-2 control-label"><spring:message code='name.header'/></form:label>
@@ -42,10 +41,11 @@ z languages--%>
                     </div>
 
                     <div class="form-group">
-                        <label for="emailConfirm" class="col-sm-2 control-label"><spring:message code='email.confirm.header'/></label>
+                        <form:label path="retypeEmail" for="retypeEmail" class="col-sm-2 control-label"><spring:message code='email.confirm.header'/></form:label>
                         <div class="col-sm-9">
                             <spring:message code='email.confirm.placeholder' var="emailConfirmPlaceholder"/>
-                            <input type="email" class="form-control" id="emailConfirm" placeholder="${emailConfirmPlaceholder}"/>
+                            <form:input path="retypeEmail" type="email" class="form-control" id="retypeEmail" placeholder="${emailConfirmPlaceholder}"/>
+                            <form:errors path="retypeEmail" cssClass="error"/>
                         </div>
                     </div>
 
@@ -59,10 +59,11 @@ z languages--%>
                     </div>
 
                     <div class="form-group">
-                        <label for="passwordConfirm" class="col-sm-2 control-label"><spring:message code='password.confirm.header' /></label>
+                        <form:label path="retypePassword" for="retypePassword" class="col-sm-2 control-label"><spring:message code='password.confirm.header' /></form:label>
                         <div class="col-sm-9">
                             <spring:message code='password.confirm.placeholder' var="passwordConfirmPlaceholder"/>
-                            <input type="password" class="form-control" id="passwordConfirm" placeholder="${passwordConfirmPlaceholder}"/>
+                            <form:input path="retypePassword" type="password" class="form-control" id="retypePassword" placeholder="${passwordConfirmPlaceholder}"/>
+                            <form:errors path="retypePassword" cssClass="error"/>
                         </div>
                     </div>
 
@@ -71,8 +72,8 @@ z languages--%>
                         <div class="col-sm-9">
                             <form:select path="role" class="form-control" id="role">
                                 <form:option value=""><spring:message code='role.default.header'/></form:option>
-                                <form:option value="SPORTSMAN"><spring:message code='role.sportsman.header'/></form:option>
-                                <form:option value="GYM_OWNER"><spring:message code='role.gym_owner.header'/></form:option>
+                                <form:option value="NORMAL_USER"><spring:message code='role.normal_user.header'/></form:option>
+                                <form:option value="OBJECT_OWNER"><spring:message code='role.object_owner.header'/></form:option>
                             </form:select>
                             <form:errors path="role" cssClass="error"/>
                         </div>

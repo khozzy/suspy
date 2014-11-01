@@ -1,5 +1,7 @@
 package com.pwr.teamfinder.dto;
 
+import com.pwr.teamfinder.domain.Address;
+import com.pwr.teamfinder.domain.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Max;
@@ -9,42 +11,53 @@ import javax.validation.constraints.Size;
 public class SignupForm {
 
     @NotBlank(message = "{name.error.blank}")
-    @Size(min = 2,max = 50, message = "{name.error.size}")
-    @Pattern(regexp="[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "{name.error.pattern}")
+    @Size(min = User.NAME_MIN, max = User.NAME_MAX, message = "{name.error.size}")
+    @Pattern(regexp = User.REQUIRED_PATTERN, message = "{name.error.pattern}")
     private String name;
 
     @NotBlank(message = "{surname.error.blank}")
-    @Size(min = 2,max = 50, message = "{surname.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+",  message = "{surname.error.pattern}")
+    @Size(min = User.SURNAME_MIN, max = User.SURNAME_MAX, message = "{surname.error.size}")
+    @Pattern(regexp = User.REQUIRED_PATTERN,  message = "{surname.error.pattern}")
     private String surname;
 
     @NotBlank(message = "{email.error.blank}")
-    @Size(max = 50,  message = "{email.error.size}")
+    @Size(max = User.EMAIL_MAX,  message = "{email.error.size}")
     @Email(message = "{email.error.pattern}")
+    @Pattern(regexp = User.EMAIL_PATTERN, message="{email.error.pattern}")
     private String email;
 
+    @NotBlank(message = "{email.error.blank}")
+    @Size(max = User.EMAIL_MAX,  message = "{email.error.size}")
+    @Email(message = "{email.error.pattern}")
+    @Pattern(regexp = User.EMAIL_PATTERN, message="{email.error.pattern}")
+    private String retypeEmail;
+
     @NotBlank(message = "{password.error.blank}")
-    @Size(min = 8,max = 20,  message = "{password.error.size}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX,  message = "{password.error.size}")
     private String password;
 
+    @NotBlank(message = "{password.error.blank}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX,  message = "{password.error.size}")
+    private String retypePassword;
+
     @NotBlank(message = "{city.error.blank}")
-    @Size(min = 2,max = 50, message = "{city.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "{city.error.pattern}")
+    @Size(min = Address.CITY_MIN, max = Address.CITY_MAX, message = "{city.error.size}")
+    @Pattern(regexp = User.REQUIRED_PATTERN, message = "{city.error.pattern}")
     private String city;
 
-    @Size(max = 50, message = "{street.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]*", message = "{street.error.pattern}")
+    @Size(max = Address.STREET_MAX, message = "{street.error.size}")
+    @Pattern(regexp = User.NON_REQUIRED_PATTERN, message = "{street.error.pattern}")
     private String street;
 
-    @Size(max = 10, message = "{houseNumber.error.size}")
-    @Pattern(regexp = "[0-9]*", message = "{houseNumber.error.pattern}")
+    @Size(max = Address.HOUSE_NR_MAX, message = "{houseNumber.error.size}")
+    @Pattern(regexp = Address.HOUSE_NR_PATTERN, message = "{houseNumber.error.pattern}")
     private String houseNumber;
 
     @NotBlank(message = "{role.error.blank}")
     private String role;
 
-    @Size(max = 500, message = "{about.error.size}")
-    @Pattern(regexp = "[A-Za-z ,.'-żźćńółęąśŻŹĆĄŚĘŁÓŃ]*", message = "{about.error.pattern}")
+    @Size(max = User.ABOUT_MAX, message = "{about.error.size}")
+    @Pattern(regexp = User.NON_REQUIRED_PATTERN, message = "{about.error.pattern}")
     private String about;
 
     @NotBlank(message = "{termsAcceptance.error.blank}")
@@ -74,12 +87,28 @@ public class SignupForm {
         this.email = email;
     }
 
+    public String getRetypeEmail() {
+        return retypeEmail;
+    }
+
+    public void setRetypeEmail(String retypeEmail) {
+        this.retypeEmail = retypeEmail;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRetypePassword() {
+        return retypePassword;
+    }
+
+    public void setRetypePassword(String retypePassword) {
+        this.retypePassword = retypePassword;
     }
 
     public String getCity() {

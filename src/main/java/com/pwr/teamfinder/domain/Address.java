@@ -9,38 +9,20 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
-    @Column(name = "street")
+    public static final int CITY_MIN = 2;
+    public static final int CITY_MAX = 50;
+    public static final int STREET_MAX = 50;
+    public static final int HOUSE_NR_MAX = 10;
+    public static final String HOUSE_NR_PATTERN = "[0-9]*";
+
+    @Column(name = "street", length = STREET_MAX)
     private String street;
 
-    @Column(name = "house_number")
+    @Column(name = "house_number", length = HOUSE_NR_MAX)
     private String houseNumber;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city", nullable = false, length = CITY_MAX)
     private String city;
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public Address() {
     }
@@ -75,5 +57,29 @@ public class Address {
                 .append(houseNumber)
                 .append(city)
                 .toHashCode();
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

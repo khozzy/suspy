@@ -23,14 +23,17 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(1);
-        if(user.getRole().equals(Role.ADMIN))
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
-        if(user.getRole().equals(Role.GYM_OWNER))
-            authorities.add(new SimpleGrantedAuthority("GYM_OWNER"));
-        if(user.getRole().equals(Role.SPORTSMAN))
-            authorities.add(new SimpleGrantedAuthority("SPORTSMAN"));
+
+        Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(
+                user.getRoles().size() + 1);
+
+        for (Role role : user.getRoles())
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
         return authorities;
+
     }
 
     @Override
