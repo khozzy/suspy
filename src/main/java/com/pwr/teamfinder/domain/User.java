@@ -3,7 +3,18 @@ package com.pwr.teamfinder.domain;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user", indexes = {
         @Index(columnList = "email", unique = true),
-        @Index(columnList = "resetPasswordCode", unique=true)
+        @Index(columnList = "resetPasswordCode", unique = true)
 })
 public class User extends BaseEntity {
 
@@ -47,8 +58,9 @@ public class User extends BaseEntity {
     @Embedded
     private Address address;
 
+    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<Role>();
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "about", length = ABOUT_MAX)
     private String about;
@@ -62,8 +74,8 @@ public class User extends BaseEntity {
     @ManyToMany
     @JoinTable(
             name = "user_team",
-            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "team_id", referencedColumnName = "id")})
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
     private Set<Team> teams;
 
     public String getName() {
@@ -148,9 +160,15 @@ public class User extends BaseEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
 
         User rhs = (User) obj;
 

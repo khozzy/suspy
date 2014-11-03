@@ -4,7 +4,7 @@ import com.pwr.teamfinder.domain.Address;
 import com.pwr.teamfinder.domain.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import javax.validation.constraints.Max;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -17,27 +17,27 @@ public class SignupForm {
 
     @NotBlank(message = "{surname.error.blank}")
     @Size(min = User.SURNAME_MIN, max = User.SURNAME_MAX, message = "{surname.error.size}")
-    @Pattern(regexp = User.REQUIRED_PATTERN,  message = "{surname.error.pattern}")
+    @Pattern(regexp = User.REQUIRED_PATTERN, message = "{surname.error.pattern}")
     private String surname;
 
     @NotBlank(message = "{email.error.blank}")
-    @Size(max = User.EMAIL_MAX,  message = "{email.error.size}")
+    @Size(max = User.EMAIL_MAX, message = "{email.error.size}")
     @Email(message = "{email.error.pattern}")
-    @Pattern(regexp = User.EMAIL_PATTERN, message="{email.error.pattern}")
+    @Pattern(regexp = User.EMAIL_PATTERN, message = "{email.error.pattern}")
     private String email;
 
     @NotBlank(message = "{email.error.blank}")
-    @Size(max = User.EMAIL_MAX,  message = "{email.error.size}")
+    @Size(max = User.EMAIL_MAX, message = "{email.error.size}")
     @Email(message = "{email.error.pattern}")
-    @Pattern(regexp = User.EMAIL_PATTERN, message="{email.error.pattern}")
+    @Pattern(regexp = User.EMAIL_PATTERN, message = "{email.error.pattern}")
     private String retypeEmail;
 
     @NotBlank(message = "{password.error.blank}")
-    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX,  message = "{password.error.size}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX, message = "{password.error.size}")
     private String password;
 
     @NotBlank(message = "{password.error.blank}")
-    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX,  message = "{password.error.size}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX, message = "{password.error.size}")
     private String retypePassword;
 
     @NotBlank(message = "{city.error.blank}")

@@ -2,14 +2,12 @@ package com.pwr.teamfinder.validators;
 
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.ForgotPasswordForm;
-import com.pwr.teamfinder.dto.SignupForm;
-import com.pwr.teamfinder.repository.UserRepository;
+import com.pwr.teamfinder.repository.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import javax.annotation.Resource;
 import javax.validation.ParameterNameProvider;
 import javax.validation.executable.ExecutableValidator;
 import java.util.Optional;
@@ -18,10 +16,10 @@ import java.util.Optional;
 public class ForgotPasswordFormValidator extends LocalValidatorFactoryBean {
 
 
-    private UserRepository userRepository;
+    private Users userRepository;
 
     @Autowired
-    public ForgotPasswordFormValidator(UserRepository userRepository) {
+    public ForgotPasswordFormValidator(Users userRepository) {
         this.userRepository = userRepository;
     }
 

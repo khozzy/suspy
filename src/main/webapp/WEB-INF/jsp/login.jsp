@@ -1,4 +1,4 @@
-<%@include file="includes/header.jsp"%>
+<%@include file="includes/header.jsp" %>
 
 <div class="panel panel-primary">
 
@@ -25,29 +25,33 @@
             <div class="form-group">
                 <label for="username"><spring:message code='email.header'/></label>
                 <spring:message code='email.signin.placeholder' var="emailPlaceholder"/>
-                <input id="username" name="username" type="email" class="form-control" placeholder="${emailPlaceholder}" />
+                <input id="username" name="username" type="email" class="form-control"
+                       placeholder="${emailPlaceholder}"/>
             </div>
 
             <div class="form-group">
                 <label for="password"><spring:message code='password.header'/></label>
                 <spring:message code='password.signin.placeholder' var="passwordPlaceholder"/>
-                <input type="password" id="password" name="password" class="form-control" placeholder="${passwordPlaceholder}" />
-                <form:errors cssClass="error" path="password" />
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="${passwordPlaceholder}"/>
+                <form:errors cssClass="error" path="password"/>
             </div>
 
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input name="_spring_security_remember_me" type="checkbox"> <spring:message code='signin.rememberme'/>
+                        <input name="_spring_security_remember_me" type="checkbox"> <spring:message
+                            code='signin.rememberme'/>
                     </label>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary"><spring:message code='signin'/></button>
-            <a class="btn btn-default" href="<c:url value='/forgot-password'/>"><spring:message code='forgotPassword'/>?</a>
+            <a class="btn btn-default" href="<c:url value='/forgot-password'/>"><spring:message
+                    code='forgotPassword'/>?</a>
 
         </form:form>
     </div>
 </div>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/footer.jsp" %>

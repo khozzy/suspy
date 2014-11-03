@@ -1,17 +1,16 @@
 package com.pwr.teamfinder.service;
 
 import com.pwr.teamfinder.domain.Address;
-import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.domain.Role;
+import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.ForgotPasswordForm;
 import com.pwr.teamfinder.dto.ResetPasswordForm;
 import com.pwr.teamfinder.dto.SignupForm;
 import com.pwr.teamfinder.dto.UserDetailsImpl;
 import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.mail.MailSender;
-import com.pwr.teamfinder.repository.UserRepository;
+import com.pwr.teamfinder.repository.Users;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
-
 import com.pwr.teamfinder.util.MyUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -30,34 +29,32 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.springframework.validation.BindingResult;
 
 import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class UserService extends GenericServiceImpl<User, Long, UserRepository> implements UserDetailsService {
+public class UserService extends GenericServiceImpl<User, Long, Users> implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    private UserRepository userRepository;
+    private Users users;
     private PasswordEncoder passwordEncoder;
     private MailSender mailSender;
 
     @Autowired
-    public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder, MailSender mailSender){
-        this.userRepository = userRepository;
+    public UserService(Users userRepository,
+                       PasswordEncoder passwordEncoder, MailSender mailSender) {
+        this.users = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
     }
 
     @Override
-    public UserRepository getRepository() {
-        return userRepository;
+    public Users getRepository() {
+        return users;
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -73,7 +70,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         final String street = signupForm.getStreet();
         final String about = signupForm.getAbout();
 
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user = users.findByEmail(email);
 
         if (user.isPresent()) {
             throw new UserAlreadyExistsException("User already exists");
@@ -94,7 +91,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         newUser.setAbout(about);
         newUser.setVerificationCode(RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH));
 
-        userRepository.save(newUser);
+        users.save(newUser);
 
         TransactionSynchronizationManager.registerSynchronization(
                 new TransactionSynchronizationAdapter() {
@@ -118,7 +115,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
             throws UsernameNotFoundException {
 
         //username==email address
-        Optional<User> user = userRepository.findByEmail(username);
+        Optional<User> user = users.findByEmail(username);
 
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(username);
@@ -127,11 +124,11 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         return new UserDetailsImpl(user.get());
     }
 
-    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void verify(String verificationCode) {
 
         long loggedInUserId = MyUtil.getSessionUser().getId();
-        User user = userRepository.findOne(loggedInUserId);
+        User user = users.findOne(loggedInUserId);
 
         MyUtil.validate(user.getRoles().contains(Role.UNVERIFIED), "alreadyVerified");
         MyUtil.validate(user.getVerificationCode().equals(verificationCode),
@@ -139,7 +136,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
 
         user.getRoles().remove(Role.UNVERIFIED);
         user.setVerificationCode(null);
-        userRepository.save(user);
+        users.save(user);
 
         //to check if password change is doing well when it is used
         UserDetails userDetails = new UserDetailsImpl(user);
@@ -151,7 +148,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
     public void resendVerificationEmail() {
 
         long loggedInUserId = MyUtil.getSessionUser().getId();
-        User user = userRepository.findOne(loggedInUserId);
+        User user = users.findOne(loggedInUserId);
 
         try {
             String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
@@ -162,14 +159,14 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
         }
     }
 
-    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-    public void forgotPassword(ForgotPasswordForm form){
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void forgotPassword(ForgotPasswordForm form) {
 
-        final User user = userRepository.findByEmail(form.getEmail()).get();
+        final User user = users.findByEmail(form.getEmail()).get();
         final String resetPasswordCode = RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH);
 
         user.setResetPasswordCode(resetPasswordCode);
-        final User savedUser = userRepository.save(user);
+        final User savedUser = users.save(user);
 
         TransactionSynchronizationManager.registerSynchronization(
                 new TransactionSynchronizationAdapter() {
@@ -197,7 +194,7 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
 
     }
 
-    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void resetPassword(String resetPasswordCode,
                               ResetPasswordForm resetPasswordForm) {
 
@@ -205,10 +202,10 @@ public class UserService extends GenericServiceImpl<User, Long, UserRepository> 
 
         user.setResetPasswordCode(null);
         user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword().trim()));
-        userRepository.save(user);
+        users.save(user);
     }
 
-    public Optional<User> findByResetPasswordCode(String resetPasswordCode){
+    public Optional<User> findByResetPasswordCode(String resetPasswordCode) {
         return getRepository().findByResetPasswordCode(resetPasswordCode);
     }
 

@@ -1,6 +1,6 @@
 package com.pwr.teamfinder.domain;
 
-public enum  SportActivity {
+public enum SportActivity {
 
     FOOTBALL("Pilka nozna"),
     VOLLEYBALL("Siatkowka"),

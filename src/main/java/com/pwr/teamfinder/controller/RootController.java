@@ -19,7 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -46,17 +50,23 @@ public class RootController {
         this.resetPasswordFormValidator = resetPasswordFormValidator;
     }
 
-        /*
-    SIGNUP
-     */
-
     @InitBinder("signupForm")
     protected void initSignupBinder(WebDataBinder binder) {
         binder.setValidator(signupFormValidator);
     }
 
+    @InitBinder("resetPasswordForm")
+    protected void initResetPasswordBinder(WebDataBinder binder) {
+        binder.setValidator(resetPasswordFormValidator);
+    }
+
+    @InitBinder("forgotPasswordForm")
+    protected void initForgotPasswordBinder(WebDataBinder binder) {
+        binder.setValidator(forgotPasswordFormValidator);
+    }
+
     @RequestMapping(value = "/signup")
-    public String signup(Model model){
+    public String signUp(Model model) {
 
         model.addAttribute(new SignupForm());
 
@@ -64,14 +74,14 @@ public class RootController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signup(@ModelAttribute @Valid SignupForm signupForm,
+    public String signUp(@ModelAttribute @Valid SignupForm signupForm,
                          BindingResult result,
                          Model model,
                          RedirectAttributes redirectAttributes) throws UserAlreadyExistsException {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
 
-            for(ObjectError err : result.getAllErrors()) logger.info(String.valueOf(err.toString()));
+            for (ObjectError err : result.getAllErrors()) logger.info(String.valueOf(err.toString()));
 
             return "signup";
             //tu najlepiej returnować JSONa używająć Jackson API
@@ -82,22 +92,13 @@ public class RootController {
 
         //model.addAttribute("id", user.getId());
 
-        MyUtil.flash(redirectAttributes,"success","signupSuccessMessage");
+        MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 
         return "redirect:/";
     }
 
-    /*
-    FORGOT PASSWORD
-     */
-
-    @InitBinder("forgotPasswordForm")
-    protected void initForgotPasswordBinder(WebDataBinder binder) {
-        binder.setValidator(forgotPasswordFormValidator);
-    }
-
     @RequestMapping(value = "/forgot-password")
-    public String forgotPassword(Model model){
+    public String forgotPassword(Model model) {
 
         model.addAttribute(new ForgotPasswordForm());
 
@@ -119,15 +120,6 @@ public class RootController {
         return "redirect:/";
     }
 
-        /*
-    RESET PASSWORD
-     */
-
-    @InitBinder("resetPasswordForm")
-    protected void initResetPasswordBinder(WebDataBinder binder) {
-        binder.setValidator(resetPasswordFormValidator);
-    }
-
     @RequestMapping(value = "/reset-password/{resetPasswordCode}")
     public String resetPassword(@PathVariable("resetPasswordCode") String resetPasswordCode,
                                 RedirectAttributes redirectAttributes,
@@ -135,7 +127,7 @@ public class RootController {
 
         Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
-        if(!existing.isPresent()){
+        if (!existing.isPresent()) {
             MyUtil.flash(redirectAttributes, "danger", "resetPasswordCodeNotValid");
             return "redirect:/";
         }
@@ -145,8 +137,7 @@ public class RootController {
 
     }
 
-    @RequestMapping(value = "/reset-password/{resetPasswordCode}",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "/reset-password/{resetPasswordCode}", method = RequestMethod.POST)
     public String resetPassword(
             @PathVariable("resetPasswordCode") String resetPasswordCode,
             @ModelAttribute("resetPasswordForm") @Valid ResetPasswordForm resetPasswordForm,
@@ -155,7 +146,7 @@ public class RootController {
 
         Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
-        if(!existing.isPresent()){
+        if (!existing.isPresent()) {
             MyUtil.flash(redirectAttributes, "danger", "resetPasswordCodeNotValid");
             return "redirect:/";
         }
@@ -163,7 +154,7 @@ public class RootController {
         if (result.hasErrors())
             return "reset-password";
 
-        userService.resetPassword(resetPasswordCode,resetPasswordForm);
+        userService.resetPassword(resetPasswordCode, resetPasswordForm);
 
         MyUtil.flash(redirectAttributes, "success", "passwordChanged");
 

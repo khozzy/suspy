@@ -1,20 +1,20 @@
 package com.pwr.teamfinder.domain;
 
-    public enum Role {
+public enum Role {
 
-        ADMIN("Administrator"),
-        NORMAL_USER("Normal user"),
-        OBJECT_OWNER("Object owner"),
-        UNVERIFIED("Unverified"),
-        BLOCKED("Blocked");
+    ADMIN("Administrator"),
+    NORMAL_USER("Normal user"),
+    OBJECT_OWNER("Object owner"),
+    UNVERIFIED("Unverified"),
+    BLOCKED("Blocked");
 
-        String name;
+    String name;
 
-        Role(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
+    Role(String name) {
+        this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+}

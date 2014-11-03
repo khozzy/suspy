@@ -1,28 +1,25 @@
 package com.pwr.teamfinder.validators;
 
-import javax.annotation.Resource;
-import javax.swing.text.html.Option;
-import javax.validation.ParameterNameProvider;
-import javax.validation.executable.ExecutableValidator;
-
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.SignupForm;
-import com.pwr.teamfinder.repository.UserRepository;
+import com.pwr.teamfinder.repository.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import javax.validation.ParameterNameProvider;
+import javax.validation.executable.ExecutableValidator;
 import java.util.Optional;
 
 @Component
 public class SignupFormValidator extends LocalValidatorFactoryBean {
 
 
-    private UserRepository userRepository;
+    private Users userRepository;
 
     @Autowired
-    public SignupFormValidator(UserRepository userRepository) {
+    public SignupFormValidator(Users userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -42,9 +39,9 @@ public class SignupFormValidator extends LocalValidatorFactoryBean {
             if (existing.isPresent())
                 errors.rejectValue("email", "email.error.notUnique");
             if (!signupForm.getPassword().equals(signupForm.getRetypePassword()))
-                errors.rejectValue("retypePassword","password.error.doNotMatch");
+                errors.rejectValue("retypePassword", "password.error.doNotMatch");
             if (!signupForm.getEmail().equals(signupForm.getRetypeEmail()))
-                errors.rejectValue("retypeEmail","email.error.doNotMatch");
+                errors.rejectValue("retypeEmail", "email.error.doNotMatch");
         }
 
     }

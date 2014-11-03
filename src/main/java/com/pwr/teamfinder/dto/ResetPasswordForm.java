@@ -8,11 +8,11 @@ import javax.validation.constraints.Size;
 public class ResetPasswordForm {
 
     @NotBlank(message = "{password.error.blank}")
-    @Size(min=User.PASSWORD_MIN, max= User.PASSWORD_MAX, message="{password.error.size}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX, message = "{password.error.size}")
     private String password = "";
 
     @NotBlank(message = "{password.error.blank}")
-    @Size(min=User.PASSWORD_MIN, max= User.PASSWORD_MAX, message="{password.error.size}")
+    @Size(min = User.PASSWORD_MIN, max = User.PASSWORD_MAX, message = "{password.error.size}")
     private String retypePassword = "";
 
     public String getPassword() {

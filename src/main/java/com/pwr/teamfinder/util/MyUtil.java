@@ -1,7 +1,5 @@
 package com.pwr.teamfinder.util;
 
-import java.util.Locale;
-
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.dto.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,28 +10,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Locale;
+
 @Component
 public class MyUtil {
 
     private static MessageSource messageSource;
+    private static String hostAndPort;
+    private static String activeProfiles;
 
     @Autowired
     public MyUtil(MessageSource messageSource) {
         MyUtil.messageSource = messageSource;
     }
 
-    private static String hostAndPort;
-
     @Value("${hostAndPort}")
     public void setHost(String hostAndPort) {
         MyUtil.hostAndPort = hostAndPort;
     }
 
-    private static String activeProfiles;
-
     @Value("${spring.profiles.active}")
     public void setActiveProfiles(String activeProfiles) {
-        MyUtil.activeProfiles = activeProfiles;}
+        MyUtil.activeProfiles = activeProfiles;
+    }
 
     public static boolean isDev() {
         return activeProfiles.equals("dev");
@@ -43,12 +42,10 @@ public class MyUtil {
         return (isDev() ? "http://" : "https://") + hostAndPort;
     }
 
-    public static void flash(RedirectAttributes redirectAttributes,
-                             String kind, String messageKey) {
+    public static void flash(RedirectAttributes redirectAttributes, String kind, String messageKey) {
 
         redirectAttributes.addFlashAttribute("flashKind", kind);
-        redirectAttributes.addFlashAttribute("flashMessage",
-                MyUtil.getMessage(messageKey));
+        redirectAttributes.addFlashAttribute("flashMessage", MyUtil.getMessage(messageKey));
     }
 
     public static String getMessage(String messageKey, Object... args) {

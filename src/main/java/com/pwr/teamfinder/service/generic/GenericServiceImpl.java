@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Transactional
-public abstract class GenericServiceImpl<T extends BaseEntity, PK extends Serializable, R extends JpaRepository<T,PK>> implements GenericService<T, PK, R> {
+public abstract class GenericServiceImpl<T extends BaseEntity, PK extends Serializable, R extends JpaRepository<T, PK>> implements GenericService<T, PK, R> {
 
     public abstract R getRepository();
 

@@ -1,15 +1,12 @@
 package com.pwr.teamfinder.config;
 
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,9 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableWebMvcSecurity
-public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
@@ -34,8 +33,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Bean
     public RememberMeServices rememberMeServices() {
-        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userService);
-        return rememberMeServices;
+        return new TokenBasedRememberMeServices(rememberMeKey, userService);
     }
 
     @Bean

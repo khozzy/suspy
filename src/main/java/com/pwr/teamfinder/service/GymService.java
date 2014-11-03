@@ -3,15 +3,12 @@ package com.pwr.teamfinder.service;
 import com.pwr.teamfinder.domain.Address;
 import com.pwr.teamfinder.domain.Gym;
 import com.pwr.teamfinder.domain.SportActivity;
-import com.pwr.teamfinder.domain.TimeSlot;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.repository.Gyms;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Set;
 
 @Service

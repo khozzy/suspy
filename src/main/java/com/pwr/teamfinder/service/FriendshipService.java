@@ -4,7 +4,6 @@ import com.pwr.teamfinder.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Set;
 
 @Service
@@ -12,7 +11,7 @@ import java.util.Set;
 public class FriendshipService {
 
     public void sendFriendRequest(final User user, final User newFriend) {
-       // Dodanie znajomego
+        // Dodanie znajomego
     }
 
     public void cancelFriendRequest(final User user, final User newFriend) {

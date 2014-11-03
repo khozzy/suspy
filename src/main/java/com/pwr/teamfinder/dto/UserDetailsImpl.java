@@ -1,19 +1,15 @@
 package com.pwr.teamfinder.dto;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import com.pwr.teamfinder.domain.Role;
 import com.pwr.teamfinder.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.support.RequestContext;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
-
 
     private User user;
 
@@ -27,8 +23,11 @@ public class UserDetailsImpl implements UserDetails {
         Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(
                 user.getRoles().size() + 1);
 
-        for (Role role : user.getRoles())
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        authorities.addAll(
+                user.getRoles()
+                        .stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                        .collect(Collectors.toList()));
 
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
