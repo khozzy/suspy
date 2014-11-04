@@ -4,6 +4,7 @@ $(document).ready(function() {
         $.getJSON("http://localhost:8080/service/users", function (users) {
             if (users != "") {
                 $('#usersList').html('<h2>List of users:</h2>');
+                content='';
                 $.each( users, function( i, user ) {
                     content += '<p>' + user.id;
                     content += ' ' + user.name;
