@@ -17,6 +17,9 @@
     <link href="/public/lib/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Our CSS Styles -->
     <link href="/public/lib/css/styles.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
+    <script src="/public/lib/js/script.js"></script>
 
 </head>
 <body>
