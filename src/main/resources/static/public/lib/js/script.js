@@ -5,7 +5,7 @@ $(document).ready(function() {
             if (users != "") {
                 $('#usersList').html('<h2>List of users:</h2>');
                 $.each( users, function( i, user ) {
-                    content = '<p>' + user.id;
+                    content += '<p>' + user.id;
                     content += ' ' + user.name;
                     content += ' ' + user.surname;
                     content += ' ' + user.email;
@@ -16,8 +16,8 @@ $(document).ready(function() {
                     content += ' ' + user.about;
                     content += ' ' + user.teams + '</p>';
                     content += '<br/>';
-                    $(content).appendTo("#usersList");
                 });
+                $(content).appendTo("#usersList");
             }
             else {
                 $('#usersList').html('<h2>Users not found.</h2>');
