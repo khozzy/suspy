@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $('#button').button();
+    $('#showUsersList').on('click', function () {
+        var $btn = $(this).button('loading')
+        //sleep(5000);
+        showUsersList();
+        $btn.button('reset')
+    });
+
     var showUsersList = function () {
         $.getJSON("http://localhost:8080/service/users", function (users) {
             if (users != "") {
@@ -27,13 +35,6 @@ $(document).ready(function() {
 
         return false;
     }
-
-    $('#showUsersList').on('click', function () {
-        var $btn = $(this).button('loading')
-        //sleep(5000);
-        showUsersList();
-        $btn.button('reset')
-    });
 });
 
 function sleep(milliseconds) {
@@ -43,5 +44,5 @@ function sleep(milliseconds) {
             break;
         }
     }
-};
+}
 

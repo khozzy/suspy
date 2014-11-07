@@ -1,8 +1,8 @@
 package com.pwr.teamfinder.service;
 
+import com.pwr.teamfinder.domain.Activity;
 import com.pwr.teamfinder.domain.Address;
-import com.pwr.teamfinder.domain.Gym;
-import com.pwr.teamfinder.domain.SportActivity;
+import com.pwr.teamfinder.domain.Place;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.repository.Gyms;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class GymService extends GenericServiceImpl<Gym, Long, Gyms> {
+public class GymService extends GenericServiceImpl<Place, Long, Gyms> {
 
     @Autowired
     private Gyms repository;
@@ -22,9 +22,9 @@ public class GymService extends GenericServiceImpl<Gym, Long, Gyms> {
         return repository;
     }
 
-    public Gym createGym(final String name, final Address address, final User owner, final int capacity, final Set<SportActivity> activities) {
+    public Place createGym(final String name, final Address address, final User owner, final int capacity, final Set<Activity> activities) {
 
-        Gym gym = new Gym();
+        Place gym = new Place();
 
         gym.setName(name);
         gym.setAddress(address);
@@ -35,12 +35,12 @@ public class GymService extends GenericServiceImpl<Gym, Long, Gyms> {
         return repository.save(gym);
     }
 
-    public void acceptGym(final Gym gym) {
+    public void acceptGym(final Place gym) {
         gym.setAccepted(true);
         repository.save(gym);
     }
 
-    public void rejectGym(final Gym gym) {
+    public void rejectGym(final Place gym) {
         gym.setAccepted(false);
         repository.save(gym);
     }

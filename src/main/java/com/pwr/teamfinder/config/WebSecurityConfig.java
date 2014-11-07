@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import javax.annotation.Resource;
+import javax.servlet.Filter;
 
 @Configuration
 @EnableWebMvcSecurity

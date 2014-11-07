@@ -3,18 +3,7 @@ package com.pwr.teamfinder.domain;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -77,6 +66,13 @@ public class User extends BaseEntity {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
     private Set<Team> teams;
+
+    @ManyToMany
+    @JoinTable(
+            name = "friends",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "friends", referencedColumnName = "id")})
+    private Set<User> friends;
 
     public String getName() {
         return name;
@@ -156,6 +152,14 @@ public class User extends BaseEntity {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Team extends BaseEntity {
     @ManyToMany(mappedBy = "teams")
     private Set<User> members;
 
-    @OneToMany(mappedBy = "team")
+    @ManyToMany(mappedBy = "team")
     private Set<Event> events;
 
     public String getName() {

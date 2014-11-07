@@ -1,6 +1,9 @@
 package com.pwr.teamfinder.service.generic;
 
 import com.pwr.teamfinder.domain.BaseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,9 +43,28 @@ public abstract class GenericServiceImpl<T extends BaseEntity, PK extends Serial
     }
 
     @Override
-    public Collection<T> getAll() {
+    public Collection<T> findAll() {
         return getRepository()
                 .findAll()
+                .stream()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean exists(PK id) {
+        return getRepository().exists(id);
+    }
+
+    @Override
+    public Iterable<T> findAll(Sort sort) {
+        return getRepository().findAll(sort);
+    }
+
+    @Override
+    public Collection<T> findAll(Pageable pageable) {
+        return getRepository()
+                .findAll(pageable)
+                .getContent()
                 .stream()
                 .collect(Collectors.toList());
     }

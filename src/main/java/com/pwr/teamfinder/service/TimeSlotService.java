@@ -1,6 +1,6 @@
 package com.pwr.teamfinder.service;
 
-import com.pwr.teamfinder.domain.Gym;
+import com.pwr.teamfinder.domain.Place;
 import com.pwr.teamfinder.domain.TimeSlot;
 import com.pwr.teamfinder.repository.TimeSlots;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
@@ -21,7 +21,7 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         return repository;
     }
 
-    public TimeSlot addTimeSlot(final Gym gym, final Date from, final Date to, final BigDecimal price) {
+    public TimeSlot addTimeSlot(final Place gym, final Date from, final Date to, final BigDecimal price) {
         // Dodanie slotu czasowego do obiektu sportowego
         return null;
     }

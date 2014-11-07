@@ -4,29 +4,15 @@ package com.pwr.teamfinder.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.teamfinder.domain.User;
-import com.pwr.teamfinder.dto.ForgotPasswordForm;
-import com.pwr.teamfinder.dto.ResetPasswordForm;
-import com.pwr.teamfinder.dto.SignupForm;
-import com.pwr.teamfinder.exception.UserAlreadyExistsException;
 import com.pwr.teamfinder.service.UserService;
-import com.pwr.teamfinder.util.MyUtil;
-import com.pwr.teamfinder.validators.ForgotPasswordFormValidator;
-import com.pwr.teamfinder.validators.ResetPasswordFormValidator;
-import com.pwr.teamfinder.validators.SignupFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/service")
@@ -41,13 +27,19 @@ public class ServiceController {
         this.userService = userService;
     }
 
-
     //Przykład zwracania JSONa - zwraca listę użytkowników serwisu
-    @RequestMapping(value = "/users", method = RequestMethod.GET,
+    @RequestMapping(value = "/users",
+            method = RequestMethod.GET,
             headers = "Accept=application/json")
-    public String returnUsers() throws JsonProcessingException {
+    public String returnUsers(
+            @RequestParam(value="pageNum", defaultValue="1") String pageNum,
+            @RequestParam(value="numOfResults", defaultValue="5") String numOfResults)
+            throws JsonProcessingException {
 
-        Collection<User> users = userService.getAll();
+       // Collection<User> users = userService.findAll(
+                //new PageRequest(pageNum.parseInt(), numOfResults.parseInt(), new Sort(Sort.Direction.ASC, "name")));
+               // new PageRequest(1, 1)); // nie działa:(
+        Collection<User> users = userService.findAll();
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(users);
     }

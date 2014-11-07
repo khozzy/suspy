@@ -1,14 +1,15 @@
 package com.pwr.teamfinder.domain;
 
-public enum SportActivity {
+public enum Activity {
 
     FOOTBALL("Pilka nozna"),
     VOLLEYBALL("Siatkowka"),
-    BASKETBALL("Koszykowka");
+    BASKETBALL("Koszykowka"),
+    VISITING_SEASIDE("Wizyta nad morzem");
 
     String name;
 
-    SportActivity(String name) {
+    Activity(String name) {
         this.name = name;
     }
 

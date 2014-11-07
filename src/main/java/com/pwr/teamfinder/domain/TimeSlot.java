@@ -21,8 +21,8 @@ import java.util.Date;
 public class TimeSlot extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id", nullable = false)
-    private Gym gym;
+    @JoinColumn(name = "place_id", nullable = false)
+    private Place place;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,12 +41,12 @@ public class TimeSlot extends BaseEntity {
     @OneToOne(mappedBy = "timeSlot")
     private Event event;
 
-    public Gym getGym() {
-        return gym;
+    public Place getPlace() {
+        return place;
     }
 
-    public void setGym(Gym gym) {
-        this.gym = gym;
+    public void setPlace(Place gym) {
+        this.place = place;
     }
 
     public Date getFrom() {
@@ -97,7 +97,7 @@ public class TimeSlot extends BaseEntity {
 
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
-                .append(gym, rhs.getGym())
+                .append(place, rhs.getPlace())
                 .append(from, rhs.getFrom())
                 .append(to, rhs.getTo())
                 .append(price, rhs.getPrice())
@@ -108,7 +108,7 @@ public class TimeSlot extends BaseEntity {
     public int hashCode() {
         return new HashCodeBuilder(193, 541)
                 .appendSuper(super.hashCode())
-                .append(gym)
+                .append(place)
                 .append(from)
                 .append(to)
                 .append(price)

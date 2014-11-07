@@ -18,8 +18,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "gym")
-public class Gym extends BaseEntity {
+@Table(name = "place")
+public class Place extends BaseEntity {
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -31,9 +31,9 @@ public class Gym extends BaseEntity {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @CollectionTable(
-            name = "gym_activity",
-            joinColumns = @JoinColumn(name = "gym_id"))
-    private Set<SportActivity> activities;
+            name = "place_activity",
+            joinColumns = @JoinColumn(name = "place_id"))
+    private Set<Activity> activities;
 
     @NotNull
     @Column(name = "capacity", nullable = false)
@@ -43,7 +43,7 @@ public class Gym extends BaseEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @OneToMany(mappedBy = "gym")
+    @OneToMany(mappedBy = "place")
     private Set<TimeSlot> timeSlots;
 
     @NotNull
@@ -66,11 +66,11 @@ public class Gym extends BaseEntity {
         this.address = address;
     }
 
-    public Set<SportActivity> getActivities() {
+    public Set<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(Set<SportActivity> activities) {
+    public void setActivities(Set<Activity> activities) {
         this.activities = activities;
     }
 
@@ -118,7 +118,7 @@ public class Gym extends BaseEntity {
             return false;
         }
 
-        Gym rhs = (Gym) obj;
+        Place rhs = (Place) obj;
 
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
