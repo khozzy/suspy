@@ -4,7 +4,7 @@ import com.pwr.teamfinder.domain.Activity;
 import com.pwr.teamfinder.domain.Address;
 import com.pwr.teamfinder.domain.Place;
 import com.pwr.teamfinder.domain.User;
-import com.pwr.teamfinder.repository.Gyms;
+import com.pwr.teamfinder.repository.Places;
 import com.pwr.teamfinder.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class GymService extends GenericServiceImpl<Place, Long, Gyms> {
+public class GymService extends GenericServiceImpl<Place, Long, Places> {
 
     @Autowired
-    private Gyms repository;
+    private Places repository;
 
     @Override
-    public Gyms getRepository() {
+    public Places getRepository() {
         return repository;
     }
 
