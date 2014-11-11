@@ -9,7 +9,7 @@ $(document).ready(function() {
     });
 
     var showUsersList = function () {
-        $.getJSON("http://localhost:8080/service/users", function (users) {
+        $.getJSON("http://localhost:8080/service/users/all", function (users) {
             if (users != "") {
                 $('#usersList').html('<h2>List of users:</h2>');
                 content='';

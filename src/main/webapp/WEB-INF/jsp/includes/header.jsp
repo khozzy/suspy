@@ -18,9 +18,8 @@
     <link href="/public/lib/css/styles.css" rel="stylesheet">
 
     <!-- jQuery, Bootstrap and our JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
     <script src="/public/lib/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-    <script src="/public/lib/js/script.js"></script>
 
 </head>
 <body>

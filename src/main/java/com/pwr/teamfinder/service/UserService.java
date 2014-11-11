@@ -58,56 +58,93 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public User signup(final SignupForm signupForm) throws UserAlreadyExistsException {
+    public User signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
 
-        final String name = signupForm.getName();
-        final String surname = signupForm.getSurname();
         final String email = signupForm.getEmail();
-        final String password = signupForm.getPassword().trim();
-        final Role role = Role.valueOf(signupForm.getRole());
-        final String city = signupForm.getCity();
-        final String houseNo = signupForm.getHouseNumber();
-        final String street = signupForm.getStreet();
-        final String about = signupForm.getAbout();
 
-        Optional<User> user = users.findByEmail(email);
+        Optional<User> existing = users.findByEmail(email);
 
-        if (user.isPresent()) {
+        if (existing.isPresent()) {
             throw new UserAlreadyExistsException("User already exists");
         }
+        
+        User user = convertSignUpFormToUser(signupForm);
+        user.setCreatedDate(new Date());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(Role.UNVERIFIED);
+        user.setVerificationCode(RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH));
 
-        Address address = new Address(street, houseNo, city);
-
-        final User newUser = new User();
-
-        newUser.setCreatedDate(new Date());
-        newUser.setName(name);
-        newUser.setSurname(surname);
-        newUser.setEmail(email);
-        newUser.setPassword(passwordEncoder.encode(password));
-        newUser.getRoles().add(Role.UNVERIFIED);
-        newUser.getRoles().add(role);
-        newUser.setAddress(address);
-        newUser.setAbout(about);
-        newUser.setVerificationCode(RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH));
-
-        users.save(newUser);
+        users.save(user);
 
         TransactionSynchronizationManager.registerSynchronization(
                 new TransactionSynchronizationAdapter() {
                     @Override
                     public void afterCommit() {
                         try {
-                            String verifyLink = MyUtil.hostUrl() + "/users/" + newUser.getVerificationCode() + "/verify";
-                            mailSender.send(newUser.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
-                            logger.info("Verification mail to " + newUser.getEmail() + " queued.");
+                            String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
+                            mailSender.send(user.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
+                            logger.info("Verification mail to " + user.getEmail() + " queued.");
                         } catch (MessagingException e) {
                             logger.error(ExceptionUtils.getStackTrace(e));
                         }
                     }
                 });
 
-        return newUser;
+        return user;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public User signUp(final User user) throws UserAlreadyExistsException {
+
+        Optional<User> existing = users.findByEmail(user.getEmail());
+
+        if (existing.isPresent()) {
+            throw new UserAlreadyExistsException("User already exists");
+        }
+
+        user.setCreatedDate(new Date());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(Role.UNVERIFIED);
+        user.setVerificationCode(RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH));
+
+        users.save(user);
+
+        TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronizationAdapter() {
+                    @Override
+                    public void afterCommit() {
+                        try {
+                            String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
+                            mailSender.send(user.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
+                            logger.info("Verification mail to " + user.getEmail() + " queued.");
+                        } catch (MessagingException e) {
+                            logger.error(ExceptionUtils.getStackTrace(e));
+                        }
+                    }
+                });
+
+        return user;
+    }
+    
+    public User convertSignUpFormToUser(SignupForm signupForm){
+
+        final String street = signupForm.getStreet();
+        final String houseNo = signupForm.getHouseNumber();
+        final String city = signupForm.getCity();
+
+        Address address = new Address(street, houseNo, city);
+        
+        final User user = new User();
+
+        user.setName(signupForm.getName());
+        user.setSurname(signupForm.getSurname());
+        user.setEmail(signupForm.getEmail());
+        user.setPassword(signupForm.getPassword());
+        user.getRoles().add(Role.valueOf(signupForm.getRole()));
+        user.setAddress(address);
+        user.setAbout(signupForm.getAbout());
+        
+        return user;
     }
 
     @Override
@@ -206,7 +243,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     public Optional<User> findByResetPasswordCode(String resetPasswordCode) {
-        return getRepository().findByResetPasswordCode(resetPasswordCode);
+        return users.findByResetPasswordCode(resetPasswordCode);
     }
 
 }

@@ -67,11 +67,7 @@ public class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
     private Set<Team> teams;
 
-    @ManyToMany
-    @JoinTable(
-            name = "friends",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "friends", referencedColumnName = "id")})
+    @OneToMany
     private Set<User> friends;
 
     public String getName() {
@@ -204,5 +200,22 @@ public class User extends BaseEntity {
                 .append(verificationCode)
                 .append(resetPasswordCode)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address=" + address +
+                ", roles=" + roles +
+                ", about='" + about + '\'' +
+                ", verificationCode='" + verificationCode + '\'' +
+                ", resetPasswordCode='" + resetPasswordCode + '\'' +
+                ", teams=" + teams +
+                ", friends=" + friends +
+                '}';
     }
 }

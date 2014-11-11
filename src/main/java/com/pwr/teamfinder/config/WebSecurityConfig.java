@@ -51,6 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/home",
                         "/error",
                         "/signup",
+                        "/signupJson",
+                        "/service/**",
                         "/forgot-password",
                         "/reset-password/*",
                         "/public/**").permitAll()
@@ -62,6 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe().key(rememberMeKey).rememberMeServices(rememberMeServices()).and()
                 .logout()
                 .permitAll();
+
+        http.csrf().disable();
     }
 
     @Autowired
