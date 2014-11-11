@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pwr.teamfinder</groupId>
-    <artifactId>teamfinder</artifactId>
+    <groupId>com.pwr.suspy</groupId>
+    <artifactId>suspy</artifactId>
     <version>0.1.0</version>
     <packaging>war</packaging>
 
-    <name>TeamFinder application</name>
+    <name>Suspy application</name>
 
     <properties>
-        <start-class>com.pwr.teamfinder.Application</start-class>
+        <start-class>com.pwr.suspy.Application</start-class>
         <java.version>1.8</java.version>
         <mysql.version>5.1.14</mysql.version>
         <org.apache.lang.version>3.1</org.apache.lang.version>
