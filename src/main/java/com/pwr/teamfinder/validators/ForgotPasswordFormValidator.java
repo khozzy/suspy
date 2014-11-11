@@ -36,8 +36,10 @@ public class ForgotPasswordFormValidator extends LocalValidatorFactoryBean {
         if (!errors.hasErrors()) {
             ForgotPasswordForm forgotPasswordForm = (ForgotPasswordForm) obj;
             Optional<User> existing = userRepository.findByEmail(forgotPasswordForm.getEmail());
-            if (!existing.isPresent())
+
+            if (!existing.isPresent()) {
                 errors.rejectValue("email", "email.error.notFound");
+            }
         }
     }
 

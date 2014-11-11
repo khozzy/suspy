@@ -48,6 +48,7 @@ public class RootController {
                           SignupFormValidator signupFormValidator,
                           ForgotPasswordFormValidator forgotPasswordFormValidator,
                           ResetPasswordFormValidator resetPasswordFormValidator) {
+
         this.userService = userService;
         this.signupFormValidator = signupFormValidator;
         this.forgotPasswordFormValidator = forgotPasswordFormValidator;
@@ -70,11 +71,8 @@ public class RootController {
     }
 
     @RequestMapping(value = "/signup")
-    public String signUp(Model model)
-    {
-
+    public String signUp(Model model) {
         model.addAttribute(new SignupForm());
-
         return "signup";
     }
 
@@ -82,8 +80,7 @@ public class RootController {
     public String signUp(@ModelAttribute @Valid SignupForm signupForm,
                          BindingResult result,
                          Model model,
-                         RedirectAttributes redirectAttributes) throws UserAlreadyExistsException
-    {
+                         RedirectAttributes redirectAttributes) throws UserAlreadyExistsException {
 
         if (result.hasErrors()) {
 
@@ -104,10 +101,8 @@ public class RootController {
     }
 
     @RequestMapping(value = "/signupJson")
-    public String signUpJson(Model model)
-    {
+    public String signUpJson(Model model) {
         model.addAttribute(new SignupForm());
-
         return "signup";
     }
 
@@ -119,7 +114,9 @@ public class RootController {
 
         if (result.hasErrors()) {
 
-            for (ObjectError err : result.getAllErrors()) logger.info(String.valueOf(err.toString()));
+            for (ObjectError err : result.getAllErrors()) {
+                logger.info(String.valueOf(err.toString()));
+            }
 
             return "signup";
         }
@@ -128,11 +125,11 @@ public class RootController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type","application/json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        HttpEntity<String> entity = new HttpEntity<>(
-                objectMapper.writeValueAsString(user),headers);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(user),headers);
         RestTemplate restTemplate = new RestTemplate();
+
         restTemplate.put(MyUtil.hostUrl() + "/service/users", entity, String.class);
 
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
@@ -141,11 +138,8 @@ public class RootController {
     }
 
     @RequestMapping(value = "/forgot-password")
-    public String forgotPassword(Model model)
-    {
-
+    public String forgotPassword(Model model) {
         model.addAttribute(new ForgotPasswordForm());
-
         return "forgot-password";
     }
 
@@ -153,11 +147,11 @@ public class RootController {
     public String forgotPassword(
             @ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm,
             BindingResult result,
-            RedirectAttributes redirectAttributes)
-    {
+            RedirectAttributes redirectAttributes) {
 
-        if (result.hasErrors())
+        if (result.hasErrors()) {
             return "forgot-password";
+        }
 
         userService.forgotPassword(forgotPasswordForm);
         MyUtil.flash(redirectAttributes, "info", "checkMailResetPassword");
@@ -168,8 +162,7 @@ public class RootController {
     @RequestMapping(value = "/reset-password/{resetPasswordCode}")
     public String resetPassword(@PathVariable("resetPasswordCode") String resetPasswordCode,
                                 RedirectAttributes redirectAttributes,
-                                Model model)
-    {
+                                Model model) {
 
         Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
@@ -180,7 +173,6 @@ public class RootController {
 
         model.addAttribute(new ResetPasswordForm());
         return "reset-password";
-
     }
 
     @RequestMapping(value = "/reset-password/{resetPasswordCode}", method = RequestMethod.POST)
@@ -188,8 +180,7 @@ public class RootController {
             @PathVariable("resetPasswordCode") String resetPasswordCode,
             @ModelAttribute("resetPasswordForm") @Valid ResetPasswordForm resetPasswordForm,
             BindingResult result,
-            RedirectAttributes redirectAttributes)
-    {
+            RedirectAttributes redirectAttributes) {
 
         Optional<User> existing = userService.findByResetPasswordCode(resetPasswordCode);
 
@@ -198,8 +189,9 @@ public class RootController {
             return "redirect:/";
         }
 
-        if (result.hasErrors())
+        if (result.hasErrors()) {
             return "reset-password";
+        }
 
         userService.resetPassword(resetPasswordCode, resetPasswordForm);
 

@@ -1,6 +1,5 @@
 package com.pwr.teamfinder.config;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,24 +69,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+
             private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
             private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/service/.*", null);
 
             @Override
             public boolean matches(HttpServletRequest httpServletRequest) {
-                // No CSRF due to allowedMethod
-                if(allowedMethods.matcher(httpServletRequest.getMethod()).matches())
+                if (allowedMethods.matcher(httpServletRequest.getMethod()).matches()) {
                     return false;
+                }
 
-                // No CSRF due to api call
-                if(apiMatcher.matches(httpServletRequest))
+                if (apiMatcher.matches(httpServletRequest)) {
                     return false;
+                }
 
-                // CSRF for everything else that is not an service call or an allowedMethod
                 return true;
             }
         });
-
     }
 
     @Autowired

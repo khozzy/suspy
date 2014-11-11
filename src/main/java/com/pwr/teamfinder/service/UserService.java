@@ -45,8 +45,8 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     private MailSender mailSender;
 
     @Autowired
-    public UserService(Users userRepository,
-                       PasswordEncoder passwordEncoder, MailSender mailSender) {
+    public UserService(Users userRepository, PasswordEncoder passwordEncoder, MailSender mailSender) {
+
         this.users = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
@@ -148,10 +148,8 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //username==email address
         Optional<User> user = users.findByEmail(username);
 
         if (!user.isPresent()) {
@@ -168,8 +166,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         User user = users.findOne(loggedInUserId);
 
         MyUtil.validate(user.getRoles().contains(Role.UNVERIFIED), "alreadyVerified");
-        MyUtil.validate(user.getVerificationCode().equals(verificationCode),
-                "incorrect", MyUtil.getMessage("verificationCode"));
+        MyUtil.validate(user.getVerificationCode().equals(verificationCode), "incorrect", MyUtil.getMessage("verificationCode"));
 
         user.getRoles().remove(Role.UNVERIFIED);
         user.setVerificationCode(null);
@@ -232,8 +229,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void resetPassword(String resetPasswordCode,
-                              ResetPasswordForm resetPasswordForm) {
+    public void resetPassword(String resetPasswordCode, ResetPasswordForm resetPasswordForm) {
 
         User user = findByResetPasswordCode(resetPasswordCode).get();
 

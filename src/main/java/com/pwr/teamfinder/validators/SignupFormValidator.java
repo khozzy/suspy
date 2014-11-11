@@ -15,7 +15,6 @@ import java.util.Optional;
 @Component
 public class SignupFormValidator extends LocalValidatorFactoryBean {
 
-
     private Users userRepository;
 
     @Autowired
@@ -36,12 +35,18 @@ public class SignupFormValidator extends LocalValidatorFactoryBean {
         if (!errors.hasErrors()) {
             SignupForm signupForm = (SignupForm) obj;
             Optional<User> existing = userRepository.findByEmail(signupForm.getEmail());
-            if (existing.isPresent())
+
+            if (existing.isPresent()) {
                 errors.rejectValue("email", "email.error.notUnique");
-            if (!signupForm.getPassword().equals(signupForm.getRetypePassword()))
+            }
+
+            if (!signupForm.getPassword().equals(signupForm.getRetypePassword())) {
                 errors.rejectValue("retypePassword", "password.error.doNotMatch");
-            if (!signupForm.getEmail().equals(signupForm.getRetypeEmail()))
+            }
+
+            if (!signupForm.getEmail().equals(signupForm.getRetypeEmail())) {
                 errors.rejectValue("retypeEmail", "email.error.doNotMatch");
+            }
         }
 
     }

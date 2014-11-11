@@ -27,78 +27,39 @@ public class UserServiceController {
         this.userService = userService;
     }
 
-    /*Przykład zwracania JSONa - zwraca listę użytkowników serwisu
-    Mapowanie automatyczne za pomocą JacksonJSONMapper
-    Skonfigurowane w MvcConfig*/
-
     @RequestMapping(method = RequestMethod.GET,
             headers = "Accept=application/json")
     public Collection<User> getUsers(
             @RequestParam(value="pageNum", defaultValue="1") String pageNum,
             @RequestParam(value="numOfResults", defaultValue="5") String numOfResults)
-            throws JsonProcessingException
-    {
+            throws JsonProcessingException {
 
         Collection<User> users = userService.findAll(
-                new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults),
-                        new Sort(Sort.Direction.ASC, "name")));//why not working?:(
+                new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults), new Sort(Sort.Direction.ASC, "name")));//why not working?:(
         //Collection<User> users = userService.findAll();
         return users;
     }
 
-    //USER CRUD
-
-    @RequestMapping(method = RequestMethod.PUT,
-            headers = "Content-Type=application/json")
-    public User createUser(
-            @RequestBody User user)
-            throws JsonProcessingException, UserAlreadyExistsException {
-
-
+    @RequestMapping(method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public User createUser(@RequestBody User user) throws JsonProcessingException, UserAlreadyExistsException {
         userService.signUp(user);
-
         return user;
     }
 
-    @RequestMapping(value = "/{userID}",
-            method = RequestMethod.GET,
-            headers = "Accept=application/json")
-    public User getUser(
-            @PathVariable("userID") String userID)
-            throws JsonProcessingException
-    {
-
-        User user = userService.findById(Long.parseLong(userID));
-
-        return user;
-
+    @RequestMapping(value = "/{userID}", method = RequestMethod.GET, headers = "Accept=application/json")
+    public User getUser(@PathVariable("userID") String userID) throws JsonProcessingException {
+        return userService.findById(Long.parseLong(userID));
     }
 
-    @RequestMapping(value = "/{userID}",
-            method = RequestMethod.POST,
-            headers = "Content-Type=application/json")
-    public User updateUser(
-            @PathVariable("userID") String userID,
-            @RequestBody User user)
-            throws JsonProcessingException
-    {
-
+    @RequestMapping(value = "/{userID}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public User updateUser(@PathVariable("userID") String userID, @RequestBody User user) throws JsonProcessingException {
         //userService.update(userID, user);
-
         return user;
     }
 
-    @RequestMapping(value = "/{userID}",
-            method = RequestMethod.DELETE)
-    public String deleteUser(
-            @PathVariable("userID") String userID)
-            throws JsonProcessingException
-    {
-
+    @RequestMapping(value = "/{userID}", method = RequestMethod.DELETE)
+    public String deleteUser(@PathVariable("userID") String userID) throws JsonProcessingException {
         userService.delete(Long.parseLong(userID));
-
         return "userDeleted";
     }
-
-
 }

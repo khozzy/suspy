@@ -1,6 +1,5 @@
 package com.pwr.teamfinder.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.teamfinder.domain.User;
 import com.pwr.teamfinder.service.UserService;
 import com.pwr.teamfinder.util.MyUtil;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -33,8 +31,7 @@ public class UserController {
     @RequestMapping("/{verificationCode}/verify")
     public String verify(@PathVariable("verificationCode") String verificationCode,
                          RedirectAttributes redirectAttributes,
-                         HttpServletRequest request)
-    {
+                         HttpServletRequest request) {
 
         userService.verify(verificationCode);
         MyUtil.flash(redirectAttributes, "success", "verificationSuccess");

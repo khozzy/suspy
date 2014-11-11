@@ -37,7 +37,9 @@ public class MailConfig {
     @Profile("!dev")
     public MailSender smtpMailSender() {
         SmtpMailSender mailSender = new SmtpMailSender();
+
         mailSender.setJavaMailSender(javaMailSender());
+
         return mailSender;
     }
 
@@ -64,8 +66,10 @@ public class MailConfig {
 
     private Authenticator getAuthenticator() {
         SmtpAuthenticator authenticator = new SmtpAuthenticator();
+
         authenticator.setUsername(username);
         authenticator.setPassword(password);
+
         return authenticator;
     }
 

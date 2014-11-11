@@ -43,7 +43,6 @@ public class MyUtil {
     }
 
     public static void flash(RedirectAttributes redirectAttributes, String kind, String messageKey) {
-
         redirectAttributes.addFlashAttribute("flashKind", kind);
         redirectAttributes.addFlashAttribute("flashMessage", MyUtil.getMessage(messageKey));
     }
@@ -52,10 +51,10 @@ public class MyUtil {
         return messageSource.getMessage(messageKey, args, Locale.getDefault());
     }
 
-    public static void validate(boolean valid, String msgContent,
-                                Object... args) {
-        if (!valid)
+    public static void validate(boolean valid, String msgContent, Object... args) {
+        if (!valid) {
             throw new RuntimeException(getMessage(msgContent, args));
+        }
     }
 
     public static User getSessionUser() {
@@ -68,10 +67,12 @@ public class MyUtil {
 
         if (auth != null) {
             Object principal = auth.getPrincipal();
+
             if (principal instanceof UserDetailsImpl) {
                 return (UserDetailsImpl) principal;
             }
         }
+
         return null;
     }
 

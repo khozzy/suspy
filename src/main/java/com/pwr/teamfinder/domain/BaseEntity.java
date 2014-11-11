@@ -24,8 +24,10 @@ public abstract class BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false)
     protected Date createdDate;
+
     @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
     protected boolean deleted = false;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_date")
     private Date deletedDate;
