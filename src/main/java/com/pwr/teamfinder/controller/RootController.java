@@ -111,15 +111,10 @@ public class RootController {
         return "signup";
     }
 
-
-    //TUTAJ DO ZAGLĄDNIĘCIA (Problem z CSRF - dodaje token do headera ale
-    //nadal forbidden, chyba, że nie dodaje tego tokena do headera
     @RequestMapping(value = "/signupJson", method = RequestMethod.POST)
     public String signUpJson(@ModelAttribute @Valid SignupForm signupForm,
-                         BindingResult result,
-                         Model model,
-                         RedirectAttributes redirectAttributes,
-                         HttpServletRequest request)
+                             BindingResult result,
+                             RedirectAttributes redirectAttributes)
             throws UserAlreadyExistsException, JsonProcessingException {
 
         if (result.hasErrors()) {
@@ -131,23 +126,14 @@ public class RootController {
 
         User user = userService.convertSignUpFormToUser(signupForm);
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-        CsrfToken csrfToken=httpSessionCsrfTokenRepository.loadToken(request);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type","application/json");
-
-        //headers.add(csrfToken.getHeaderName(), csrfToken.getToken());
-        //coś nie działa:( dlatego wyłączyłem w WebSecurityConfig csrf protection
-        //trzeba pomyślec nad metodą autoryzacji dostępu do serwisów - albo używamy csrf
-        //albo czegoś stąd https://stormpath.com/blog/how-secure-api-tips-rest-json-developers/
-
         ObjectMapper objectMapper = new ObjectMapper();
-        HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(user),headers);
-        logger.info(entity.toString());
-        restTemplate.put("http://localhost:8080/service/users", entity, String.class);
-        //User user = userService.signup(user);
+        HttpEntity<String> entity = new HttpEntity<>(
+                objectMapper.writeValueAsString(user),headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(MyUtil.hostUrl() + "/service/users", entity, String.class);
 
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('#button').button();
+    $('#showUsersList').button();
     $('#showUsersList').on('click', function () {
         var $btn = $(this).button('loading')
         //sleep(5000);
@@ -9,7 +9,7 @@ $(document).ready(function() {
     });
 
     var showUsersList = function () {
-        $.getJSON("http://localhost:8080/service/users/all", function (users) {
+        $.getJSON("http://localhost:8080/service/users", function (users) {
             if (users != "") {
                 $('#usersList').html('<h2>List of users:</h2>');
                 content='';

@@ -54,13 +54,20 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping
+    public String showUsersList()
+    {
+        return "usersList";
+    }
+
     @RequestMapping("/{userID}")
     public String showUserProfile(
             @PathVariable("userID") String userID)
     {
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<User> user = restTemplate.getForEntity("http://localhost:8080/service/users/" + userID,User.class);
+        ResponseEntity<User> user = restTemplate.getForEntity(
+                MyUtil.hostUrl() + "/service/users/" + userID,User.class);
 
         logger.info(user.toString());
 

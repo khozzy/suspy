@@ -15,7 +15,7 @@ Suspy will also be integrated with most popular social media websites like Faceb
 Create appropriate MySQL database:
 
 ```
-CREATE DATABASE teamfinder;
+CREATE DATABASE suspy;
 ```
 
 Change ```application.properties``` file for appropriate credentials.

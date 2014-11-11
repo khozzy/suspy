@@ -16,9 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
+import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -65,7 +69,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
 
-        http.csrf().disable();
+        http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+            private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
+            private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/service/.*", null);
+
+            @Override
+            public boolean matches(HttpServletRequest httpServletRequest) {
+                // No CSRF due to allowedMethod
+                if(allowedMethods.matcher(httpServletRequest.getMethod()).matches())
+                    return false;
+
+                // No CSRF due to api call
+                if(apiMatcher.matches(httpServletRequest))
+                    return false;
+
+                // CSRF for everything else that is not an service call or an allowedMethod
+                return true;
+            }
+        });
+
     }
 
     @Autowired
