@@ -39,6 +39,7 @@ public class UserServiceController {
 
         Collection<User> users = userService.findAll(
                 new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults), new Sort(Sort.Direction.ASC, "name")));//why not working?:(
+        //PagingAnd...Repo
         //Collection<User> users = userService.findAll();
         return users;
     }
@@ -69,4 +70,11 @@ public class UserServiceController {
         User user = userService.findById(Long.parseLong(userID));
         return new ResponseEntity<>("User " + user.getEmail() + " deleted.",new HttpHeaders(),HttpStatus.GONE);
     }
+
+    @RequestMapping(value = "forgotPassword/{userEmail}", method = RequestMethod.POST)
+    public ResponseEntity<String> forgotPassword(@PathVariable("userEmail") String userEmail) {
+        userService.emailExist(userEmail);
+        return new ResponseEntity<>("Reset password link send to " + userEmail + ".",new HttpHeaders(),HttpStatus.FOUND);
+    }
+
 }

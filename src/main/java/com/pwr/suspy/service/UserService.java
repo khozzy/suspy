@@ -57,50 +57,15 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return users;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public User signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
-
-        final String email = signupForm.getEmail();
-
-        Optional<User> existing = users.findByEmail(email);
-
-        if (existing.isPresent()) {
-            throw new UserAlreadyExistsException("User already exists");
-        }
-        
+    public void signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
         User user = convertSignUpFormToUser(signupForm);
-        user.setCreatedDate(new Date());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(Role.UNVERIFIED);
-        user.setVerificationCode(RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH));
-
-        users.save(user);
-
-        TransactionSynchronizationManager.registerSynchronization(
-                new TransactionSynchronizationAdapter() {
-                    @Override
-                    public void afterCommit() {
-                        try {
-                            String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
-                            mailSender.send(user.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
-                            logger.info("Verification mail to " + user.getEmail() + " queued.");
-                        } catch (MessagingException e) {
-                            logger.error(ExceptionUtils.getStackTrace(e));
-                        }
-                    }
-                });
-
-        return user;
+        signUp(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public User signUp(final User user) throws UserAlreadyExistsException {
 
-        Optional<User> existing = users.findByEmail(user.getEmail());
-
-        if (existing.isPresent()) {
-            throw new UserAlreadyExistsException("User already exists");
-        }
+        emailExist(user.getEmail());
 
         user.setCreatedDate(new Date());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -126,13 +91,13 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return user;
     }
     
-    public User convertSignUpFormToUser(SignupForm signupForm){
+    public User convertSignUpFormToUser(final SignupForm signupForm){
 
         final String street = signupForm.getStreet();
         final String houseNo = signupForm.getHouseNumber();
         final String city = signupForm.getCity();
 
-        Address address = new Address(street, houseNo, city);
+        final Address address = new Address(street, houseNo, city);
         
         final User user = new User();
 
@@ -149,20 +114,13 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Optional<User> user = users.findByEmail(username);
-
-        if (!user.isPresent()) {
-            throw new UsernameNotFoundException(username);
-        }
-
-        return new UserDetailsImpl(user.get());
+        return new UserDetailsImpl(emailExist(username));
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void verify(String verificationCode) {
 
-        long loggedInUserId = MyUtil.getSessionUser().getId();
+        Long loggedInUserId = MyUtil.getSessionUser().getId();
         User user = users.findOne(loggedInUserId);
 
         MyUtil.validate(user.getRoles().contains(Role.UNVERIFIED), "alreadyVerified");
@@ -198,7 +156,6 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
         final User user = users.findByEmail(form.getEmail()).get();
         final String resetPasswordCode = RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH);
-
         user.setResetPasswordCode(resetPasswordCode);
         final User savedUser = users.save(user);
 
@@ -218,21 +175,17 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     private void mailResetPasswordLink(User user) throws MessagingException {
-
         String resetPasswordLink =
                 MyUtil.hostUrl() + "/reset-password/" +
                         user.getResetPasswordCode();
         mailSender.send(user.getEmail(),
                 MyUtil.getMessage("resetPasswordSubject"),
                 MyUtil.getMessage("resetPasswordEmail", resetPasswordLink));
-
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void resetPassword(String resetPasswordCode, ResetPasswordForm resetPasswordForm) {
-
         User user = findByResetPasswordCode(resetPasswordCode).get();
-
         user.setResetPasswordCode(null);
         user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword().trim()));
         users.save(user);
@@ -240,6 +193,12 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
     public Optional<User> findByResetPasswordCode(String resetPasswordCode) {
         return users.findByResetPasswordCode(resetPasswordCode);
+    }
+
+    public User emailExist(String email){
+        Optional<User> existing = users.findByEmail(email);
+        if(existing.isPresent()) return existing.get();
+        else throw new UsernameNotFoundException("User already exists");
     }
 
 }

@@ -80,17 +80,11 @@ public class RootController {
                          RedirectAttributes redirectAttributes) throws UserAlreadyExistsException {
 
         if (result.hasErrors()) {
-
             for (ObjectError err : result.getAllErrors()) logger.info(String.valueOf(err.toString()));
-
             return "signup";
-            //tu najlepiej returnować JSONa używająć Jackson API
-            //http://www.concretepage.com/spring-4/spring-4-rest-web-service-json-example-tomcat
         }
 
         User user = userService.signUp(signupForm);
-
-        //model.addAttribute("id", user.getId());
 
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 
@@ -110,11 +104,7 @@ public class RootController {
             throws UserAlreadyExistsException, JsonProcessingException {
 
         if (result.hasErrors()) {
-
-            for (ObjectError err : result.getAllErrors()) {
-                logger.info(String.valueOf(err.toString()));
-            }
-
+            for (ObjectError err : result.getAllErrors()) logger.info(String.valueOf(err.toString()));
             return "signup";
         }
 
@@ -186,9 +176,7 @@ public class RootController {
             return "redirect:/";
         }
 
-        if (result.hasErrors()) {
-            return "reset-password";
-        }
+        if (result.hasErrors()) {return "reset-password";}
 
         userService.resetPassword(resetPasswordCode, resetPasswordForm);
 
