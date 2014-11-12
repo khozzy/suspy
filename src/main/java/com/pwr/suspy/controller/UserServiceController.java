@@ -74,7 +74,8 @@ public class UserServiceController {
 
     @RequestMapping("/{verificationCode}/verify")
     public ResponseEntity<String> verify(@PathVariable("verificationCode") String verificationCode) {
-        return new ResponseEntity<>("User " + MyUtil.getSessionUser().getEmail() + " deleted.",new HttpHeaders(),HttpStatus.OK);
+        userService.verify(verificationCode);
+        return new ResponseEntity<>("User " + MyUtil.getSessionUser().getEmail() + " verified.",new HttpHeaders(),HttpStatus.OK);
     }
 
     @RequestMapping("/resendVerificationEmail")

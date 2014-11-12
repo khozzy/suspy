@@ -136,11 +136,9 @@ public class RootController {
             BindingResult result,
             RedirectAttributes redirectAttributes) {
 
-        if (result.hasErrors()) {
-            return "forgot-password";
-        }
+        if (result.hasErrors()) {return "forgot-password";}
 
-        userService.forgotPassword(forgotPasswordForm);
+        userService.forgotPassword(forgotPasswordForm.getEmail());
         MyUtil.flash(redirectAttributes, "info", "checkMailResetPassword");
 
         return "redirect:/";
@@ -178,7 +176,7 @@ public class RootController {
 
         if (result.hasErrors()) {return "reset-password";}
 
-        userService.resetPassword(resetPasswordCode, resetPasswordForm);
+        userService.resetPassword(resetPasswordCode, resetPasswordForm.getPassword().trim());
 
         MyUtil.flash(redirectAttributes, "success", "passwordChanged");
 

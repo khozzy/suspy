@@ -152,9 +152,9 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void forgotPassword(ForgotPasswordForm form) {
+    public void forgotPassword(final String email) {
 
-        final User user = users.findByEmail(form.getEmail()).get();
+        final User user = users.findByEmail(email).get();
         final String resetPasswordCode = RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH);
         user.setResetPasswordCode(resetPasswordCode);
         final User savedUser = users.save(user);
@@ -184,10 +184,10 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void resetPassword(String resetPasswordCode, ResetPasswordForm resetPasswordForm) {
+    public void resetPassword(String resetPasswordCode, String newPassword) {
         User user = findByResetPasswordCode(resetPasswordCode).get();
         user.setResetPasswordCode(null);
-        user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword().trim()));
+        user.setPassword(passwordEncoder.encode(newPassword));
         users.save(user);
     }
 
