@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.UserService;
+import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +72,17 @@ public class UserServiceController {
         return new ResponseEntity<>("User " + user.getEmail() + " deleted.",new HttpHeaders(),HttpStatus.GONE);
     }
 
-    @RequestMapping(value = "forgotPassword/{userEmail}", method = RequestMethod.POST)
-    public ResponseEntity<String> forgotPassword(@PathVariable("userEmail") String userEmail) {
-        userService.emailExist(userEmail);
-        return new ResponseEntity<>("Reset password link send to " + userEmail + ".",new HttpHeaders(),HttpStatus.FOUND);
+    @RequestMapping("/{verificationCode}/verify")
+    public ResponseEntity<String> verify(@PathVariable("verificationCode") String verificationCode) {
+        return new ResponseEntity<>("User " + MyUtil.getSessionUser().getEmail() + " deleted.",new HttpHeaders(),HttpStatus.OK);
+    }
+
+    @RequestMapping("/resendVerificationEmail")
+    public ResponseEntity<String> resendVerificationEmail()
+    {
+        userService.resendVerificationEmail();
+
+        return new ResponseEntity<>("Verification email resent.",new HttpHeaders(),HttpStatus.OK);
     }
 
 }
