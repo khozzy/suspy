@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -27,8 +30,8 @@ public class UserServiceController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET,
-            headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
     public Collection<User> getUsers(
             @RequestParam(value="pageNum", defaultValue="1") String pageNum,
             @RequestParam(value="numOfResults", defaultValue="5") String numOfResults)
@@ -40,26 +43,30 @@ public class UserServiceController {
         return users;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, headers = "Content-Type=application/json")
-    public User createUser(@RequestBody User user) throws JsonProcessingException, UserAlreadyExistsException {
-        userService.signUp(user);
-        return user;
-    }
-
     @RequestMapping(value = "/{userID}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public User getUser(@PathVariable("userID") String userID) throws JsonProcessingException {
-        return userService.findById(Long.parseLong(userID));
+    public ResponseEntity<User> getUser(@PathVariable("userID") String userID) throws JsonProcessingException {
+        if (userService.exists(Long.parseLong(userID)))
+            return new ResponseEntity<>(userService.findById(Long.parseLong(userID)),new HttpHeaders(),HttpStatus.FOUND);
+        else
+            return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/{userID}", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public User updateUser(@PathVariable("userID") String userID, @RequestBody User user) throws JsonProcessingException {
+    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<String> createUser(@RequestBody User user) throws JsonProcessingException, UserAlreadyExistsException {
+        user = userService.signUp(user);
+        return new ResponseEntity<>("User " + user.getEmail() + " created.",new HttpHeaders(),HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{userID}", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> updateUser(@PathVariable("userID") String userID, @RequestBody User user) throws JsonProcessingException {
         //userService.update(userID, user);
-        return user;
+        return new ResponseEntity<>("User " + user.getEmail() + " updated.",new HttpHeaders(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("userID") String userID) throws JsonProcessingException {
+    public ResponseEntity<String> deleteUser(@PathVariable("userID") String userID) throws JsonProcessingException {
         userService.delete(Long.parseLong(userID));
-        return "userDeleted";
+        User user = userService.findById(Long.parseLong(userID));
+        return new ResponseEntity<>("User " + user.getEmail() + " deleted.",new HttpHeaders(),HttpStatus.GONE);
     }
 }
