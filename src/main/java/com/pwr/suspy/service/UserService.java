@@ -57,9 +57,9 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return users;
     }
 
-    public void signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
+    public User signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
         User user = convertSignUpFormToUser(signupForm);
-        signUp(user);
+        return signUp(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
