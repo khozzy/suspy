@@ -76,7 +76,6 @@ public class RootController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@ModelAttribute @Valid SignupForm signupForm,
                          BindingResult result,
-                         Model model,
                          RedirectAttributes redirectAttributes) throws UserAlreadyExistsException {
 
         if (result.hasErrors()) {
@@ -84,7 +83,7 @@ public class RootController {
             return "signup";
         }
 
-        User user = userService.signUp(signupForm);
+        userService.signUp(signupForm);
 
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 

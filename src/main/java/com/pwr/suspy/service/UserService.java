@@ -57,15 +57,16 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return users;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public User signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
-        User user = convertSignUpFormToUser(signupForm);
+        final User user = convertSignUpFormToUser(signupForm);
         return signUp(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public User signUp(final User user) throws UserAlreadyExistsException {
 
-        emailExist(user.getEmail());
+        if(emailExist(user.getEmail())) throw new UserAlreadyExistsException("User already exists");
 
         user.setCreatedDate(new Date());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -90,7 +91,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
         return user;
     }
-    
+
     public User convertSignUpFormToUser(final SignupForm signupForm){
 
         final String street = signupForm.getStreet();
@@ -98,7 +99,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         final String city = signupForm.getCity();
 
         final Address address = new Address(street, houseNo, city);
-        
+
         final User user = new User();
 
         user.setName(signupForm.getName());
@@ -108,13 +109,18 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         user.getRoles().add(Role.valueOf(signupForm.getRole()));
         user.setAddress(address);
         user.setAbout(signupForm.getAbout());
-        
+
         return user;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserDetailsImpl(emailExist(username));
+
+        if (!emailExist(username)) {
+            throw new UsernameNotFoundException(username);
+        }
+        User user = users.findByEmail(username).get();
+        return new UserDetailsImpl(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -195,10 +201,9 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return users.findByResetPasswordCode(resetPasswordCode);
     }
 
-    public User emailExist(String email){
+    public boolean emailExist(String email){
         Optional<User> existing = users.findByEmail(email);
-        if(existing.isPresent()) return existing.get();
-        else throw new UsernameNotFoundException("User already exists");
+        return existing.isPresent();
     }
 
 }
