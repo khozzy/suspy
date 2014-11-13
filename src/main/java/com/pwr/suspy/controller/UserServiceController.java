@@ -9,6 +9,7 @@ import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
@@ -33,16 +34,14 @@ public class UserServiceController {
 
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<User> getUsers(
-            @RequestParam(value="pageNum", defaultValue="1") String pageNum,
+    public Page<User> getUsers(
+            @RequestParam(value="pageNum", defaultValue="0") String pageNum,
             @RequestParam(value="numOfResults", defaultValue="5") String numOfResults)
             throws JsonProcessingException {
 
-        Collection<User> users = userService.findAll(
-                new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults), new Sort(Sort.Direction.ASC, "name")));//why not working?:(
-        //PagingAnd...Repo
-        //Collection<User> users = userService.findAll();
-        return users;
+        Page<User> page = userService.findAll(
+                new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults), new Sort(Sort.Direction.ASC, "name")));
+        return page;
     }
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.GET, headers = "Accept=application/json")

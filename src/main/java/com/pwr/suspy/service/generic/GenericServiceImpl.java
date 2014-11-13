@@ -1,6 +1,7 @@
 package com.pwr.suspy.service.generic;
 
 import com.pwr.suspy.domain.BaseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -60,11 +61,7 @@ public abstract class GenericServiceImpl<T extends BaseEntity, PK extends Serial
     }
 
     @Override
-    public Collection<T> findAll(Pageable pageable) {
-        return getRepository()
-                .findAll(pageable)
-                .getContent()
-                .stream()
-                .collect(Collectors.toList());
+    public Page<T> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable);
     }
 }

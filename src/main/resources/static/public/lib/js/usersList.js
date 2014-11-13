@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
-    $('#showUsersList').button();
+    $('#showUsersList').button().noConflict;
     $('#showUsersList').on('click', function () {
-        var $btn = $(this).button('loading')
+        var $btn = $(this).button('loading').noConflict;
         //sleep(5000);
         showUsersList();
-        $btn.button('reset')
+        $btn.button('reset').noConflict;
     });
 
     var showUsersList = function () {
@@ -13,7 +13,7 @@ $(document).ready(function() {
             if (users != "") {
                 $('#usersList').html('<h2>List of users:</h2>');
                 content='';
-                $.each( users, function( i, user ) {
+                $.each( users.content, function( i, user ) {
                     content += '<p>' + user.id;
                     content += ' ' + user.name;
                     content += ' ' + user.surname;
@@ -24,7 +24,6 @@ $(document).ready(function() {
                     content += ' ' + user.roles;
                     content += ' ' + user.about;
                     content += ' ' + user.teams + '</p>';
-                    content += '<br/>';
                 });
                 $(content).appendTo("#usersList");
             }

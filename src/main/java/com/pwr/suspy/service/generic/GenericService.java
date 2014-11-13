@@ -2,6 +2,7 @@ package com.pwr.suspy.service.generic;
 
 
 import com.pwr.suspy.domain.BaseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,6 @@ public interface GenericService<T extends BaseEntity, PK extends Serializable, R
 
     Iterable<T> findAll(Sort sort);
 
-    Collection<T> findAll(Pageable pageable);
+    Page<T> findAll(Pageable pageable);
 
 }
