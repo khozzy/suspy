@@ -3,10 +3,9 @@ package com.pwr.suspy.service;
 import com.pwr.suspy.domain.Address;
 import com.pwr.suspy.domain.Role;
 import com.pwr.suspy.domain.User;
-import com.pwr.suspy.dto.ForgotPasswordForm;
-import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.dto.UserDetailsImpl;
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.mail.MailSender;
 import com.pwr.suspy.repository.Users;
@@ -134,6 +133,18 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         user.setResetPasswordCode(null);
         user.setPassword(passwordEncoder.encode(newPassword));
         users.save(user);
+    }
+
+    @Transactional
+    public void observe(final User userA, final User userB) throws UserAlreadyObservedException {
+        userA.observe(userB);
+        save(userA);
+    }
+
+    @Transactional
+    public void stopObserving(final User userA, final User userB) {
+        userA.stopObserving(userB);
+        save(userA);
     }
 
     @Override

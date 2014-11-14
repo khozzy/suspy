@@ -1,11 +1,13 @@
 package com.pwr.suspy.domain;
 
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Entity
@@ -51,6 +53,13 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "observation",
+            joinColumns = { @JoinColumn(name = "user") },
+            inverseJoinColumns = { @JoinColumn(name = "observing_user_id")})
+    private Set<User> observed = new HashSet<>();
+
     @Column(name = "about", length = ABOUT_MAX)
     private String about;
 
@@ -66,9 +75,6 @@ public class User extends BaseEntity {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
     private Set<Team> teams;
-
-    @OneToMany
-    private Set<User> friends;
 
     public String getName() {
         return name;
@@ -150,12 +156,32 @@ public class User extends BaseEntity {
         this.teams = teams;
     }
 
-    public Set<User> getFriends() {
-        return friends;
+    public Set<User> getObserved() {
+        return observed;
     }
 
-    public void setFriends(Set<User> friends) {
-        this.friends = friends;
+    public void setObserved(Set<User> observed) {
+        this.observed = observed;
+    }
+
+    public void observe(User user) throws UserAlreadyObservedException {
+        if (observed.contains(user)) {
+            throw new UserAlreadyObservedException(
+                    String.format("User %s is already observing user %s", email, user.getEmail())
+            );
+        }
+
+        observed.add(user);
+    }
+
+    public void stopObserving(User user) {
+        if (!observed.contains(user)) {
+            throw new NoSuchElementException(
+                    String.format("User %s is not watching user %s", email, user.getEmail())
+            );
+        }
+
+        observed.remove(user);
     }
 
     @Override
@@ -215,7 +241,6 @@ public class User extends BaseEntity {
                 ", verificationCode='" + verificationCode + '\'' +
                 ", resetPasswordCode='" + resetPasswordCode + '\'' +
                 ", teams=" + teams +
-                ", friends=" + friends +
                 '}';
     }
 }
