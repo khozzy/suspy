@@ -58,13 +58,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public User signUp(final SignupForm signupForm) throws UserAlreadyExistsException {
-        final User user = convertSignUpFormToUser(signupForm);
-        return signUp(user);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public User signUp(final User user) throws UserAlreadyExistsException {
+    public User createNewUser(final User user) throws UserAlreadyExistsException {
 
         if(emailExist(user.getEmail())) throw new UserAlreadyExistsException("User already exists");
 
@@ -92,39 +86,8 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return user;
     }
 
-    public User convertSignUpFormToUser(final SignupForm signupForm){
-
-        final String street = signupForm.getStreet();
-        final String houseNo = signupForm.getHouseNumber();
-        final String city = signupForm.getCity();
-
-        final Address address = new Address(street, houseNo, city);
-
-        final User user = new User();
-
-        user.setName(signupForm.getName());
-        user.setSurname(signupForm.getSurname());
-        user.setEmail(signupForm.getEmail());
-        user.setPassword(signupForm.getPassword());
-        user.getRoles().add(Role.valueOf(signupForm.getRole()));
-        user.setAddress(address);
-        user.setAbout(signupForm.getAbout());
-
-        return user;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        if (!emailExist(username)) {
-            throw new UsernameNotFoundException(username);
-        }
-        User user = users.findByEmail(username).get();
-        return new UserDetailsImpl(user);
-    }
-
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void verify(String verificationCode) {
+    public void verifyUser(final String verificationCode) {
 
         Long loggedInUserId = MyUtil.getSessionUser().getId();
         User user = users.findOne(loggedInUserId);
@@ -143,23 +106,8 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
     }
 
-    public void resendVerificationEmail() {
-
-        long loggedInUserId = MyUtil.getSessionUser().getId();
-        User user = users.findOne(loggedInUserId);
-
-        try {
-            String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
-            mailSender.send(user.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
-            logger.info("Verification mail to " + user.getEmail() + " queued.");
-        } catch (MessagingException e) {
-            logger.error(ExceptionUtils.getStackTrace(e));
-        }
-    }
-
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void forgotPassword(final String email) {
-
         final User user = users.findByEmail(email).get();
         final String resetPasswordCode = RandomStringUtils.randomAlphanumeric(User.RANDOM_CODE_LENGTH);
         user.setResetPasswordCode(resetPasswordCode);
@@ -180,6 +128,28 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void resetPassword(String resetPasswordCode, String newPassword) {
+        User user = findByResetPasswordCode(resetPasswordCode).get();
+        user.setResetPasswordCode(null);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        users.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        if (!emailExist(username)) {
+            throw new UsernameNotFoundException(username);
+        }
+        User user = users.findByEmail(username).get();
+        return new UserDetailsImpl(user);
+    }
+
+    public Optional<User> findByResetPasswordCode(String resetPasswordCode) {
+        return users.findByResetPasswordCode(resetPasswordCode);
+    }
+
     private void mailResetPasswordLink(User user) throws MessagingException {
         String resetPasswordLink =
                 MyUtil.hostUrl() + "/reset-password/" +
@@ -189,16 +159,18 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
                 MyUtil.getMessage("resetPasswordEmail", resetPasswordLink));
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void resetPassword(String resetPasswordCode, String newPassword) {
-        User user = findByResetPasswordCode(resetPasswordCode).get();
-        user.setResetPasswordCode(null);
-        user.setPassword(passwordEncoder.encode(newPassword));
-        users.save(user);
-    }
+    public void resendVerificationEmail() {
 
-    public Optional<User> findByResetPasswordCode(String resetPasswordCode) {
-        return users.findByResetPasswordCode(resetPasswordCode);
+        long loggedInUserId = MyUtil.getSessionUser().getId();
+        User user = users.findOne(loggedInUserId);
+
+        try {
+            String verifyLink = MyUtil.hostUrl() + "/users/" + user.getVerificationCode() + "/verify";
+            mailSender.send(user.getEmail(), MyUtil.getMessage("verifySubject"), MyUtil.getMessage("verifyEmail", verifyLink));
+            logger.info("Verification mail to " + user.getEmail() + " queued.");
+        } catch (MessagingException e) {
+            logger.error(ExceptionUtils.getStackTrace(e));
+        }
     }
 
     public boolean emailExist(String email){
@@ -206,4 +178,24 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         return existing.isPresent();
     }
 
+    public User convertSignUpFormToUser(final SignupForm signupForm){
+
+        final String street = signupForm.getStreet();
+        final String houseNo = signupForm.getHouseNumber();
+        final String city = signupForm.getCity();
+
+        final Address address = new Address(street, houseNo, city);
+
+        final User user = new User();
+
+        user.setName(signupForm.getName());
+        user.setSurname(signupForm.getSurname());
+        user.setEmail(signupForm.getEmail());
+        user.setPassword(signupForm.getPassword());
+        user.getRoles().add(Role.valueOf(signupForm.getRole()));
+        user.setAddress(address);
+        user.setAbout(signupForm.getAbout());
+
+        return user;
+    }
 }

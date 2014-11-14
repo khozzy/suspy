@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class GymService extends GenericServiceImpl<Place, Long, Places> {
+public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
 
     @Autowired
     private Places repository;
@@ -22,7 +22,7 @@ public class GymService extends GenericServiceImpl<Place, Long, Places> {
         return repository;
     }
 
-    public Place createGym(final String name, final Address address, final User owner, final int capacity, final Set<Activity> activities) {
+    public Place createNewGym(final String name, final Address address, final User owner, final int capacity, final Set<Activity> activities) {
 
         Place gym = new Place();
 

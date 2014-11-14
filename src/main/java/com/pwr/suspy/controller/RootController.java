@@ -83,7 +83,8 @@ public class RootController {
             return "signup";
         }
 
-        userService.signUp(signupForm);
+        final User user = userService.convertSignUpFormToUser(signupForm);
+        userService.createNewUser(user);
 
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 

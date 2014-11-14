@@ -33,7 +33,7 @@ public class UserController {
                          RedirectAttributes redirectAttributes,
                          HttpServletRequest request) {
 
-        userService.verify(verificationCode);
+        userService.verifyUser(verificationCode);
         MyUtil.flash(redirectAttributes, "success", "verificationSuccess");
         //request.logout();
 

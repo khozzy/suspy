@@ -17,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-
 @RestController
 @RequestMapping("/service/users")
 public class UserServiceController {
@@ -54,7 +52,7 @@ public class UserServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody User user) throws JsonProcessingException, UserAlreadyExistsException {
-        user = userService.signUp(user);
+        user = userService.createNewUser(user);
         return new ResponseEntity<>("User " + user.getEmail() + " created.",new HttpHeaders(),HttpStatus.CREATED);
     }
 
@@ -73,7 +71,7 @@ public class UserServiceController {
 
     @RequestMapping("/{verificationCode}/verify")
     public ResponseEntity<String> verify(@PathVariable("verificationCode") String verificationCode) {
-        userService.verify(verificationCode);
+        userService.verifyUser(verificationCode);
         return new ResponseEntity<>("User " + MyUtil.getSessionUser().getEmail() + " verified.",new HttpHeaders(),HttpStatus.OK);
     }
 
