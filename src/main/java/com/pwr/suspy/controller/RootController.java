@@ -7,6 +7,7 @@ import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.ForgotPasswordForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
