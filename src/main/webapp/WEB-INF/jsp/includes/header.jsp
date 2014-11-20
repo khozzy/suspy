@@ -14,12 +14,12 @@
     <title>No team? TeamFinder!</title>
 
     <!-- Bootstrap & our CSS-->
-    <link href="/public/lib/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/lib/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/public/lib/css/styles.css" rel="stylesheet">
 
     <!-- jQuery, Bootstrap and our JS -->
     <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
-    <script src="/public/lib/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="/public/lib/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
