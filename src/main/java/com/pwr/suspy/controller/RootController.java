@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.ForgotPasswordForm;
+import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
@@ -72,6 +73,12 @@ public class RootController {
     public String signUp(Model model) {
         model.addAttribute(new SignupForm());
         return "signup";
+    }
+
+    @RequestMapping(value = "/new-event")
+    public String newEvent(Model model) {
+        model.addAttribute(new NewEventForm());
+        return "new-event";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
