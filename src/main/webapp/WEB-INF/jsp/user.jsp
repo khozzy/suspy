@@ -14,7 +14,7 @@
         <div class="row clearfix">
             <div class="col-md-4 column">
                 <div class="media profile-picture">
-                    <a class="media-left event-img" href="#">
+                    <a class="media-left" href="#">
                         <img src="/public/lib/assets/profile-default.jpg" alt="prifile-picture">
                     </a>
                 </div>

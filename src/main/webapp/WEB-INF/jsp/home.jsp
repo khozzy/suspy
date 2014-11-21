@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="row" >
                                     <div class="col-md-4">
-                                        <div style="float:left;">
+                                        <div class="pull-left">
                                             <p class="text-center"><span class="glyphicon glyphicon-user glyph-big"></span><br/>Orlik przy SP nr 10</p>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div style="float:right;">
+                                        <div class="pull-right">
                                             <p class="text-center"><span class="glyphicon glyphicon-map-marker glyph-big"></span><br/>Orlik przy SP nr 10</p>
                                         </div>
                                     </div>
