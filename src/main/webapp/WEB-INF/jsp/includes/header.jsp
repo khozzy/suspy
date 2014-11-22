@@ -99,7 +99,7 @@
                                 <form:form id="logoutForm" action="${logoutUrl}" method="post">
                                 </form:form>
                                 <a href="#" onclick="document.getElementById('logoutForm').submit()">
-                                    <span class="glyphicon glyphicon-log-out"></span> <spring:message code='signout'/></a>
+                                     <span class="glyphicon glyphicon-log-out"></span> <spring:message code='signout'/></a>
                             </li>
                         </ul>
                     </li>

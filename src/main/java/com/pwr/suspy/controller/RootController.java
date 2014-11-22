@@ -4,11 +4,10 @@ package com.pwr.suspy.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
-import com.pwr.suspy.dto.ForgotPasswordForm;
-import com.pwr.suspy.dto.ResetPasswordForm;
-import com.pwr.suspy.dto.SignupForm;
+import com.pwr.suspy.dto.*;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
+import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
 import com.pwr.suspy.validators.ForgotPasswordFormValidator;
@@ -29,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Optional;
 
 @Controller
@@ -37,17 +37,20 @@ public class RootController {
     private static final Logger logger = LoggerFactory.getLogger(RootController.class);
 
     private UserService userService;
+    private TimeSlotService timeSlotService;
     private SignupFormValidator signupFormValidator;
     private ForgotPasswordFormValidator forgotPasswordFormValidator;
     private ResetPasswordFormValidator resetPasswordFormValidator;
 
     @Autowired
     public RootController(UserService userService,
+                          TimeSlotService timeSlotService,
                           SignupFormValidator signupFormValidator,
                           ForgotPasswordFormValidator forgotPasswordFormValidator,
                           ResetPasswordFormValidator resetPasswordFormValidator) {
 
         this.userService = userService;
+        this.timeSlotService = timeSlotService;
         this.signupFormValidator = signupFormValidator;
         this.forgotPasswordFormValidator = forgotPasswordFormValidator;
         this.resetPasswordFormValidator = resetPasswordFormValidator;
@@ -72,6 +75,12 @@ public class RootController {
     public String signUp(Model model) {
         model.addAttribute(new SignupForm());
         return "signup";
+    }
+
+    @RequestMapping(value = "/new-event")
+    public String newEvent(Model model) {
+        model.addAttribute(new NewEventForm());
+        return "new-event";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -182,5 +191,28 @@ public class RootController {
         MyUtil.flash(redirectAttributes, "success", "passwordChanged");
 
         return "redirect:/login";
+    }
+    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.GET)
+    public String addTimeSlot(Model model)
+    {
+        model.addAttribute(new AddTimeSlotForm());
+        return "addTimeSlot";
+    }
+
+    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.POST)
+    public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
+                              BindingResult result){
+        if(result.hasErrors())
+        {
+            return "addTimeSlot";
+        }
+        logger.info(addTimeSlotForm.toString());
+        try {
+            timeSlotService.convertAddTimeSlotFormToTimeSlot(addTimeSlotForm);
+        }catch (ParseException ex) {
+
+            return "addTimeSlot";
+        }
+        return "redirect:/";
     }
 }

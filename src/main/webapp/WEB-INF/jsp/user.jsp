@@ -1,5 +1,4 @@
 <%@include file="includes/header.jsp" %>
-
 <div class="row">
     <div class="col-md-2 column">
         <h3>Profile</h3>
@@ -10,12 +9,12 @@
             <a href="#" class="list-group-item">Change e-mail</a>
             <a href="#" class="list-group-item">Advanced</a>
         </div>
-     </div>
-     <div class="col-md-10 column">
+    </div>
+    <div class="col-md-10 column">
         <div class="row clearfix">
             <div class="col-md-4 column">
                 <div class="media profile-picture">
-                    <a class="media-left event-img" href="#">
+                    <a class="media-left" href="#">
                         <img src="/public/lib/assets/profile-default.jpg" alt="prifile-picture">
                     </a>
                 </div>
@@ -29,5 +28,4 @@
     </div>
 </div>
 <div class="clearfix"/>
-
 <%@include file="includes/footer.jsp" %>
