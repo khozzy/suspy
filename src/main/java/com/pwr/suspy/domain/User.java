@@ -166,7 +166,7 @@ public class User extends BaseEntity {
         this.observed = observed;
     }
 
-    public void observe(User user) throws UserAlreadyObservedException {
+    public void startObserving(User user) throws UserAlreadyObservedException {
         if (observed.contains(user)) {
             throw new UserAlreadyObservedException(
                     String.format("User %s is already observing user %s", email, user.getEmail())
@@ -265,12 +265,6 @@ public class User extends BaseEntity {
         User loggedIn = MyUtil.getSessionUser();
         if(loggedIn == null || loggedIn.getId() == id) return false;
         return true;
-    }
-
-    @JsonIgnore
-    public boolean isObserved(){
-        User loggedIn =  MyUtil.getSessionUser();
-        return loggedIn.getObserved().contains(this);
     }
 
 }

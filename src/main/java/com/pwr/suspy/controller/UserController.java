@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.UserEditForm;
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
@@ -65,20 +66,27 @@ public class UserController {
 
     @RequestMapping("/{userID}")
     public String showUserProfile(
-            @PathVariable("userID") String userID,
+            @PathVariable("userID") Long userID,
             Model model){
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<User> entity = restTemplate.getForEntity(
                 MyUtil.hostUrl() + "/service/users/" + userID, User.class);
         User user = entity.getBody();
+        if(MyUtil.getSessionUser()!= null) {
+            boolean observed = userService.findById(MyUtil.getSessionUser()
+                    .getId()).getObserved().contains(userService.findById(user.getId()));
+            logger.info(MyUtil.getSessionUser().getId().toString());
+            logger.info(String.valueOf(observed));
+            model.addAttribute("observed",observed);
+        }
         user = userService.checkPermissions(user);
         model.addAttribute(user);
         return "user";
     }
 
     @RequestMapping(value = "/{userId}/edit")
-    public String edit(@PathVariable("userId") long userId, Model model) {
+    public String edit(@PathVariable("userId") Long userId, Model model) {
 
         User user = userService.findById(userId);
         UserEditForm form = new UserEditForm();
@@ -91,7 +99,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{userId}/edit", method = RequestMethod.POST)
-    public String edit(@PathVariable("userId") long userId,
+    public String edit(@PathVariable("userId") Long userID,
                        @ModelAttribute("userEditForm") @Valid UserEditForm userEditForm,
                        BindingResult result, RedirectAttributes redirectAttributes,
                        HttpServletRequest request) throws ServletException {
@@ -99,13 +107,53 @@ public class UserController {
         if (result.hasErrors())
             return "user-edit";
 
-        userService.updateUser(userId, userEditForm);
+        userService.updateUser(userID, userEditForm);
         MyUtil.flash(redirectAttributes, "success", "editSuccessful");
         request.logout();
 
-        return "redirect:/";
+        return "redirect:/users/"+userID;
     }
 
+    @RequestMapping(value = "/{userId}/change-password")
+    public String changePassword(@PathVariable("userId") Long userId, Model model) {
+        return "change-password";
+    }
 
+    @RequestMapping(value = "/{userId}/change-email")
+    public String changeEmail(@PathVariable("userId") Long userId, Model model) {
+        return "change-email";
+    }
+
+    @RequestMapping(value = "/{userId}/advanced")
+    public String userAdvanced(@PathVariable("userId") Long userId, Model model) {
+        return "userAdvanced";
+    }
+
+    @RequestMapping("/{userID}/startObserving")
+    public String startObserving(@PathVariable("userID") Long userID,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes)
+    {
+        User userA = userService.findById(MyUtil.getSessionUser().getId());
+        User userB = userService.findById(userID);
+        try {
+            userService.observe(userA,userB);
+        } catch (UserAlreadyObservedException e) {
+            MyUtil.flash(redirectAttributes, "danger", "userAlreadyObserved");
+            return "redirect:/users/"+userID;
+        }
+        return "redirect:/users/"+userID;
+    }
+
+    @RequestMapping("/{userID}/stopObserving")
+    public String stopObserving(@PathVariable("userID") Long userID,
+                                Model model,
+                                RedirectAttributes redirectAttributes)
+    {
+        User userA = userService.findById(MyUtil.getSessionUser().getId());
+        User userB = userService.findById(userID);
+        userService.stopObserving(userA,userB);
+        return "redirect:/users/"+userID;
+    }
 
 }

@@ -34,19 +34,19 @@ public class UserServiceController {
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public Page<User> getUsers(
-            @RequestParam(value="pageNum", defaultValue="0") String pageNum,
-            @RequestParam(value="numOfResults", defaultValue="5") String numOfResults)
+            @RequestParam(value="pageNum", defaultValue="0") int pageNum,
+            @RequestParam(value="numOfResults", defaultValue="5") int numOfResults)
             throws JsonProcessingException {
 
         Page<User> page = userService.findAll(
-                new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(numOfResults), new Sort(Sort.Direction.ASC, "name")));
+                new PageRequest(pageNum, numOfResults, new Sort(Sort.Direction.ASC, "name")));
         return page;
     }
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public ResponseEntity<User> getUser(@PathVariable("userID") String userID) throws JsonProcessingException {
-        if (userService.exists(Long.parseLong(userID)))
-            return new ResponseEntity<>(userService.findById(Long.parseLong(userID)),new HttpHeaders(),HttpStatus.FOUND);
+    public ResponseEntity<User> getUser(@PathVariable("userID") Long userID) throws JsonProcessingException {
+        if (userService.exists(userID))
+            return new ResponseEntity<>(userService.findById(userID),new HttpHeaders(),HttpStatus.FOUND);
         else
             return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_FOUND);
     }
@@ -58,15 +58,15 @@ public class UserServiceController {
     }
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> updateUser(@PathVariable("userID") String userID, @RequestBody User user) throws JsonProcessingException {
+    public ResponseEntity<String> updateUser(@PathVariable("userID") Long userID, @RequestBody User user) throws JsonProcessingException {
         //userService.update(userID, user);
         return new ResponseEntity<>("User " + user.getEmail() + " updated.",new HttpHeaders(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteUser(@PathVariable("userID") String userID) throws JsonProcessingException {
-        userService.delete(Long.parseLong(userID));
-        User user = userService.findById(Long.parseLong(userID));
+    public ResponseEntity<String> deleteUser(@PathVariable("userID") Long userID) throws JsonProcessingException {
+        userService.delete(userID);
+        User user = userService.findById(userID);
         return new ResponseEntity<>("User " + user.getEmail() + " deleted.",new HttpHeaders(),HttpStatus.GONE);
     }
 
@@ -85,10 +85,10 @@ public class UserServiceController {
     }
 
     @RequestMapping(value = "/{userAid}/observe/{userBid}", method = RequestMethod.GET)
-    public ResponseEntity<String> observe(@PathVariable("userAid") String userAid,
-                                          @PathVariable("userBid") String userBid) {
-        User userA = userService.findById(Long.parseLong(userAid));
-        User userB = userService.findById(Long.parseLong(userBid));
+    public ResponseEntity<String> observe(@PathVariable("userAid") long userAid,
+                                          @PathVariable("userBid") long userBid) {
+        User userA = userService.findById(userAid);
+        User userB = userService.findById(userBid);
         try {
             userService.observe(userA, userB);
         }

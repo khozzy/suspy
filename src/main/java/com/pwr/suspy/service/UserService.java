@@ -152,7 +152,7 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
     @Transactional
     public void observe(final User userA, final User userB) throws UserAlreadyObservedException {
-        userA.observe(userB);
+        userA.startObserving(userB);
         save(userA);
     }
 
@@ -231,7 +231,6 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
         if (loggedIn == null || loggedIn.getId() != user.getId() && !loggedIn.isAdmin()){
             user.setPassword(null);
-            user.setRoles(null);
             user.setVerificationCode(null);
             user.setResetPasswordCode(null);
             user.setCreatedDate(null);
