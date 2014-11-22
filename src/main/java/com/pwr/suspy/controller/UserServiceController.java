@@ -34,12 +34,12 @@ public class UserServiceController {
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public Page<User> getUsers(
-            @RequestParam(value="pageNum", defaultValue="0") int pageNum,
-            @RequestParam(value="numOfResults", defaultValue="5") int numOfResults)
+            @RequestParam(value="pageNum", defaultValue="0") Long pageNum,
+            @RequestParam(value="numOfResults", defaultValue="5") Long numOfResults)
             throws JsonProcessingException {
 
         Page<User> page = userService.findAll(
-                new PageRequest(pageNum, numOfResults, new Sort(Sort.Direction.ASC, "name")));
+                new PageRequest(pageNum.intValue(), numOfResults.intValue(), new Sort(Sort.Direction.ASC, "name")));
         return page;
     }
 
