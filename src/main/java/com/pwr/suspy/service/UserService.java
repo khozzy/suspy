@@ -229,12 +229,12 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
 
         User loggedIn = MyUtil.getSessionUser();
 
-        if (loggedIn == null ||loggedIn.getId() != user.getId() && !loggedIn.isAdmin()){
-
-            user.setEmail("Private");
-            user.setPassword("Private");
-            user.setObserved(null);
-            user.setAddress(null);
+        if (loggedIn == null || loggedIn.getId() != user.getId() && !loggedIn.isAdmin()){
+            user.setPassword(null);
+            user.setRoles(null);
+            user.setVerificationCode(null);
+            user.setResetPasswordCode(null);
+            user.setCreatedDate(null);
         }
 
         return user;

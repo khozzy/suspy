@@ -269,8 +269,8 @@ public class User extends BaseEntity {
 
     @JsonIgnore
     public boolean isObserved(){
-        //return MyUtil.getSessionUser().getObserved().contains(this);
-        return false;
+        User loggedIn =  MyUtil.getSessionUser();
+        return loggedIn.getObserved().contains(this);
     }
 
 }
