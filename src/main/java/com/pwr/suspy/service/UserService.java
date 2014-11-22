@@ -5,6 +5,7 @@ import com.pwr.suspy.domain.Role;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.dto.UserDetailsImpl;
+import com.pwr.suspy.dto.UserEditForm;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.mail.MailSender;
@@ -32,6 +33,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -83,6 +85,19 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
                 });
 
         return user;
+    }
+
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+    public void updateUser(long userId, UserEditForm userEditForm) {
+
+        User loggedIn = MyUtil.getSessionUser();
+        MyUtil.validate(loggedIn.isAdmin() || loggedIn.getId() == userId, "noPermissions");
+        User user = users.findOne(userId);
+        user.setName(userEditForm.getName());
+        if (loggedIn.isAdmin())
+            user.setRoles(userEditForm.getRoles());
+        users.save(user);
+
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -206,6 +221,21 @@ public class UserService extends GenericServiceImpl<User, Long, Users> implement
         user.getRoles().add(Role.valueOf(signupForm.getRole()));
         user.setAddress(address);
         user.setAbout(signupForm.getAbout());
+
+        return user;
+    }
+
+    public User checkPermissions(User user) {
+
+        User loggedIn = MyUtil.getSessionUser();
+
+        if (loggedIn == null ||loggedIn.getId() != user.getId() && !loggedIn.isAdmin()){
+
+            user.setEmail("Private");
+            user.setPassword("Private");
+            user.setObserved(null);
+            user.setAddress(null);
+        }
 
         return user;
     }

@@ -1,6 +1,8 @@
 package com.pwr.suspy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
+import com.pwr.suspy.util.MyUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -243,4 +245,32 @@ public class User extends BaseEntity {
                 ", teams=" + teams +
                 '}';
     }
+
+    @JsonIgnore
+    public boolean isAdmin(){
+        return roles.contains(Role.ADMIN);
+    }
+
+    @JsonIgnore
+    public boolean isEditable() {
+        User loggedIn = MyUtil.getSessionUser();
+        if (loggedIn == null)
+            return false;
+        return loggedIn.isAdmin() ||   // ADMIN or
+                loggedIn.getId() == id; // self can edit
+    }
+
+    @JsonIgnore
+    public boolean isObservable(){
+        User loggedIn = MyUtil.getSessionUser();
+        if(loggedIn == null || loggedIn.getId() == id) return false;
+        return true;
+    }
+
+    @JsonIgnore
+    public boolean isObserved(){
+        //return MyUtil.getSessionUser().getObserved().contains(this);
+        return false;
+    }
+
 }

@@ -4,6 +4,7 @@ package com.pwr.suspy.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
@@ -69,18 +70,34 @@ public class UserServiceController {
         return new ResponseEntity<>("User " + user.getEmail() + " deleted.",new HttpHeaders(),HttpStatus.GONE);
     }
 
-    @RequestMapping("/{verificationCode}/verify")
+    @RequestMapping(value = "/{verificationCode}/verify", method = RequestMethod.GET)
     public ResponseEntity<String> verify(@PathVariable("verificationCode") String verificationCode) {
         userService.verifyUser(verificationCode);
         return new ResponseEntity<>("User " + MyUtil.getSessionUser().getEmail() + " verified.",new HttpHeaders(),HttpStatus.OK);
     }
 
-    @RequestMapping("/resendVerificationEmail")
+    @RequestMapping(value = "/resendVerificationEmail", method = RequestMethod.GET)
     public ResponseEntity<String> resendVerificationEmail()
     {
         userService.resendVerificationEmail();
 
         return new ResponseEntity<>("Verification email resent.",new HttpHeaders(),HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{userAid}/observe/{userBid}", method = RequestMethod.GET)
+    public ResponseEntity<String> observe(@PathVariable("userAid") String userAid,
+                                          @PathVariable("userBid") String userBid) {
+        User userA = userService.findById(Long.parseLong(userAid));
+        User userB = userService.findById(Long.parseLong(userBid));
+        try {
+            userService.observe(userA, userB);
+        }
+        catch(UserAlreadyObservedException e){
+            return new ResponseEntity<>("User " + userA.getEmail() + " already observes user "+
+                    userB.getEmail() + "verified.",new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("User " + userA.getEmail() + " now observes user "+
+                userB.getEmail() + ".",new HttpHeaders(),HttpStatus.OK);
     }
 
 }
