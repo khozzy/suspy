@@ -7,6 +7,7 @@ import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.*;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
+import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
@@ -38,6 +39,7 @@ public class RootController {
 
     private UserService userService;
     private TimeSlotService timeSlotService;
+    private PlaceService placeService;
     private SignupFormValidator signupFormValidator;
     private ForgotPasswordFormValidator forgotPasswordFormValidator;
     private ResetPasswordFormValidator resetPasswordFormValidator;
@@ -45,12 +47,14 @@ public class RootController {
     @Autowired
     public RootController(UserService userService,
                           TimeSlotService timeSlotService,
+                          PlaceService placeService,
                           SignupFormValidator signupFormValidator,
                           ForgotPasswordFormValidator forgotPasswordFormValidator,
                           ResetPasswordFormValidator resetPasswordFormValidator) {
 
         this.userService = userService;
         this.timeSlotService = timeSlotService;
+        this.placeService = placeService;
         this.signupFormValidator = signupFormValidator;
         this.forgotPasswordFormValidator = forgotPasswordFormValidator;
         this.resetPasswordFormValidator = resetPasswordFormValidator;
@@ -213,6 +217,25 @@ public class RootController {
 
             return "addTimeSlot";
         }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/addPlace", method = RequestMethod.GET)
+    public String addPlace(Model model)
+    {
+        model.addAttribute(new AddPlaceForm());
+        return "addPlace";
+    }
+
+    @RequestMapping(value = "/addPlace", method = RequestMethod.POST)
+    public String addPlace(@ModelAttribute("addPlace") @Valid AddPlaceForm addPlaceForm,
+                              BindingResult result){
+        if(result.hasErrors())
+        {
+            return "addPlace";
+        }
+        logger.info(addPlaceForm.toString());
+        placeService.convertAddPlaceFormToPlace(addPlaceForm);
         return "redirect:/";
     }
 }
