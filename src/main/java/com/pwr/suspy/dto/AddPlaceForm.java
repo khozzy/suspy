@@ -2,8 +2,12 @@ package com.pwr.suspy.dto;
 
 
 import com.pwr.suspy.domain.Activity;
+import com.pwr.suspy.domain.Address;
+import com.pwr.suspy.domain.User;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Iterator;
@@ -12,10 +16,17 @@ import java.util.Set;
 public class AddPlaceForm
 {
     @NotNull
+    @NotBlank(message = "{city.error.blank}")
+    @Size(min = Address.CITY_MIN, max = Address.CITY_MAX, message = "{city.error.size}")
+    @Pattern(regexp = User.REQUIRED_PATTERN, message = "{city.error.pattern}")
     private String city;
-    @NotNull
+
+    @Size(max = Address.STREET_MAX, message = "{street.error.size}")
+    @Pattern(regexp = User.NON_REQUIRED_PATTERN, message = "{street.error.pattern}")
     private String street;
-    @NotNull
+
+    @Size(max = Address.HOUSE_NR_MAX, message = "{houseNumber.error.size}")
+    @Pattern(regexp = Address.HOUSE_NR_PATTERN, message = "{houseNumber.error.pattern}")
     private String houseNumber;
     @NotNull
     private int capacity;

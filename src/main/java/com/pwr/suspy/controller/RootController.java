@@ -3,6 +3,7 @@ package com.pwr.suspy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.*;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
@@ -220,7 +221,7 @@ public class RootController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/addPlace", method = RequestMethod.GET)
+    @RequestMapping(value = "/addPlace",method = RequestMethod.GET)
     public String addPlace(Model model)
     {
         model.addAttribute(new AddPlaceForm());
@@ -229,13 +230,17 @@ public class RootController {
 
     @RequestMapping(value = "/addPlace", method = RequestMethod.POST)
     public String addPlace(@ModelAttribute("addPlace") @Valid AddPlaceForm addPlaceForm,
-                              BindingResult result){
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes){
         if(result.hasErrors())
         {
             return "addPlace";
         }
         logger.info(addPlaceForm.toString());
-        placeService.convertAddPlaceFormToPlace(addPlaceForm);
+        final Place place = placeService.convertAddPlaceFormToPlace(addPlaceForm);
+        placeService.createNewGym(place);
+        MyUtil.flash(redirectAttributes, "success", "addTimeSlot");
+
         return "redirect:/";
     }
 }

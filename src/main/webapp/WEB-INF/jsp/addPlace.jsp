@@ -9,7 +9,7 @@
 
             <div class="panel-body">
 
-                <form:form modelAttribute="AddPlaceForm" class="form-horizontal" role="form" method="post">
+                <form:form modelAttribute="addPlaceForm" class="form-horizontal" role="form" method="post">
                     <form:errors/>
 
                     <div class="form-group">
@@ -41,6 +41,13 @@
                     </div>
 
                     <%-- TODO1: ADD radio button activites!!!! --%>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <form:button type="submit" class="btn btn-default"><spring:message
+                                    code='signup'/></form:button>
+                                <%-- TODO: CHANGE Name of finish form button --%>
+                        </div>
+                    </div>
                 </form:form>
             </div>
         </div>
