@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -44,7 +45,7 @@ public class Place extends BaseEntity {
     private User owner;
 
     @OneToMany(mappedBy = "place")
-    private Set<TimeSlot> timeSlots;
+    private Set<TimeSlot> timeSlots = new HashSet<>();
 
     @NotNull
     @Column(name = "accepted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
