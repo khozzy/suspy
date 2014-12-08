@@ -50,7 +50,7 @@ public class PlaceController {
         final Place place = placeService.getPlace(addPlaceForm, MyUtil.getSessionUser());
         placeService.createNewGym(place);
 
-        MyUtil.flash(redirectAttributes, "success", "addTimeSlot");
+        MyUtil.flash(redirectAttributes, "success", "place.added");
 
         return "redirect:/";
     }
