@@ -16,9 +16,9 @@ INSERT INTO `user` (id, created_date, name, surname, email, password, city, stre
 INSERT INTO `user_roles` (user_id, roles) VALUES
   (1, 'ADMIN'),
   (2, 'NORMAL_USER'),
-  (3, 'NORMAL_USER2'),
-  (4, 'NORMAL_USER3'),
-  (5, 'NORMAL_USER4');
+  (3, 'NORMAL_USER'),
+  (4, 'NORMAL_USER'),
+  (5, 'NORMAL_USER');
 
 ## Teams
   INSERT INTO `suspy`.`team` (`id`, `created_date`, `deleted`, `name`, `leader_id`) VALUES
@@ -33,6 +33,7 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   ('1', '2'), ('2', '2'),
   ('1', '3'), ('3', '3'),
   ('1', '4'),  ('3', '4'),  ('4', '4');
+
 # Observation
   INSERT INTO `suspy`.`observation` (`user`, `observing_user_id`) VALUES
   ('1', '2'), ('1', '3'), ('1', '4'), ('1', '5'),
@@ -51,7 +52,7 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
   ('6', NOW(), false, true , 'Warszawa', '60', 'Alicjanowicza', '20', 'Hala sportowa 3', '1'),
   ('7', NOW(), false, true , 'Milanowice', '60', 'Slowackiego', '100', 'Stadion', '1'),
   ('8', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '100', 'Basen', '1'),
-  ('9', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '20', 'Boisko do koszykówki', '1'),
+  ('9', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '20', 'Boisko do koszykowki', '1'),
   ('10', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '40', 'Orlik', '1');
 
 #Places activity (TODO)

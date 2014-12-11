@@ -45,7 +45,7 @@ public class TimeSlot extends BaseEntity {
         return place;
     }
 
-    public void setPlace(Place gym) {
+    public void setPlace(Place place) {
         this.place = place;
     }
 

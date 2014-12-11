@@ -18,19 +18,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.text.ParseException;
 
-/**
- * Created by NecroMac on 2014-12-11.
- */
-
 @Controller
 @RequestMapping("timeslot")
-public class TimeSlotController
-{
+public class TimeSlotController {
+
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 
     private TimeSlotService timeSlotService;
+
     @Autowired
-    public TimeSlotController(TimeSlotService placeService) {
+    public TimeSlotController(TimeSlotService timeSlotService) {
         this.timeSlotService = timeSlotService;
     }
 
@@ -51,6 +48,7 @@ public class TimeSlotController
         }
 
         logger.info(addTimeSlotForm.toString());
+
         try {
             final TimeSlot timeSlot = timeSlotService.getTimeSlot(addTimeSlotForm);
             timeSlotService.createNewTimeSlot(timeSlot);
@@ -58,6 +56,7 @@ public class TimeSlotController
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addTimeSlot";
         }
+
         MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
         return "redirect:/";
     }

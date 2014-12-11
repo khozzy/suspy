@@ -1,7 +1,5 @@
 package com.pwr.suspy.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.UserEditForm;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
@@ -14,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,8 +50,7 @@ public class UserController {
     }
 
     @RequestMapping("/resend-verification-email")
-    public String resendVerificationEmail(RedirectAttributes redirectAttributes)
-    {
+    public String resendVerificationEmail(RedirectAttributes redirectAttributes) {
 
         userService.resendVerificationEmail();
         MyUtil.flash(redirectAttributes, "success", "verificationEmailResendSuccess");
@@ -72,16 +72,20 @@ public class UserController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<User> entity = restTemplate.getForEntity(
                 MyUtil.hostUrl() + "/service/users/" + userID, User.class);
+
         User user = entity.getBody();
-        if(MyUtil.getSessionUser()!= null) {
+
+        if (MyUtil.getSessionUser()!= null) {
             boolean observed = userService.findById(MyUtil.getSessionUser()
                     .getId()).getObserved().contains(userService.findById(user.getId()));
             logger.info(MyUtil.getSessionUser().getId().toString());
             logger.info(String.valueOf(observed));
             model.addAttribute("observed",observed);
         }
+
         user = userService.checkPermissions(user);
         model.addAttribute(user);
+
         return "user";
     }
 
@@ -132,27 +136,31 @@ public class UserController {
     @RequestMapping("/{userID}/startObserving")
     public String startObserving(@PathVariable("userID") Long userID,
                                  Model model,
-                                 RedirectAttributes redirectAttributes)
-    {
+                                 RedirectAttributes redirectAttributes) {
+
         User userA = userService.findById(MyUtil.getSessionUser().getId());
         User userB = userService.findById(userID);
+
         try {
             userService.observe(userA,userB);
         } catch (UserAlreadyObservedException e) {
             MyUtil.flash(redirectAttributes, "danger", "userAlreadyObserved");
             return "redirect:/users/"+userID;
         }
+
         return "redirect:/users/"+userID;
     }
 
     @RequestMapping("/{userID}/stopObserving")
     public String stopObserving(@PathVariable("userID") Long userID,
                                 Model model,
-                                RedirectAttributes redirectAttributes)
-    {
+                                RedirectAttributes redirectAttributes) {
+
         User userA = userService.findById(MyUtil.getSessionUser().getId());
         User userB = userService.findById(userID);
+
         userService.stopObserving(userA,userB);
+
         return "redirect:/users/"+userID;
     }
 

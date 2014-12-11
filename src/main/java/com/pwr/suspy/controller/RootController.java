@@ -9,6 +9,7 @@ import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
+import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
@@ -43,6 +44,7 @@ public class RootController {
     private static final Logger logger = LoggerFactory.getLogger(RootController.class);
 
     private UserService userService;
+    private PlaceService placeService; //DLATESTOW;
     private TimeSlotService timeSlotService;
     private SignupFormValidator signupFormValidator;
     private ForgotPasswordFormValidator forgotPasswordFormValidator;
@@ -50,12 +52,14 @@ public class RootController {
 
     @Autowired
     public RootController(UserService userService,
+                          PlaceService placeService, // dla testow
                           TimeSlotService timeSlotService,
                           SignupFormValidator signupFormValidator,
                           ForgotPasswordFormValidator forgotPasswordFormValidator,
                           ResetPasswordFormValidator resetPasswordFormValidator) {
 
         this.userService = userService;
+        this.placeService = placeService; //dla testow
         this.timeSlotService = timeSlotService;
         this.signupFormValidator = signupFormValidator;
         this.forgotPasswordFormValidator = forgotPasswordFormValidator;
@@ -206,6 +210,7 @@ public class RootController {
 
         return "redirect:/login";
     }
+
     @RequestMapping(value = "/addTimeSlot", method = RequestMethod.GET)
     public String addTimeSlot(Model model) {
         model.addAttribute(new AddTimeSlotForm());
@@ -227,9 +232,13 @@ public class RootController {
         try {
             timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
         } catch (ParseException ex) {
-            MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
+            MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
+            return "addTimeSlot";
+        } catch (NumberFormatException ex) {
+            MyUtil.flash(redirectAttributes, "failure", "Not a number");
             return "addTimeSlot";
         }
+
         MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
 
         return "redirect:/";

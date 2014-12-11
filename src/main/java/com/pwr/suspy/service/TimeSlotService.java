@@ -57,12 +57,14 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         return timeSlot;
 
     }
-    public TimeSlot getTimeSlot(final AddTimeSlotForm addTimeSlotForm) throws ParseException {
+
+    public TimeSlot getTimeSlot(final AddTimeSlotForm addTimeSlotForm) throws ParseException, NumberFormatException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         TimeSlot timeSlot = new TimeSlot();
 //TODO: ZROBIC ZNAJDOWANIE MIEJSC: POTRZEBA FORMULARZA DO DODAWANIA MIEJSC
 //TODO: ZROBIC ZNAJDOWANIE EVENTOW: POTRZEBA FORMULARZA DO DODAWANIA EVENTOW;
-        Place place = placeService.getRepository().findByName("Games: League of Legends");
+        Place place = placeService.findById(Long.parseLong(addTimeSlotForm.getPlace_id()));
+
         timeSlot.setPlace(place); /* GET PLACE*/
         //Event event = eventService.findById((long)1);
        // timeSlot.setEvent(event); /* GET EVENT */
