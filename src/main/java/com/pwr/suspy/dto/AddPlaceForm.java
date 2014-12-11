@@ -33,6 +33,71 @@ public class AddPlaceForm
     @NotNull
     private String name;
 
+    private String date_from;
+    private String hour_from;
+    private String date_to;
+    private String hour_to;
+    private int price;
+
+    @NotNull
+    private String timeSlotList;
+    private String timeSlotListBox;
+
+    public String getTimeSlotListBox() {
+        return timeSlotListBox;
+    }
+
+    public void setTimeSlotListBox(String timeSlotListBox) {
+        this.timeSlotListBox = timeSlotListBox;
+    }
+
+    public String getHour_to() {
+        return hour_to;
+    }
+
+    public void setHour_to(String hour_to) {
+        this.hour_to = hour_to;
+    }
+
+    public String getHour_from() {
+        return hour_from;
+    }
+
+    public void setHour_from(String hour_from) {
+        this.hour_from = hour_from;
+    }
+
+    public String getDate_from() {
+        return date_from;
+    }
+
+    public void setDate_from(String date_from) {
+        this.date_from = date_from;
+    }
+
+    public String getDate_to() {
+        return date_to;
+    }
+
+    public void setDate_to(String date_to) {
+        this.date_to = date_to;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getTimeSlotList() {
+        return timeSlotList;
+    }
+
+    public void setTimeSlotList(String timeSlotList) {
+        this.timeSlotList = timeSlotList;
+    }
 //TODO: ADD_ACTIVITTIES w formularzy
 //    @NotNull
 //    private Set<Activity> activities;
@@ -116,6 +181,7 @@ public class AddPlaceForm
         str += "\n"+this.city;
         str += " "+this.street;
         str += " "+this.houseNumber;
+        str += " "+this.timeSlotList;
         return str;
     }
     public String getCity() {

@@ -46,13 +46,9 @@ public class PlaceController {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addPlace";
         }
-
         logger.info(addPlaceForm.toString());
         final Place place = placeService.getPlace(addPlaceForm, MyUtil.getSessionUser());
-        placeService.createNewGym(place);
-
         MyUtil.flash(redirectAttributes, "success", "place.added");
-
         return "redirect:/";
     }
 }

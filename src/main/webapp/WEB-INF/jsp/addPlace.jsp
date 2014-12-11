@@ -1,5 +1,21 @@
 <%@include file="includes/header.jsp" %>
+<script>
+    // 14-12-2014 to 15-12-2014, cost 40;
+    // <date_from><hour_from> to <date_to><hour_to>, cost <price>;
+    //date_from,date_to,price;date_from,date_to,price,
 
+    function addTimeSlotToList(form)
+    {
+//TODO:
+        //Add validators;
+        form.timeSlotList.value += form.date_from.value + " " +  form.hour_from.value +
+                "," + form.date_to.value + " " + form.hour_to.value + ","+ form.price.value+ ";";
+        form.timeSlotListBox.value += form.date_from.value + " " + form.hour_from.value +
+                " - " + form.date_to.value + " " + form.hour_to.value +
+                ", " + "Cost" + ": "+ form.price.value + "\n"; //TODO: <spring:message code="place.form.cost"/> zamiast cost
+        //form.timeSlotList.value = timeSlotBoxContent;
+    }
+</script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -11,84 +27,112 @@
                     <form:form modelAttribute="addPlaceForm" class="form-horizontal" role="form" method="post">
                         <form:errors/>
                         <!-- Text input-->
-                        <div class="control-group">
-                            <label class="control-label" for="name"><spring:message code="place.form.place_name"/></label>
-                            <div class="controls">
-                                <input id="name" name="name" type="text" placeholder="" class="input-xlarge">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name"><spring:message code="place.form.place_name"/></label>
+                            <div class="col-md-4">
+                                <input id="name" name="name" type="text" placeholder="" class="form-control input-md">
 
                             </div>
                         </div>
 
                         <!-- Text input-->
-                        <div class="control-group">
-                            <label class="control-label" for="city"><spring:message code="place.form.city"/></label>
-                            <div class="controls">
-                                <input id="city" name="city" type="text" placeholder="" class="input-xlarge" required="">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="city"><spring:message code="place.form.city"/></label>
+                            <div class="col-md-4">
+                                <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
 
                             </div>
                         </div>
 
                         <!-- Text input-->
-                        <div class="control-group">
-                            <label class="control-label" for="street"><spring:message code="place.form.street"/></label>
-                            <div class="controls">
-                                <input id="street" name="street" type="text" placeholder="" class="input-xlarge">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="street"><spring:message code="place.form.street"/></label>
+                            <div class="col-md-4">
+                                <input id="street" name="street" type="text" placeholder="" class="form-control input-md">
 
                             </div>
                         </div>
 
                         <!-- Text input-->
-                        <div class="control-group">
-                            <label class="control-label" for="houseNumber"><spring:message code="place.form.houseNumber"/></label>
-                            <div class="controls">
-                                <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="input-xlarge">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="houseNumber"><spring:message code="place.form.houseNumber"/></label>
+                            <div class="col-md-4">
+                                <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="form-control input-md">
 
                             </div>
                         </div>
 
+                        <!-- ADD TIMESLOT -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="timeSlotListBox">Time Slots</label>
+                            <div class="col-md-4">
+                                <textarea readonly class="form-control" id="timeSlotListBox" name="timeSlotListBox"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="price"><spring:message code="place.form.cost"/></label>
+                            <div class="col-md-4">
+                                <input id="price" name="name" type="price" placeholder="" class="form-control input-md">
+
+                            </div>
+                        </div>
                         <!-- Text input-->
-                        <div class="control-group">
-                            <label class="control-label" for="capacity"><spring:message code="place.form.capacity"/></label>
-                            <div class="controls">
-                                <input id="capacity" name="capacity" type="text" placeholder="" class="input-xlarge">
 
-                            </div>
-                        </div>
-
-                        <%---
                         <div class="form-group">
                             <div class="col-sm-2 control-label">
-                                <form:label path="name">Places Name</form:label>
+                                <form:label path="date_from" class="col-sm-2 control-label">Date From</form:label>
                             </div>
                             <div class="col-sm-10">
-                                <form:input path="name" class="form-control" />
-                                <p class="help-block">Your Place's name.</p>
+                                <form:input path="date_from" type="date" class="form-control" placeholder="event name"/>
+                            </div>
+                            <form:errors cssClass="error" path="date_from">EWWW1</form:errors>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="hour_from">Time from</label>
+                            <div class="col-md-4">
+                                <input id="hour_from" name="hour_from" type="text" placeholder="" class="form-control input-md">
+
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <form:label path="city">City</form:label>
-                            <form:input path="city" class="form-control" />
-                            <p class="help-block">City where you live</p>
+                            <div class="col-sm-2 control-label">
+                                <form:label path="date_to" class="col-sm-2 control-label">Date To</form:label>
+                            </div>
+                            <div class="col-sm-10">
+                                <form:input path="date_to" type="date" class="form-control" placeholder="event name"/>
+                            </div>
+                            <form:errors cssClass="error" path="date_to">EWW2</form:errors>
                         </div>
+                        <!-- Text input-->
                         <div class="form-group">
-                            <form:label path="street">Street</form:label>
-                            <form:input path="street" class="form-control" />
-                            <p class="help-block">Street on which you live</p>
-                        </div>
-                        <div class="form-group">
-                            <form:label path="houseNumber">House number</form:label>
-                            <form:input path="houseNumber" class="form-control" />
-                            <p class="help-block">House number in which you live</p>
-                        </div>
+                            <label class="col-md-4 control-label" for="hour_to">Time to</label>
+                            <div class="col-md-4">
+                                <input id="hour_to" name="hour_to" type="text" placeholder="" class="form-control input-md">
 
-                        <div class="form-group">
-                            <form:label path="capacity">Capacity</form:label>
-                            <form:input path="capacity" class="form-control" />
-                            <p class="help-block">Max number of people that can be in your place</p>
+                            </div>
                         </div>
-                        -%>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="addTimeSlotButton"></label>
+                            <div class="col-md-4">
+                                <INPUT TYPE="button" id="addTimeSlotButton" name="addTimeSlotButton" class="btn btn-success"  Value="Add Timeslot" onClick="addTimeSlotToList(this.form)">
+
+                            </div>
+                        </div>
                         <%-- TODO1: ADD radio button activites!!!! --%>
+
+                        <!--  HIDDEN -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="timeSlotList" style="visibility:hidden">Time Slots list</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="timeSlotList" name="timeSlotList" style="visibility:hidden"></textarea>
+                            </div>
+                        </div>
+                        <!--  /HIDDEN -->
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <form:button type="submit" class="btn btn-default"><spring:message
