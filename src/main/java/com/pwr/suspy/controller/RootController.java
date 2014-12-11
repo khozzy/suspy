@@ -78,24 +78,14 @@ public class RootController {
                             BindingResult result,
                             RedirectAttributes redirectAttributes) {
 
-        logger.info("Got result from search form..");
-        logger.info("looking for: " + searchForm.getSearchText());
-        logger.info("target: " + searchForm.getSearchTarget());
-
         if (result.hasErrors()) {
             logger.warn("shit happend, errors found:", result.getErrorCount());
             return "home";
         }
 
         switch (searchForm.getSearchTarget()) {
-            case "place" : {
-                logger.info("place redirect");
-                return "redirect:/place/search?query=" + searchForm.getSearchText();
-            }
-            case "event" : {
-                logger.info("event redirect");
-                return "redirect:/event/search?query=" + searchForm.getSearchText();
-            }
+            case "place" :  return "redirect:/place/search?query=" + searchForm.getSearchText();
+            case "event" :  return "redirect:/event/search?query=" + searchForm.getSearchText();
         }
 
         return "home";
