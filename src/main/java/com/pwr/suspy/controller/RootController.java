@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.AddTimeSlotForm;
 import com.pwr.suspy.dto.ForgotPasswordForm;
+import com.pwr.suspy.dto.HomepageSearchForm;
 import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
@@ -43,28 +44,23 @@ public class RootController {
 
     private static final Logger logger = LoggerFactory.getLogger(RootController.class);
 
+    @Autowired
     private UserService userService;
-    private PlaceService placeService; //DLATESTOW;
-    private TimeSlotService timeSlotService;
-    private SignupFormValidator signupFormValidator;
-    private ForgotPasswordFormValidator forgotPasswordFormValidator;
-    private ResetPasswordFormValidator resetPasswordFormValidator;
 
     @Autowired
-    public RootController(UserService userService,
-                          PlaceService placeService, // dla testow
-                          TimeSlotService timeSlotService,
-                          SignupFormValidator signupFormValidator,
-                          ForgotPasswordFormValidator forgotPasswordFormValidator,
-                          ResetPasswordFormValidator resetPasswordFormValidator) {
+    private PlaceService placeService; //DLATESTOW;
 
-        this.userService = userService;
-        this.placeService = placeService; //dla testow
-        this.timeSlotService = timeSlotService;
-        this.signupFormValidator = signupFormValidator;
-        this.forgotPasswordFormValidator = forgotPasswordFormValidator;
-        this.resetPasswordFormValidator = resetPasswordFormValidator;
-    }
+    @Autowired
+    private TimeSlotService timeSlotService;
+
+    @Autowired
+    private SignupFormValidator signupFormValidator;
+
+    @Autowired
+    private ForgotPasswordFormValidator forgotPasswordFormValidator;
+
+    @Autowired
+    private ResetPasswordFormValidator resetPasswordFormValidator;
 
     @InitBinder("signupForm")
     protected void initSignupBinder(WebDataBinder binder) {
@@ -79,6 +75,30 @@ public class RootController {
     @InitBinder("forgotPasswordForm")
     protected void initForgotPasswordBinder(WebDataBinder binder) {
         binder.setValidator(forgotPasswordFormValidator);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String indexPage(Model model) {
+        model.addAttribute("homePageSearch", new HomepageSearchForm());
+        return "home";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String indexPage(@ModelAttribute("homePageSearch") @Valid HomepageSearchForm searchForm,
+                            BindingResult result,
+                            RedirectAttributes redirectAttributes) {
+
+        logger.info("Got result from search form..");
+        logger.info("looking for: " + searchForm.getSearchText());
+        logger.info("target: " + searchForm.getSearchTarget());
+
+        if (result.hasErrors()) {
+            logger.warn("shit happend");
+        } else {
+            logger.info("no errors");
+        }
+
+        return "home";
     }
 
     @RequestMapping(value = "/signup")
