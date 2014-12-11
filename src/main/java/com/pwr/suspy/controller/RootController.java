@@ -3,15 +3,12 @@ package com.pwr.suspy.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
-import com.pwr.suspy.dto.AddTimeSlotForm;
 import com.pwr.suspy.dto.ForgotPasswordForm;
 import com.pwr.suspy.dto.HomepageSearchForm;
 import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
-import com.pwr.suspy.service.PlaceService;
-import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
 import com.pwr.suspy.validators.ForgotPasswordFormValidator;
@@ -36,7 +33,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.Optional;
 
 @Controller
@@ -46,12 +42,6 @@ public class RootController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PlaceService placeService; //DLATESTOW;
-
-    @Autowired
-    private TimeSlotService timeSlotService;
 
     @Autowired
     private SignupFormValidator signupFormValidator;
@@ -104,7 +94,7 @@ public class RootController {
             }
             case "event" : {
                 logger.info("event redirect");
-                return "redirect:search/event?query=" + searchForm.getSearchText();
+                return "redirect:/event/search?query=" + searchForm.getSearchText();
             }
         }
 
@@ -241,36 +231,5 @@ public class RootController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.GET)
-    public String addTimeSlot(Model model) {
-        model.addAttribute(new AddTimeSlotForm());
-        return "addTimeSlot";
-    }
 
-    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.POST)
-    public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
-                              BindingResult result,
-                              RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()) {
-             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
-            return "addTimeSlot";
-        }
-
-        logger.info(addTimeSlotForm.toString());
-
-        try {
-            timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
-        } catch (ParseException ex) {
-            MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
-            return "addTimeSlot";
-        } catch (NumberFormatException ex) {
-            MyUtil.flash(redirectAttributes, "failure", "Not a number");
-            return "addTimeSlot";
-        }
-
-        MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
-
-        return "redirect:/";
-    }
 }

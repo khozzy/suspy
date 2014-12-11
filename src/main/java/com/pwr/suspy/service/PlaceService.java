@@ -8,6 +8,9 @@ import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,6 +79,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
 
         return gym;
     }
+
     public void acceptGym(final Place gym) {
         gym.setAccepted(true);
         repository.save(gym);
@@ -86,7 +90,13 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         repository.save(gym);
     }
 
-    public Place findById(long id)
-    {return repository.findById(id); }
+    public Place findById(long id) {
+        return repository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Place> findByNameContaining(String name, Pageable pageable) {
+        return repository.findByNameContaining(name, pageable);
+    }
 
 }

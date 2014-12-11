@@ -26,12 +26,8 @@ public class PlaceController {
 
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 
-    private PlaceService placeService;
-
     @Autowired
-    public PlaceController(PlaceService placeService) {
-        this.placeService = placeService;
-    }
+    private PlaceService placeService;
 
     @RequestMapping(value = "/add",method = RequestMethod.GET)
     public String addPlace(Model model) {
@@ -61,6 +57,8 @@ public class PlaceController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public Page<Place> search(@RequestParam("query") String query) {
         logger.info("looking for places like " + query);
-        return null;
+        Page<Place> places = placeService.findByNameContaining(query, null);
+        logger.info("found " + places.getContent().size());
+        return places;
     }
 }
