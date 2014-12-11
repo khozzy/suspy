@@ -93,7 +93,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="hour_from">Time from</label>
                             <div class="col-md-4">
-                                <input id="hour_from" name="hour_from" type="text" placeholder="" class="form-control input-md">
+                                <input id="hour_from" name="hour_from" type="text" placeholder="00:00" class="form-control input-md">
 
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="hour_to">Time to</label>
                             <div class="col-md-4">
-                                <input id="hour_to" name="hour_to" type="text" placeholder="" class="form-control input-md">
+                                <input id="hour_to" name="hour_to" type="text" placeholder="00:00" class="form-control input-md">
 
                             </div>
                         </div>
