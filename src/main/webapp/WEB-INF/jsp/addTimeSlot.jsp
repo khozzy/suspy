@@ -14,6 +14,11 @@
                     <form:errors/>
 
                     <div class="form-group">
+                        <form:label path="place_id">place_id</form:label>
+                        <form:input path="place_id" class="form-control" />
+                        <p class="help-block"> place_id</p>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-2 control-label">
                             <form:label path="date_from" class="col-sm-2 control-label">Date From</form:label>
                         </div>
@@ -36,11 +41,6 @@
                         <form:label path="price">price</form:label>
                         <form:input path="price" class="form-control" />
                         <p class="help-block">price</p>
-                    </div>
-                    <div class="form-group">
-                        <form:label path="place_id">place_id</form:label>
-                        <form:input path="place_id" class="form-control" />
-                        <p class="help-block"> place_id</p>
                     </div>
 
                     <div class="form-group">

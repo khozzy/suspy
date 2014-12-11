@@ -209,19 +209,23 @@ public class RootController {
 
     @RequestMapping(value = "/addTimeSlot", method = RequestMethod.POST)
     public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
-                              BindingResult result) {
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
+             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addTimeSlot";
         }
 
         logger.info(addTimeSlotForm.toString());
 
         try {
-            timeSlotService.convertAddTimeSlotFormToTimeSlot(addTimeSlotForm);
+            timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
         } catch (ParseException ex) {
+            MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addTimeSlot";
         }
+        MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
 
         return "redirect:/";
     }

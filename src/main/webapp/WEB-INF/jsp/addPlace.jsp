@@ -10,15 +10,52 @@
                 <div class="panel-body">
                     <form:form modelAttribute="addPlaceForm" class="form-horizontal" role="form" method="post">
                         <form:errors/>
-                        <div class="form-group">
-                            <div class="col-sm-2 control-label">
-                                <label class="col-sm-2 control-label">Name</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <input class="form-control" placeholder="event name"/>
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="name"><spring:message code="place.form.place_name"/></label>
+                            <div class="controls">
+                                <input id="name" name="name" type="text" placeholder="" class="input-xlarge">
+
                             </div>
                         </div>
 
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="city"><spring:message code="place.form.city"/></label>
+                            <div class="controls">
+                                <input id="city" name="city" type="text" placeholder="" class="input-xlarge" required="">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="street"><spring:message code="place.form.street"/></label>
+                            <div class="controls">
+                                <input id="street" name="street" type="text" placeholder="" class="input-xlarge">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="houseNumber"><spring:message code="place.form.houseNumber"/></label>
+                            <div class="controls">
+                                <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="input-xlarge">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="capacity"><spring:message code="place.form.capacity"/></label>
+                            <div class="controls">
+                                <input id="capacity" name="capacity" type="text" placeholder="" class="input-xlarge">
+
+                            </div>
+                        </div>
+
+                        <%---
                         <div class="form-group">
                             <div class="col-sm-2 control-label">
                                 <form:label path="name">Places Name</form:label>
@@ -50,7 +87,7 @@
                             <form:input path="capacity" class="form-control" />
                             <p class="help-block">Max number of people that can be in your place</p>
                         </div>
-
+                        -%>
                         <%-- TODO1: ADD radio button activites!!!! --%>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">

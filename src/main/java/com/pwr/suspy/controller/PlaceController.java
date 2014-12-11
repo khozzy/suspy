@@ -43,6 +43,7 @@ public class PlaceController {
                            RedirectAttributes redirectAttributes){
 
         if (result.hasErrors()) {
+            MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addPlace";
         }
 
