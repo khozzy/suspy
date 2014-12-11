@@ -30,7 +30,7 @@
                     <div class="panel-body">
                             <div class="col-md-4">
                                 <div class="media">
-                                    <a class="media-left event-img" href="#">
+                                    <a class="media-left event-img" href="<c:url value='/event/1'/>">
                                         <img src="/public/lib/assets/foot.jpg" alt="...">
                                     </a>
                                 </div>
@@ -38,7 +38,7 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p><b>Football match</b></p>
+                                        <p><a href="<c:url value='/event/1'/>"><b>Football match</b></a></p>
                                     </div>
                                 </div>
                                 <div class="row" >
