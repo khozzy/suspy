@@ -113,6 +113,11 @@ public class RootController {
         return "new-event";
     }
 
+    @RequestMapping(value = "/event/{eventId}")
+    public String event(@PathVariable("eventId") String eventId, Model model) {
+        return "event";
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@ModelAttribute @Valid SignupForm signupForm,
                          BindingResult result,

@@ -56,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/signupJson",
                         "/service/**",
                         "/forgot-password",
+                        "/event/*",
                         "/reset-password/*",
                         "/public/**",
                         "/users/*").permitAll()
