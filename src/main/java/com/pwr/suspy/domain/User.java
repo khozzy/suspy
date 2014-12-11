@@ -44,6 +44,7 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false, length = EMAIL_MAX)
     private String email;
 
+    @JsonIgnore
     @NotNull
     @Column(name = "password", nullable = false)
     private String password;
@@ -55,6 +56,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "observation",
@@ -65,12 +67,15 @@ public class User extends BaseEntity {
     @Column(name = "about", length = ABOUT_MAX)
     private String about;
 
+    @JsonIgnore
     @Column(length = RANDOM_CODE_LENGTH)
     private String verificationCode;
 
+    @JsonIgnore
     @Column(length = RANDOM_CODE_LENGTH)
     private String resetPasswordCode;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "user_team",

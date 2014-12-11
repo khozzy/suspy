@@ -15,9 +15,9 @@ INSERT INTO `user` (id, created_date, name, surname, email, password, city, stre
 INSERT INTO `user_roles` (user_id, roles) VALUES
   (1, 'ADMIN'),
   (2, 'NORMAL_USER'),
-  (3, 'NORMAL_USER2'),
-  (4, 'NORMAL_USER3'),
-  (5, 'NORMAL_USER4');
+  (3, 'NORMAL_USER'),
+  (4, 'NORMAL_USER'),
+  (5, 'NORMAL_USER');
 
 ## Teams
   INSERT INTO `suspy`.`team` (`id`, `created_date`, `deleted`, `name`, `leader_id`) VALUES
@@ -32,6 +32,7 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   ('1', '2'), ('2', '2'),
   ('1', '3'), ('3', '3'),
   ('1', '4'),  ('3', '4'),  ('4', '4');
+
 # Observation
   INSERT INTO `suspy`.`observation` (`user`, `observing_user_id`) VALUES
   ('1', '2'), ('1', '3'), ('1', '4'), ('1', '5'),

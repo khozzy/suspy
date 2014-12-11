@@ -205,6 +205,7 @@ public class RootController {
 
         return "redirect:/login";
     }
+
     @RequestMapping(value = "/addTimeSlot", method = RequestMethod.GET)
     public String addTimeSlot(Model model) {
         model.addAttribute(new AddTimeSlotForm());
@@ -220,14 +221,15 @@ public class RootController {
              MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addTimeSlot";
         }
+
         logger.info(addTimeSlotForm.toString());
+
         try {
             timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
         } catch (ParseException ex) {
             MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
             return "addTimeSlot";
-        } catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             MyUtil.flash(redirectAttributes, "failure", "Not a number");
             return "addTimeSlot";
         }
