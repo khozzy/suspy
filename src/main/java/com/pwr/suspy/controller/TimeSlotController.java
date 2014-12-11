@@ -1,6 +1,5 @@
 package com.pwr.suspy.controller;
 
-import com.pwr.suspy.domain.TimeSlot;
 import com.pwr.suspy.dto.AddTimeSlotForm;
 import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.util.MyUtil;
@@ -18,32 +17,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.text.ParseException;
 
-/**
- * Created by NecroMac on 2014-12-11.
- */
-
 @Controller
 @RequestMapping("timeslot")
-public class TimeSlotController
-{
+public class TimeSlotController {
+
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 
-    private TimeSlotService timeSlotService;
     @Autowired
-    public TimeSlotController(TimeSlotService placeService) {
-        this.timeSlotService = timeSlotService;
-    }
+    private TimeSlotService timeSlotService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addTimeSlot(Model model) {
-        model.addAttribute("addTimeSlot", new AddTimeSlotForm());
+        model.addAttribute(new AddTimeSlotForm());
         return "addTimeSlot";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
-                           BindingResult result,
-                           RedirectAttributes redirectAttributes){
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
@@ -51,14 +43,19 @@ public class TimeSlotController
         }
 
         logger.info(addTimeSlotForm.toString());
+
         try {
-            final TimeSlot timeSlot = timeSlotService.getTimeSlot(addTimeSlotForm);
-            timeSlotService.createNewTimeSlot(timeSlot);
+            timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
         } catch (ParseException ex) {
-            MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
+            MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
+            return "addTimeSlot";
+        } catch (NumberFormatException ex) {
+            MyUtil.flash(redirectAttributes, "failure", "Not a number");
             return "addTimeSlot";
         }
+
         MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
+
         return "redirect:/";
     }
 

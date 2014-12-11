@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-public class AddPlaceForm
-{
+public class AddPlaceForm {
+
     @NotNull
     @NotBlank(message = "{city.error.blank}")
     @Size(min = Address.CITY_MIN, max = Address.CITY_MAX, message = "{city.error.size}")
@@ -28,8 +28,10 @@ public class AddPlaceForm
     @Size(max = Address.HOUSE_NR_MAX, message = "{houseNumber.error.size}")
     @Pattern(regexp = Address.HOUSE_NR_PATTERN, message = "{houseNumber.error.pattern}")
     private String houseNumber;
+
     @NotNull
     private int capacity;
+
     @NotNull
     private String name;
 

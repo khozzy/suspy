@@ -3,14 +3,12 @@ package com.pwr.suspy.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
-import com.pwr.suspy.dto.AddTimeSlotForm;
 import com.pwr.suspy.dto.ForgotPasswordForm;
+import com.pwr.suspy.dto.HomepageSearchForm;
 import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.dto.ResetPasswordForm;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
-import com.pwr.suspy.service.PlaceService;
-import com.pwr.suspy.service.TimeSlotService;
 import com.pwr.suspy.service.UserService;
 import com.pwr.suspy.util.MyUtil;
 import com.pwr.suspy.validators.ForgotPasswordFormValidator;
@@ -35,7 +33,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.Optional;
 
 @Controller
@@ -43,28 +40,17 @@ public class RootController {
 
     private static final Logger logger = LoggerFactory.getLogger(RootController.class);
 
+    @Autowired
     private UserService userService;
-    private PlaceService placeService; //DLATESTOW;
-    private TimeSlotService timeSlotService;
-    private SignupFormValidator signupFormValidator;
-    private ForgotPasswordFormValidator forgotPasswordFormValidator;
-    private ResetPasswordFormValidator resetPasswordFormValidator;
 
     @Autowired
-    public RootController(UserService userService,
-                          PlaceService placeService, // dla testow
-                          TimeSlotService timeSlotService,
-                          SignupFormValidator signupFormValidator,
-                          ForgotPasswordFormValidator forgotPasswordFormValidator,
-                          ResetPasswordFormValidator resetPasswordFormValidator) {
+    private SignupFormValidator signupFormValidator;
 
-        this.userService = userService;
-        this.placeService = placeService; //dla testow
-        this.timeSlotService = timeSlotService;
-        this.signupFormValidator = signupFormValidator;
-        this.forgotPasswordFormValidator = forgotPasswordFormValidator;
-        this.resetPasswordFormValidator = resetPasswordFormValidator;
-    }
+    @Autowired
+    private ForgotPasswordFormValidator forgotPasswordFormValidator;
+
+    @Autowired
+    private ResetPasswordFormValidator resetPasswordFormValidator;
 
     @InitBinder("signupForm")
     protected void initSignupBinder(WebDataBinder binder) {
@@ -81,6 +67,30 @@ public class RootController {
         binder.setValidator(forgotPasswordFormValidator);
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String indexPage(Model model) {
+        model.addAttribute("homePageSearch", new HomepageSearchForm());
+        return "home";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String indexPage(@ModelAttribute("homePageSearch") HomepageSearchForm searchForm,
+                            BindingResult result,
+                            RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            logger.warn("shit happend, errors found:", result.getErrorCount());
+            return "home";
+        }
+
+        switch (searchForm.getSearchTarget()) {
+            case "place" :  return "redirect:/place/search?query=" + searchForm.getSearchText();
+            case "event" :  return "redirect:/event/search?query=" + searchForm.getSearchText();
+        }
+
+        return "home";
+    }
+
     @RequestMapping(value = "/signup")
     public String signUp(Model model) {
         model.addAttribute(new SignupForm());
@@ -91,6 +101,11 @@ public class RootController {
     public String newEvent(Model model) {
         model.addAttribute(new NewEventForm());
         return "new-event";
+    }
+
+    @RequestMapping(value = "/event/{eventId}")
+    public String event(@PathVariable("eventId") String eventId, Model model) {
+        return "event";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -205,35 +220,6 @@ public class RootController {
 
         return "redirect:/login";
     }
-    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.GET)
-    public String addTimeSlot(Model model) {
-        model.addAttribute(new AddTimeSlotForm());
-        return "addTimeSlot";
-    }
 
-    @RequestMapping(value = "/addTimeSlot", method = RequestMethod.POST)
-    public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
-                              BindingResult result,
-                              RedirectAttributes redirectAttributes) {
 
-        if (result.hasErrors()) {
-             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
-            return "addTimeSlot";
-        }
-        logger.info(addTimeSlotForm.toString());
-        try {
-            timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
-        } catch (ParseException ex) {
-            MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
-            return "addTimeSlot";
-        } catch (NumberFormatException ex)
-        {
-            MyUtil.flash(redirectAttributes, "failure", "Not a number");
-            return "addTimeSlot";
-        }
-
-        MyUtil.flash(redirectAttributes, "success", "timeSlot.added");
-
-        return "redirect:/";
-    }
 }

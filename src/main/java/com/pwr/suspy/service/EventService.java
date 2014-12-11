@@ -4,7 +4,10 @@ import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EventService extends GenericServiceImpl<Event, Long, Events> {
@@ -17,8 +20,8 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
         return repository;
     }
 
-    public void someMethod() {
-        System.out.println("Calling some method from service EventService");
+    @Transactional(readOnly = true)
+    public Page<Event> findByNameContaining(String name, Pageable pageable) {
+        return repository.findByNameContaining(name, pageable);
     }
-
 }

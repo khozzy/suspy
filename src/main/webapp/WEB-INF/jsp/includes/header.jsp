@@ -16,6 +16,7 @@
     <!-- Bootstrap & our CSS-->
     <link href="/public/lib/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/public/lib/css/styles.css" rel="stylesheet">
+    <link href="/public/lib/css/commentsStyle.css" rel="stylesheet">
 
     <!-- jQuery, Bootstrap and our JS -->
     <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
@@ -41,18 +42,27 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left" role="search">
+            <form:form modelAttribute="homePageSearch" role="search" method="post" cssClass="navbar-form navbar-left" >
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <form:input path="searchText" cssClass="form-control" placeholder="Search" />
+                    <form:radiobutton path="searchTarget" value="event" cssClass="radio-inline" cssStyle="margin: 0 5px 0 5px;"/>Events
+                    <form:radiobutton path="searchTarget" value="place" cssClass="radio-inline" cssStyle="margin: 0 5px 0 5px;"/>Places
+
+                    <form:button type="submit" class="btn btn-success">Find</form:button>
                 </div>
-            </form>
+            </form:form>
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAnonymous()">
-                    <li><a href="<c:url value='/signup' />"><spring:message code='signup'/> <span
-                            class="glyphicon glyphicon-list-alt"></span></a></li>
                     <li>
-                        <a href="<c:url value='/login' />"><spring:message code='signin'/> <span
-                                class="glyphicon glyphicon-log-in"></span></a>
+                        <a href="<c:url value='/signup' />"><spring:message code='signup'/>
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<c:url value='/login' />"><spring:message code='signin'/>
+                            <span class="glyphicon glyphicon-log-in"></span>
+                        </a>
                     </li>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
