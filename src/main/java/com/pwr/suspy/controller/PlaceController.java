@@ -8,12 +8,14 @@ import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -54,5 +56,11 @@ public class PlaceController {
         MyUtil.flash(redirectAttributes, "success", "place.added");
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public Page<Place> search(@RequestParam("query") String query) {
+        logger.info("looking for places like " + query);
+        return null;
     }
 }

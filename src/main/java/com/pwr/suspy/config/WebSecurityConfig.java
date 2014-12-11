@@ -59,8 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/event/*",
                         "/reset-password/*",
                         "/public/**",
-                        "/users/*").permitAll()
-                .anyRequest().authenticated();
+                        "/users/*")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
+
         http
                 .formLogin()
                 .loginPage("/login")

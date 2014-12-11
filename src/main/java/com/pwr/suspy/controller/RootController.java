@@ -84,7 +84,7 @@ public class RootController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String indexPage(@ModelAttribute("homePageSearch") @Valid HomepageSearchForm searchForm,
+    public String indexPage(@ModelAttribute("homePageSearch") HomepageSearchForm searchForm,
                             BindingResult result,
                             RedirectAttributes redirectAttributes) {
 
@@ -93,9 +93,19 @@ public class RootController {
         logger.info("target: " + searchForm.getSearchTarget());
 
         if (result.hasErrors()) {
-            logger.warn("shit happend");
-        } else {
-            logger.info("no errors");
+            logger.warn("shit happend, errors found:", result.getErrorCount());
+            return "home";
+        }
+
+        switch (searchForm.getSearchTarget()) {
+            case "place" : {
+                logger.info("place redirect");
+                return "redirect:/place/search?query=" + searchForm.getSearchText();
+            }
+            case "event" : {
+                logger.info("event redirect");
+                return "redirect:search/event?query=" + searchForm.getSearchText();
+            }
         }
 
         return "home";

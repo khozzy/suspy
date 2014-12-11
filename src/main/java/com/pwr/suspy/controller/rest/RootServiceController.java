@@ -1,4 +1,4 @@
-package com.pwr.suspy.controller;
+package com.pwr.suspy.controller.rest;
 
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserNotExistsException;

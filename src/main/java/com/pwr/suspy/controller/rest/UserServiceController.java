@@ -1,4 +1,4 @@
-package com.pwr.suspy.controller;
+package com.pwr.suspy.controller.rest;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
