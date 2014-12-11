@@ -76,7 +76,6 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
 
         return gym;
     }
-
     public void acceptGym(final Place gym) {
         gym.setAccepted(true);
         repository.save(gym);
@@ -86,4 +85,8 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         gym.setAccepted(false);
         repository.save(gym);
     }
+
+    public Place findById(long id)
+    {return repository.findById(id); }
+
 }

@@ -50,7 +50,7 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
   ('6', NOW(), false, true , 'Warszawa', '60', 'Alicjanowicza', '20', 'Hala sportowa 3', '1'),
   ('7', NOW(), false, true , 'Milanowice', '60', 'Slowackiego', '100', 'Stadion', '1'),
   ('8', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '100', 'Basen', '1'),
-  ('9', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '20', 'Boisko do koszykówki', '1'),
+  ('9', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '20', 'Boisko do koszykowki', '1'),
   ('10', NOW(), false, true , 'Wroclaw', '60', 'Chrobrego', '40', 'Orlik', '1');
 
 #Places activity (TODO)
