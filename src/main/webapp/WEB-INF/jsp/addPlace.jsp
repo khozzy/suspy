@@ -9,7 +9,6 @@
                 <div class="panel-body">
                     <form:form modelAttribute="addPlaceForm" class="form-horizontal" role="form" method="post">
                         <errors/>
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name"><spring:message code="place.form.place_name"/></label>
                             <div class="col-sm-10">
@@ -17,35 +16,24 @@
 
                             </div>
                         </div>
-
-                        <!-- Text input-->
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="city"><spring:message code="place.form.city"/></label>
                             <div class="col-sm-10">
                                 <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
-
                             </div>
                         </div>
-
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="street"><spring:message code="place.form.street"/></label>
                             <div class="col-sm-10">
                                 <input id="street" name="street" type="text" placeholder="" class="form-control input-md">
-
                             </div>
                         </div>
-
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="houseNumber"><spring:message code="place.form.houseNumber"/></label>
                             <div class="col-sm-10">
                                 <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="form-control input-md">
-
                             </div>
                         </div>
-
                         <!-- ADD TIMESLOT -->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="timeSlotListBox"><spring:message code='place.form.timeslot.list'/></label>
@@ -60,8 +48,6 @@
 
                             </div>
                         </div>
-                        <!-- Text input-->
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="date_from" ><spring:message code='place.form.timeslot.date_from'/></label>
                             <div class="col-sm-10">
@@ -69,7 +55,6 @@
                             </div>
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="hour_from"><spring:message code='place.form.timeslot.hour_from'/></label>
                             <div class="col-sm-10">
@@ -84,7 +69,6 @@
                                 <input id="date_to" type="date" class="form-control" placeholder="event name"/>
                             </div>
                         </div>
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="hour_to"><spring:message code='place.form.timeslot.hour_to'/></label>
                             <div class="col-sm-10">
@@ -92,7 +76,6 @@
 
                             </div>
                         </div>
-                        <!-- Button -->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="addTimeSlotButton"></label>
                             <div class="col-sm-10">
@@ -123,30 +106,18 @@
 </div>
 
 <script>
-    // 14-12-2014 to 15-12-2014, cost 40;
-    // <date_from><hour_from> to <date_to><hour_to>, cost <price>;
-    //date_from,date_to,price;date_from,date_to,price,
-
     function addTimeSlotToList(form)
     {
-//TODO:
         var price = parseFloat(form.price.value);
-        if(!(Number(price)===price) || price<=0)
-        {
+        if(!(Number(price)===price) || price<=0){
             return;
-//         validationBool = false;
         }
         if(form.date_from.value.length<=0 || form.date_to.value.length<=0 ||
-                form.hour_from.value.length<=0 || form.hour_to.value.length<=0
-                )
-        {
+                form.hour_from.value.length<=0 || form.hour_to.value.length<=0){
             return;
         }
-        //Add validators;
-
         form.timeSlotList.value += form.date_from.value + " " +  form.hour_from.value + "," + form.date_to.value + " " + form.hour_to.value + ","+ form.price.value+ ";";
         form.timeSlotListBox.value += form.date_from.value + " " + form.hour_from.value + " - " + form.date_to.value + " " + form.hour_to.value + ", " + "Cost" + ": "+ form.price.value + "\n";
-        //form.timeSlotList.value = timeSlotBoxContent;
     }
 </script>
 <%@include file="includes/footer.jsp" %>

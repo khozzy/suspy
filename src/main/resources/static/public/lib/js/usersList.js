@@ -13,7 +13,30 @@ $(document).ready(function() {
 
         //$btn.bootstrapBtn('reset');
     });
+    var showPlaces = function ()
+    {
+        $.getJSON("http://localhost:8080/service/places", function (places) {
+            if (places != "") {
+                $('#placesList').html('<h2>List of places:</h2>');
+                //$('#usersList').append('<h2>List of users:</h2>');
+                content='';
+                $.each( places.content, function( i, place ) {
+                    content += '<p>' + place.id;
+                    content += ' ' + place.name;
+                    content += ' ' + place.adress.street + ' ' + place.adress.houseNumber;
+                    content += ' ' + place.adress.city;
+                    content += ' ' + place.capacity;
+                    + '</p>';
+                });
+                $(content).appendTo("#placesList");
+            }
+            else {
+                $('#placesList').html('<h2>Users not found.</h2>');
+            }
+        });
 
+        return false;
+    }
     var showUsersList = function () {
         $.getJSON("http://localhost:8080/service/users", function (users) {
             if (users != "") {

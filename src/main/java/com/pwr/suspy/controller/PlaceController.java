@@ -29,6 +29,12 @@ public class PlaceController {
     @Autowired
     private PlaceService placeService;
 
+    @RequestMapping(value = "/list")
+    public String showUsersList()
+    {
+        return "placesList";
+    }
+
     @RequestMapping(value = "/add",method = RequestMethod.GET)
     public String addPlace(Model model) {
         model.addAttribute("addPlaceForm", new AddPlaceForm());

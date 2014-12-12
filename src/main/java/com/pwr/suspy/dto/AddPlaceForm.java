@@ -30,6 +30,7 @@ public class AddPlaceForm {
     private String houseNumber;
 
     @NotNull
+    @Pattern(regexp ="[0-9]*")
     private int capacity;
 
     @NotNull
@@ -39,6 +40,7 @@ public class AddPlaceForm {
     private String hour_from;
     private String date_to;
     private String hour_to;
+    @Pattern(regexp ="[0-9]*")
     private int price;
 
     @NotNull

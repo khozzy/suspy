@@ -1,17 +1,19 @@
 package com.pwr.suspy.controller.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserNotExistsException;
+import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,10 +22,11 @@ import java.util.Optional;
 public class RootServiceController {
 
     private UserService userService;
-
+    private PlaceService placeService;
     @Autowired
-    public RootServiceController(UserService userService) {
+    public RootServiceController(UserService userService, PlaceService placeService) {
         this.userService = userService;
+        this.placeService = placeService;
     }
 
     @RequestMapping(value = "/forgotPassword/{userEmail}", method = RequestMethod.POST)
@@ -54,4 +57,17 @@ public class RootServiceController {
         return new ResponseEntity<>("Password changed.",new HttpHeaders(),HttpStatus.OK);
     }
 
+    @RequestMapping(value = "places", method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Place> getPlaces(
+            @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
+            @RequestParam(value = "numOfResults", defaultValue = "5") Long numOfResults)
+            throws JsonProcessingException {
+
+        return placeService.findAll(
+                new PageRequest(
+                        pageNum.intValue(),
+                        numOfResults.intValue(),
+                        new Sort(Sort.Direction.ASC, "id")));
+    }
 }
