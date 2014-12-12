@@ -75,6 +75,22 @@
                     </li>
 
                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-home"></span> Places <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/place/add"><span class="glyphicon glyphicon-plus"></span> New</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-wrench"></span> Manage</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-list"></span> List</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th-large"></span> Events <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
