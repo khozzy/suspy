@@ -69,9 +69,17 @@
                     <li>
                         <a href="#"><span class="glyphicon glyphicon-globe"></span> Notifications</a>
                     </li>
-
-                    <li>
-                        <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span> Friends</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-eye-open"></span> Social <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span> Friends</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/users"><span class="glyphicon glyphicon-user"></span> List of Users</a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="dropdown">
@@ -85,7 +93,7 @@
                                 <a href="#"><span class="glyphicon glyphicon-wrench"></span> Manage</a>
                             </li>
                             <li>
-                                <a href="#"><span class="glyphicon glyphicon-list"></span> List</a>
+                                <a href="/place/list"><span class="glyphicon glyphicon-list"></span> List</a>
                             </li>
                         </ul>
                     </li>

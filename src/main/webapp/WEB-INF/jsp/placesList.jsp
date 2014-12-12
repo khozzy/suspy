@@ -1,5 +1,6 @@
 <%@include file="includes/header.jsp" %>
     <section id="infoPlacesList"></section>
+Work in Proggres
     <button type="button" class="btn btn-primary" data-loading-text="Loading..."
             id="showPlacesList" autocomplete="off" data-afterload-text="Loaded">Show places list</button>
     <section id="placesList"></section>
