@@ -1,13 +1,14 @@
 package com.pwr.suspy.service;
 
-import com.pwr.suspy.domain.*;
+import com.pwr.suspy.domain.Activity;
+import com.pwr.suspy.domain.Address;
+import com.pwr.suspy.domain.Place;
+import com.pwr.suspy.domain.TimeSlot;
+import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -115,8 +117,8 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     }
 
     @Transactional(readOnly = true)
-    public Page<Place> findByNameContaining(String name, Pageable pageable) {
-        return repository.findByNameContaining(name, pageable);
+    public List<Place> findByNameContaining(String name) {
+        return repository.findByNameContaining("%" + name + "%");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.pwr.suspy.controller;
 
-
 import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.service.PlaceService;
@@ -8,7 +7,6 @@ import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("place")
@@ -57,10 +57,13 @@ public class PlaceController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public Page<Place> search(@RequestParam("query") String query) {
-        logger.info("looking for places like " + query);
-        Page<Place> places = placeService.findByNameContaining(query, null);
-        logger.info("found " + places.getContent().size());
-        return places;
+    public String search(
+            @RequestParam("query") String query,
+            Model model) {
+
+        List<Place> places = placeService.findByNameContaining(query);
+        model.addAttribute("placesFound", places);
+
+        return "placesSearch";
     }
 }

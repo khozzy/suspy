@@ -71,12 +71,10 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
 ## Event
 INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `priv`, `team_id`, `time_slot_id`) VALUES
 ('1', '2000-01-01', 0, 'Niedzielna gra', 0, '1', '1'),
-('2', '2000-01-01', 0, 'Niedzielna gra 2', 0, '1', '1'),
-('3', '2000-01-01', 0, 'Niedzielna gra 3', 0, '1', '1'),
-('4', '2000-01-01', 0, 'Ja gra', 0, '1', '2'),
-('5', '2000-01-01', 0, 'Kosz', 0, '2', '3'),
-('6', '2000-01-01', 0, 'Reczna', 0, '2', '4'),
-('7', '2000-01-01', 0, 'tenis', 0, '2', '5'),
-('8', '2000-01-01', 0, 'MASAKRYCZNA GRA', 0, '4', '6'),
-('9', '2000-01-01', 0, 'Lepiej Masakryczna Gra', 0, '4', '7'),
-('10', '2000-01-01', 0, 'Bardziej Lepiej Masakryczna gra', 0, '4', '8');
+('2', '2000-01-01', 0, 'Ja gra', 0, '1', '2'),
+('3', '2000-01-01', 0, 'Kosz', 0, '2', '3'),
+('4', '2000-01-01', 0, 'Reczna', 0, '2', '4'),
+('5', '2000-01-01', 0, 'tenis', 0, '2', '5'),
+('6', '2000-01-01', 0, 'MASAKRYCZNA GRA', 0, '4', '6'),
+('7', '2000-01-01', 0, 'Lepiej Masakryczna Gra', 0, '4', '7'),
+('8', '2000-01-01', 0, 'Bardziej Lepiej Masakryczna gra', 0, '4', '8');
