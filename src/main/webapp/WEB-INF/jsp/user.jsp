@@ -1,5 +1,5 @@
 <%@include file="includes/header.jsp" %>
-<div class="row">
+
         <div class="col-md-2 column">
         <h3>Profile</h3>
         <div class="list-group">
@@ -55,6 +55,5 @@
             </div>
         </div>
     </div>
-</div>
-<div class="clearfix"/>
+
 <%@include file="includes/footer.jsp" %>

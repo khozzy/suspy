@@ -1,6 +1,4 @@
 <%@include file="includes/header.jsp" %>
-<div class="container">
-    <div class="row clearfix">
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             <h3>Popular tags</h3>
             <ul class="list-group">
@@ -171,5 +169,4 @@
 
         </div>
     </div>
-</div>
 <%@include file="includes/footer.jsp" %>

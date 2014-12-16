@@ -31,5 +31,4 @@
         $("#events_table").DataTable();
     });
 </script>
-<div class="clearfix"/>
 <%@include file="includes/footer.jsp" %>

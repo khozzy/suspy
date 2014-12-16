@@ -1,8 +1,5 @@
 <%@include file="includes/header.jsp" %>
-<%--formularz rejestracji użytkownika i przycisk sign up
- odsyłający do /create/user.jsp - zmienić nazwy na wczytywane
-z languages--%>
-<div class="row">
+
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
 
@@ -160,5 +157,5 @@ z languages--%>
             </div>
         </div>
     </div>
-</div>
+
 <%@include file="includes/footer.jsp" %>

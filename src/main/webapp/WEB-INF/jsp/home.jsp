@@ -1,8 +1,5 @@
 <%@include file="includes/header.jsp" %>
-
-<div class="container">
-    <div class="row ">
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="col-xs-6 col-sm-3" id="sidebar" role="navigation">
             <h3>Popular tags</h3>
             <ul class="list-group">
                 <li class="list-group-item">#CrasJustoOdio</li>
@@ -66,5 +63,4 @@
 
         <!--/span-->
         <!--/span-->
-    </div>
 <%@include file="includes/footer.jsp" %>

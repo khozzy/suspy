@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/service/users")
 public class UserServiceController {
@@ -98,22 +100,35 @@ public class UserServiceController {
         return new ResponseEntity<>("Verification email resent.", new HttpHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{userAid}/observe/{userBid}", method = RequestMethod.GET)
-    public ResponseEntity<String> observe(@PathVariable("userAid") long userAid,
-                                          @PathVariable("userBid") long userBid) {
+    @RequestMapping(value = "/observe/{userId}", method = RequestMethod.POST)
+    public ResponseEntity<String> observe(@PathVariable("userAid") long userId) {
 
-        User userA = userService.findById(userAid);
-        User userB = userService.findById(userBid);
+        User userA = userService.findById(userId);
+        User userB = userService.findById(MyUtil.getSessionUser().getId());
 
         try {
             userService.observe(userA, userB);
         } catch (UserAlreadyObservedException e) {
             return new ResponseEntity<>("User " + userA.getEmail() + " already observes user " +
-                    userB.getEmail() + "verified.", new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+                    userB.getEmail(), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
         }
 
         return new ResponseEntity<>("User " + userA.getEmail() + " now observes user " +
                 userB.getEmail() + ".", new HttpHeaders(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/observed", method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Set<User>> getObservedUsers()
+            throws JsonProcessingException {
+        Set<User> observed = userService.findById(MyUtil.getSessionUser().getId()).getObserved();
+        if (observed.isEmpty()) {
+            return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(observed, new HttpHeaders(), HttpStatus.OK);
+
+    }
+
+
 
 }

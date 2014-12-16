@@ -73,13 +73,36 @@ public class RootController {
         return "home";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/usersList", method = RequestMethod.GET)
+    public String usersList() {
+        return "usersList";
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String errorPage() {
+        return "error";
+    }
+
+
+    @RequestMapping(value = "/beta", method = RequestMethod.GET)
+    public String betaHomePage(Model model) {
+        model.addAttribute("homePageSearch", new HomepageSearchForm());
+        return "home2";
+    }
+
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String indexPage(@ModelAttribute("homePageSearch") HomepageSearchForm searchForm,
                             BindingResult result,
                             RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            logger.warn("shit happend, errors found:", result.getErrorCount());
+            logger.warn("@#$%^&* happened, errors found:", result.getErrorCount());
             return "home";
         }
 
@@ -221,5 +244,10 @@ public class RootController {
         return "redirect:/login";
     }
 
+
+    @RequestMapping(value = "/friends")
+    public String showFriendsView() {
+        return "friends";
+    }
 
 }
