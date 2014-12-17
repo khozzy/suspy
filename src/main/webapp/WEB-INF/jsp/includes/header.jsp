@@ -110,7 +110,7 @@
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th-large"></span> Events <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-glass"></span> Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="/new-event"><span class="glyphicon glyphicon-plus"></span> New</a>

@@ -9,6 +9,8 @@ import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +56,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Place createNewGym(Place place) {
+    public Place createNewPlace(Place place) {
         //TODO: SEND MAIL TO ADMIN WITH WITH NEW PLACE NOTIFICATION TO REJECT OR ACCEPT IT
         repository.save(place);
         return place;
@@ -102,7 +104,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         return gym;
     }
 
-    public void acceptGym(final Place gym) {
+    public void acceptPlace(final Place gym) {
         gym.setAccepted(true);
         repository.save(gym);
     }
@@ -120,5 +122,11 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     public List<Place> findByNameContaining(String name) {
         return repository.findByNameContaining("%" + name + "%");
     }
+
+    @Transactional(readOnly = true)
+    public Page<Place> findPlaces(String query, Pageable pageable) {
+        return repository.findByNameAndAddressCityAndAddressStreetAndOwnerNameContaining("%" + query + "%", pageable);
+    }
+
 
 }

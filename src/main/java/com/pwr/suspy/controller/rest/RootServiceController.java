@@ -57,17 +57,5 @@ public class RootServiceController {
         return new ResponseEntity<>("Password changed.",new HttpHeaders(),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "places", method = RequestMethod.GET, headers = "accept=application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<Place> getPlaces(
-            @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
-            @RequestParam(value = "numOfResults", defaultValue = "5") Long numOfResults)
-            throws JsonProcessingException {
 
-        return placeService.findAll(
-                new PageRequest(
-                        pageNum.intValue(),
-                        numOfResults.intValue(),
-                        new Sort(Sort.Direction.ASC, "id")));
-    }
 }

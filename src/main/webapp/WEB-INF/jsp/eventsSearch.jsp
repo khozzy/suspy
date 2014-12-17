@@ -9,7 +9,8 @@
         <th>Name</th>
         <th>Team</th>
         <th>Where</th>
-        <th>When</th>
+        <th>From</th>
+        <th>To</th>
     </tr>
     </thead>
 
@@ -19,7 +20,9 @@
             <td><c:out value="${event.name}" /></td>
             <td><c:out value="${event.team.name}"/></td>
             <td><c:out value="${event.timeSlot.place.name}"/></td>
-            <td><c:out value="${event.timeSlot.from} - ${event.timeSlot.to}"/></td>
+            <td><c:out value="${event.timeSlot.from}"/></td>
+            <td><c:out value="${event.timeSlot.to}"/></td>
+
         </tr>
     </c:forEach>
     </tbody>

@@ -37,7 +37,7 @@ public class UserServiceController {
     @ResponseStatus(HttpStatus.OK)
     public Page<User> getUsers(
             @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
-            @RequestParam(value = "numOfResults", defaultValue = "5") Long numOfResults)
+            @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
             throws JsonProcessingException {
 
         return userService.findAll(
