@@ -32,7 +32,7 @@ public class PlaceController {
     @RequestMapping(value = "/list")
     public String showUsersList()
     {
-        return "placesList";
+        return "redirect:/place/search?query=";
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET)
