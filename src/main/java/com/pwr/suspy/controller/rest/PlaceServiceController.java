@@ -51,7 +51,7 @@ public class PlaceServiceController {
             @PathVariable("placeID") Long placeID) throws JsonProcessingException {
 
         if (placeService.exists(placeID)) {
-            return new ResponseEntity<>(placeService.findById(placeID), new HttpHeaders(), HttpStatus.FOUND);
+            return new ResponseEntity<>(placeService.findById(placeID), new HttpHeaders(), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);

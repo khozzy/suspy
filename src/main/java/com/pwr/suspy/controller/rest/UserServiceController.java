@@ -52,7 +52,7 @@ public class UserServiceController {
             @PathVariable("userID") Long userID) throws JsonProcessingException {
 
         if (userService.exists(userID)) {
-            return new ResponseEntity<>(userService.findById(userID), new HttpHeaders(), HttpStatus.FOUND);
+            return new ResponseEntity<>(userService.findById(userID), new HttpHeaders(), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);

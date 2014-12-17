@@ -1,9 +1,10 @@
 suspyApp
 
     .controller('MainController', function() {
+
 })
     .controller('HomeController', function($scope) {
-        $scope.name='glowna';
+
 })
     .controller('FriendsController', function() {
 
@@ -11,24 +12,38 @@ suspyApp
     .controller('ErrorController', function() {
 
 })
-    .controller('SearchController', function($scope, $http) {
+    .controller('SearchController', function($scope,$http) {
 
-        $scope.search = function(query){
+        $scope.searchUrl = '/events';
+        $scope.pageNum = 0;
+        $scope.numOfResults = 10;
 
-           // if(selection=='event') {
-            //    return results + 'event';
-            //};
+        $scope.$watch('query', function() {
+            if ($scope.query != undefined && $scope.query !='') {
+                if($scope.selection=='event') {
+                    $scope.searchUrl = 'events/';
+                };
 
-           // if(selection=='place') {
-           //     return results + 'place';
-           // };
+                if($scope.selection=='place') {
+                    $scope.searchUrl = 'places/';
+                };
+                $http.get('/service/' + $scope.searchUrl,
+                    {params: {
+                        query: $scope.query,
+                        pageNum: $scope.pageNum,
+                        numOfResults: $scope.numOfResults
+                    }})
+                    .success(function (data) {
+                        $scope.results = data;
+                    })
+                    .error(function (data) {
+                        $scope.results = 'No results found.';
+                    });
+            };
 
-            //$http.get('service/users/1')
-             //   .success(function (data) {
-              //  $scope.results = data;
-            //})
-             //   .error(function(data){});
-            return query;
+            if($scope.query==''){
+                $scope.results='';
+            };
+        });
 
-        }
     });

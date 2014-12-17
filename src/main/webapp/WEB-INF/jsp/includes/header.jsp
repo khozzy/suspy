@@ -26,6 +26,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
+
 </head>
 
 <body ng-app="suspyApp" ng-controller="MainController">
@@ -77,53 +78,51 @@
                                 </li>
                             </sec:authorize>
                             <sec:authorize access="isAuthenticated()">
-                                <li>
-                                    <a href="#"><span class="glyphicon glyphicon-globe"></span> Notifications</a>
-                                </li>
+
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-eye-open"></span> Social <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-star-empty"></span> &nbsp; My Teams <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span> Friends</a>
+                                            <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span>&nbsp; Friends</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="/users"><span class="glyphicon glyphicon-user"></span> List of Users</a>
+                                            <a href="/users"><span class="glyphicon glyphicon-user"></span>&nbsp; List of Users</a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-home"></span> Places <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/place/add"><span class="glyphicon glyphicon-plus"></span> New</a>
+                                            <a href="/place/add"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span> Manage</a>
+                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                         <li>
-                                            <a href="/place/list"><span class="glyphicon glyphicon-list"></span> List</a>
+                                            <a href="/place/list"><span class="glyphicon glyphicon-list"></span>&nbsp; List</a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-glass"></span> Events <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/new-event"><span class="glyphicon glyphicon-plus"></span> New</a>
+                                            <a href="/new-event"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-tasks"></span> Upcoming</a>
+                                            <a href="#"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Upcoming</a>
                                         </li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span> Manage</a>
+                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-header"></span> History</a>
+                                            <a href="#"><span class="glyphicon glyphicon-header"></span>&nbsp; History</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -139,6 +138,16 @@
                                                 <spring:message code='profile'/></a></li>
                                         <!--<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>-->
                                         <li class="divider"></li>
+                                        <li>
+                                            <a href="#"><span class="glyphicon glyphicon-globe"></span> Notifications</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                                        </li>
+
+                                        <li class="divider"></li>
+
                                         <li>
                                             <c:url var="logoutUrl" value="/logout"/>
                                             <form:form id="logoutForm" action="${logoutUrl}" method="post">

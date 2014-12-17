@@ -27,10 +27,12 @@
                     <c:if test="${user.observable}">
                         <c:choose>
                             <c:when test="${observed}">
-                                <a class="btn btn-default" href="<c:url value='/users/${user.id}/stopObserving'/>">Don't observe</a>
+                                <a class="btn btn-default" href="<c:url value='/users/${user.id}/stopObserving'/>">
+                                    <span class="glyphicon glyphicon-eye-close"></span> &nbsp; Don't observe</a>
                             </c:when>
                             <c:otherwise>
-                                <a class="btn btn-default" href="<c:url value='/users/${user.id}/startObserving'/>">Observe</a>
+                                <a class="btn btn-default" href="<c:url value='/users/${user.id}/startObserving'/>">
+                                    <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Observe</a>
                             </c:otherwise>
                         </c:choose>
                     </c:if>
