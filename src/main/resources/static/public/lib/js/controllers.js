@@ -14,19 +14,17 @@ suspyApp
 })
     .controller('SearchController', function($scope,$http) {
 
-        $scope.searchUrl = '/events';
+        $scope.selection = 'event';
         $scope.pageNum = 0;
         $scope.numOfResults = 10;
 
         $scope.$watch('query', function() {
             if ($scope.query != undefined && $scope.query !='') {
-                if($scope.selection=='event') {
-                    $scope.searchUrl = 'events/';
-                };
 
-                if($scope.selection=='place') {
-                    $scope.searchUrl = 'places/';
-                };
+                if($scope.selection=='event') {$scope.searchUrl = 'events/';};
+                if($scope.selection=='place') {$scope.searchUrl = 'places/';};
+                if($scope.selection=='team') {$scope.searchUrl = 'teams/';};
+
                 $http.get('/service/' + $scope.searchUrl,
                     {params: {
                         query: $scope.query,
@@ -44,6 +42,9 @@ suspyApp
             if($scope.query==''){
                 $scope.results='';
             };
+
+            //$("#searchResults").DataTable();
+
         });
 
     });

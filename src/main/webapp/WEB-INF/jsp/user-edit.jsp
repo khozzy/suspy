@@ -1,5 +1,7 @@
 <%@include file="includes/header.jsp" %>
 
+<div class="row">
+
     <div class="panel panel-primary">
 
         <div class="panel-heading">
@@ -41,5 +43,6 @@
 
         </div>
     </div>
+</div>
 
 <%@include file="includes/footer.jsp" %>

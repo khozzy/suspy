@@ -37,7 +37,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         return repository;
     }
 
-    public Place createNewGym(
+    public Place createNewPlace(
             final String name,
             final Address address,
             final User owner,
@@ -63,7 +63,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     }
 
     public Place getPlace(AddPlaceForm addPlaceForm, User owner) {
-        Address gymAddress = new Address(
+        Address placeAddress = new Address(
                 addPlaceForm.getStreet(),
                 addPlaceForm.getHouseNumber(),
                 addPlaceForm.getCity());
@@ -72,25 +72,25 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         Set<Activity> activities = new HashSet<>();
         activities.add(Activity.BASKETBALL);
 
-        Place gym = new Place();
+        Place place = new Place();
 
-        gym.setName(addPlaceForm.getName());
-        gym.setAddress(gymAddress);
-        gym.setOwner(owner);
-        gym.setCapacity(addPlaceForm.getCapacity());
-        gym.setCreatedDate(new Date());
+        place.setName(addPlaceForm.getName());
+        place.setAddress(placeAddress);
+        place.setOwner(owner);
+        place.setCapacity(addPlaceForm.getCapacity());
+        place.setCreatedDate(new Date());
 //        TODO: zmienione
-//        gym.setActivities(addPlaceForm.getActivities());
+//        place.setActivities(addPlaceForm.getActivities());
 
-        gym.setActivities(activities);
-        repository.save(gym);
+        place.setActivities(activities);
+        repository.save(place);
         String[] listOfTimeSlots = addPlaceForm.getTimeSlotList().split(";");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (int i = 0; i < listOfTimeSlots.length; i++) {
             try{
                 String[] timeSlotArgs = listOfTimeSlots[i].split(",");
                 TimeSlot newTimeSlot = new TimeSlot();
-                newTimeSlot.setPlace(gym);
+                newTimeSlot.setPlace(place);
                 newTimeSlot.setCreatedDate(new Date());
                 newTimeSlot.setFrom(dateFormat.parse(timeSlotArgs[0]));
                 newTimeSlot.setTo(dateFormat.parse(timeSlotArgs[1]));
@@ -101,17 +101,17 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
             }
         }
 
-        return gym;
+        return place;
     }
 
-    public void acceptPlace(final Place gym) {
-        gym.setAccepted(true);
-        repository.save(gym);
+    public void acceptPlace(final Place place) {
+        place.setAccepted(true);
+        repository.save(place);
     }
 
-    public void rejectGym(final Place gym) {
-        gym.setAccepted(false);
-        repository.save(gym);
+    public void rejectGym(final Place place) {
+        place.setAccepted(false);
+        repository.save(place);
     }
 
     public Place findById(long id) {

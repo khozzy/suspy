@@ -1,6 +1,5 @@
-            </div>
 
-            <div class="row">
+            <div class="row" id="footer">
                     <hr>
 
                     <footer>

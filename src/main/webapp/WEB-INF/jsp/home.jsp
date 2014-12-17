@@ -1,40 +1,124 @@
 <%@include file="includes/header.jsp" %>
-       <span ng-controller="SearchController">
-            <div class="jumbotron" style="text-align: center">
-                <h1>Welcome in Suspy!</h1>
-                <p>Create or find teams, events and book places rapidly.</p>
-                <p>
-                <form class="form-horizontal" name="searchForm" role="search" action="#">
-                    <div class="form-group">
+<span ng-controller="SearchController">
+            <div class="row" id="invitation">
+                <div class="jumbotron" style="text-align: center">
+                    <h1>Welcome in Suspy!</h1>
+                    <p>Create or find teams, events and book places rapidly.</p>
+                    <p>
+                    <form class="form-horizontal" name="searchForm" role="search" action="#">
+                        <div class="form-group">
 
-                        <div class="col-sm-6 col-lg-offset-3">
-                            <input class="form-control"  style="text-align: center"
-                                   placeholder="Search for events, places, teams" ng-model="query" />
+                            <div class="col-sm-6 col-lg-offset-3">
+                                <input class="form-control"  style="text-align: center"
+                                       placeholder="Search for events, places, teams" ng-model="query" />
+                            </div>
+                            <br><br><br>
+                            <label class="btn btn-info">
+                                <span class="glyphicon glyphicon-glass"></span>&nbsp; Events
+                                <input id="event" type="radio" name="radioButtons" ng-model="selection" value="event" class="radio-inline" style="margin: 0 5px 0 20px;">
+                            </label>
+                            <label class="btn btn-danger">
+                                <span class="glyphicon glyphicon-home"></span>&nbsp; Places
+                            <input id="place" type="radio" name="radioButtons" ng-model="selection" value="place" class="radio-inline" style="margin: 0 5px 0 20px;">
+                            </label>
+                            <label class="btn btn-warning">
+                                <span class="glyphicon glyphicon-star-empty"></span>&nbsp; Teams
+                                <input id="team" type="radio" name="radioButtons" ng-model="selection" value="team" class="radio-inline" style="margin: 0 5px 0 20px;">
+                            </label>
+                            <!--<button type="button" class="btn btn-primary btn-lg" data-loading-text="Searching..."
+                                    id="showSearchResults" autocomplete="off" ng-click="search()">Search</button>-->
                         </div>
-                        <br><br><br>
-                        <label class="btn btn-info">
-                            <span class="glyphicon glyphicon-glass"></span>&nbsp; Events
-                            <input id="event" type="radio" name="radioButtons" ng-model="selection" value="event" class="radio-inline" style="margin: 0 5px 0 20px;">
-                        </label>
-                        <label class="btn btn-danger">
-                            <span class="glyphicon glyphicon-home"></span>&nbsp; Places
-                        <input id="place" type="radio" name="radioButtons" ng-model="selection" value="place" class="radio-inline" style="margin: 0 5px 0 20px;">
-                        </label>
-                        <label class="btn btn-warning">
-                            <span class="glyphicon glyphicon-star-empty"></span>&nbsp; Teams
-                            <input id="team" type="radio" name="radioButtons" ng-model="selection" value="team" class="radio-inline" style="margin: 0 5px 0 20px;">
-                        </label>
-                        <!--<button type="button" class="btn btn-primary btn-lg" data-loading-text="Searching..."
-                                id="showSearchResults" autocomplete="off" ng-click="search()">Search</button>-->
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
 
-            <section id="searchResults">
-                {{results}}
-            </section>
+            <div class="row" id="listOfResults">
+                <section id="searchResults" ng-switch="selection" ng-show="results">
+                    <%--
+                        results of event search
+                    --%>
+                        <table id="events_table" class="display" cellspacing="0" width="100%" ng-switch-when="event">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Team</th>
+                                    <th>Where</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
 
-            <script src="/public/lib/js/placesSearch.js"></script>
+                            <tbody>
+                                <span ng-repeat="event in results">
+                                    <tr>
+                                        <td>{{event.name}}</td>
+                                        <td>{{event.team.name}}</td>
+                                        <td>{{event.timeSlot.place.name}}</td>
+                                        <td>{{event.timeSlot.from}}</td>
+                                        <td>{{event.timeSlot.to}}</td>
+                                    </tr>
+                                </span>
+                            </tbody>
+                        </table>
+
+                    <%--
+                        end of results of event search
+                    --%>
+
+                    <%--
+                        results of places search
+                    --%>
+                            <table id="places_table" class="display" cellspacing="0" width="100%" ng-switch-when="place">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>City</th>
+                                        <th>Capacity</th>
+                                        <th>Owner</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <span ng-repeat="place in results">
+                                        <tr>
+                                            <td>{{place.name}}</td>
+                                            <td>{{place.address.city}}</td>
+                                            <td>{{place.capacity}}</td>
+                                            <td>{{place.owner.name}}</td>
+                                        </tr>
+                                    </span>
+                                </tbody>
+                            </table>
+                        <%--
+                            end of results of places search
+                        --%>
+
+                        <%--
+                            results of teams search
+                        --%>
+                            <table id="teams_table" class="display" cellspacing="0" width="100%" ng-switch-when="team">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Team Leader</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <span ng-repeat="team in results">
+                                        <tr>
+                                            <td>{{team.name}}</td>
+                                            <td>{{team.leader.name + ' ' + team.leader.surname}}</td>
+                                        </tr>
+                                    </span>
+                                </tbody>
+                            </table>
+                            <%--
+                                end of results of places search
+                            --%>
+
+                </section>
+            </div>
+</span>
            <script src="/public/lib/js/datatables.min.js"></script>
-       </span>
 <%@include file="includes/footer.jsp" %>

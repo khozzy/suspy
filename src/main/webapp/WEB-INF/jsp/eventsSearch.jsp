@@ -1,33 +1,35 @@
 <%@include file="includes/header.jsp" %>
 <script src="/public/lib/js/datatables.min.js"></script>
 
-<h2>Events</h2>
+<div class="row">
 
-<table id="events_table" class="display" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Team</th>
-        <th>Where</th>
-        <th>From</th>
-        <th>To</th>
-    </tr>
-    </thead>
+    <h2>Events</h2>
 
-    <tbody>
-    <c:forEach items="${eventsFound}" var="event">
+    <table id="events_table" class="display" cellspacing="0" width="100%">
+        <thead>
         <tr>
-            <td><c:out value="${event.name}" /></td>
-            <td><c:out value="${event.team.name}"/></td>
-            <td><c:out value="${event.timeSlot.place.name}"/></td>
-            <td><c:out value="${event.timeSlot.from}"/></td>
-            <td><c:out value="${event.timeSlot.to}"/></td>
-
+            <th>Name</th>
+            <th>Team</th>
+            <th>Where</th>
+            <th>From</th>
+            <th>To</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
 
+        <tbody>
+        <c:forEach items="${eventsFound}" var="event">
+            <tr>
+                <td><c:out value="${event.name}" /></td>
+                <td><c:out value="${event.team.name}"/></td>
+                <td><c:out value="${event.timeSlot.place.name}"/></td>
+                <td><c:out value="${event.timeSlot.from}"/></td>
+                <td><c:out value="${event.timeSlot.to}"/></td>
+
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 <script>
     $(document).ready(function() {

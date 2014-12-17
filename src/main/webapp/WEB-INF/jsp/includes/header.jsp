@@ -32,7 +32,7 @@
 <body ng-app="suspyApp" ng-controller="MainController">
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="navbar">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -165,7 +165,7 @@
                 <!-- /.container-fluid -->
             </nav>
         </div>
-        <div class="row">
+        <div class="row" id="warnings">
             <sec:authorize access="hasRole('ROLE_UNVERIFIED')">
                 <div class="alert alert-warning alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -182,5 +182,3 @@
                 </div>
             </c:if>
         </div>
-
-        <div class="row">

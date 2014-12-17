@@ -1,4 +1,5 @@
 <%@include file="includes/header.jsp" %>
+    <div class="row">
         <div class="col-xs-6 col-sm-3 id="sidebar">
 
             <div class="row">
@@ -166,4 +167,5 @@
                 </div>
             </div>
         </div>
+    </div>
 <%@include file="includes/footer.jsp" %>

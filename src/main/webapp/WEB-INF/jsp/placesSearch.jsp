@@ -2,6 +2,7 @@
 
     <script src="/public/lib/js/datatables.min.js"></script>
 
+<div class="row">
     <h2>Places</h2>
 
     <table id="places_table" class="display" cellspacing="0" width="100%">
@@ -25,6 +26,7 @@
             </c:forEach>
         </tbody>
     </table>
+</div>
 
 
     <script>
