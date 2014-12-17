@@ -1,5 +1,6 @@
 package com.pwr.suspy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -21,6 +22,7 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "id")
     protected Long id;
 
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false)
     protected Date createdDate;
@@ -28,6 +30,7 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
     protected boolean deleted = false;
 
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_date")
     private Date deletedDate;

@@ -125,7 +125,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
 
     @Transactional(readOnly = true)
     public Page<Place> findPlaces(String query, Pageable pageable) {
-        return repository.findByNameAndAddressCityAndAddressStreetAndOwnerNameContaining("%" + query + "%", pageable);
+        return repository.findByNameContaining("%" + query + "%", pageable);
     }
 
 

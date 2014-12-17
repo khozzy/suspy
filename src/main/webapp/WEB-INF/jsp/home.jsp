@@ -33,11 +33,15 @@
             </div>
 
             <div class="row" id="listOfResults">
-                <section id="searchResults" ng-switch="selection" ng-show="results">
+                <section id="searchResults" ng-switch="selection" ng-show="query">
+
+
+                    <h3 ng-hide="results">No results found :(</h3>
+
                     <%--
                         results of event search
                     --%>
-                        <table id="events_table" class="display" cellspacing="0" width="100%" ng-switch-when="event">
+                        <table id="events_table" class="display" cellspacing="0" width="100%" ng-switch-when="event" ng-show="results">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -47,17 +51,14 @@
                                     <th>To</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                <span ng-repeat="event in results">
-                                    <tr>
+                                    <tr ng-repeat="event in results">
                                         <td>{{event.name}}</td>
                                         <td>{{event.team.name}}</td>
                                         <td>{{event.timeSlot.place.name}}</td>
                                         <td>{{event.timeSlot.from}}</td>
                                         <td>{{event.timeSlot.to}}</td>
                                     </tr>
-                                </span>
                             </tbody>
                         </table>
 
@@ -68,7 +69,7 @@
                     <%--
                         results of places search
                     --%>
-                            <table id="places_table" class="display" cellspacing="0" width="100%" ng-switch-when="place">
+                            <table id="places_table" class="display" cellspacing="0" width="100%" ng-switch-when="place" ng-show="results">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -79,14 +80,12 @@
                                 </thead>
 
                                 <tbody>
-                                    <span ng-repeat="place in results">
-                                        <tr>
+                                        <tr ng-repeat="place in results">
                                             <td>{{place.name}}</td>
                                             <td>{{place.address.city}}</td>
                                             <td>{{place.capacity}}</td>
                                             <td>{{place.owner.name}}</td>
                                         </tr>
-                                    </span>
                                 </tbody>
                             </table>
                         <%--
@@ -96,7 +95,7 @@
                         <%--
                             results of teams search
                         --%>
-                            <table id="teams_table" class="display" cellspacing="0" width="100%" ng-switch-when="team">
+                            <table id="teams_table" class="display" cellspacing="0" width="100%" ng-switch-when="team" ng-show="results">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -105,12 +104,10 @@
                                 </thead>
 
                                 <tbody>
-                                <span ng-repeat="team in results">
-                                        <tr>
+                                        <tr ng-repeat="team in results">
                                             <td>{{team.name}}</td>
                                             <td>{{team.leader.name + ' ' + team.leader.surname}}</td>
                                         </tr>
-                                    </span>
                                 </tbody>
                             </table>
                             <%--

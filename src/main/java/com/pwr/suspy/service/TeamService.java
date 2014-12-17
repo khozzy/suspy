@@ -1,11 +1,15 @@
 package com.pwr.suspy.service;
 
+import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.domain.Team;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.repository.Teams;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TeamService extends GenericServiceImpl<Team, Long, Teams> {
@@ -37,6 +41,11 @@ public class TeamService extends GenericServiceImpl<Team, Long, Teams> {
 
     public void changeLeader(final Team team, final User newLeader) {
         // Metoda zmieniajaca aktualnego lidera w teamie
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Team> findEvents(String query, Pageable pageable) {
+        return repository.findByNameContaining("%" + query + "%", pageable);
     }
 
 }

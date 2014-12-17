@@ -1,6 +1,8 @@
 package com.pwr.suspy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.util.MyUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -75,7 +77,7 @@ public class User extends BaseEntity {
     @Column(length = RANDOM_CODE_LENGTH)
     private String resetPasswordCode;
 
-    @JsonIgnore
+    @JsonManagedReference("userTeam")
     @ManyToMany
     @JoinTable(
             name = "user_team",

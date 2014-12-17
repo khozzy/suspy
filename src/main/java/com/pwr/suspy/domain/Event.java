@@ -1,5 +1,6 @@
 package com.pwr.suspy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -24,6 +25,7 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
+    @JsonBackReference("teamEvent")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;

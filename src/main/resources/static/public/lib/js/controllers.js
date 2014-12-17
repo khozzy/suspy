@@ -32,15 +32,16 @@ suspyApp
                         numOfResults: $scope.numOfResults
                     }})
                     .success(function (data) {
-                        $scope.results = data;
+                        if(data.numberOfElements!=0) {
+                            $scope.results = data.content;
+                        }
+                        else{
+                            $scope.results = '';
+                        };
                     })
                     .error(function (data) {
-                        $scope.results = 'No results found.';
+                        $scope.results = '';
                     });
-            };
-
-            if($scope.query==''){
-                $scope.results='';
             };
 
             //$("#searchResults").DataTable();

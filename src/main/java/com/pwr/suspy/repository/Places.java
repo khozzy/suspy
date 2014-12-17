@@ -20,6 +20,7 @@ public interface Places extends JpaRepository<Place, Long> {
     @Query("SELECT p FROM Place p WHERE UPPER(p.name) LIKE UPPER(:name)")
     List<Place> findByNameContaining(@Param("name") String name);
 
-    Page<Place> findByNameAndAddressCityAndAddressStreetAndOwnerNameContaining(String query, Pageable pageable);
+    //Page<Place> findByNameAndAddressCityAndAddressStreetAndOwnerNameContaining(String query, Pageable pageable);
+    Page<Place> findByNameContaining(String query, Pageable pageable);
 
 }

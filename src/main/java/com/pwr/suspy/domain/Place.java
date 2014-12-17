@@ -1,5 +1,6 @@
 package com.pwr.suspy.domain;
 
+import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -41,9 +42,10 @@ public class Place extends BaseEntity {
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner", nullable = false)
     private User owner;
 
+    @JsonManagedReference("placeTimeSlot")
     @OneToMany(mappedBy = "place")
     private Set<TimeSlot> timeSlots = new HashSet<>();
 

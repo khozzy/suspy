@@ -1,6 +1,7 @@
 package com.pwr.suspy.repository;
 
 import com.pwr.suspy.domain.Event;
+import com.pwr.suspy.domain.Place;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,6 @@ public interface Events extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e WHERE UPPER(e.name) LIKE UPPER(:name)")
     List<Event> findByNameContaining(@Param("name") String name);
+
+    Page<Event> findByNameContaining(String query, Pageable pageable);
 }
