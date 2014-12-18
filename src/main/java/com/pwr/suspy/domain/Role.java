@@ -4,7 +4,7 @@ public enum Role {
 
     ADMIN("Administrator"),
     NORMAL_USER("Normal user"),
-    OBJECT_OWNER("Object owner"),
+    PLACE_OWNER("Object owner"),
     UNVERIFIED("Unverified"),
     BLOCKED("Blocked");
 

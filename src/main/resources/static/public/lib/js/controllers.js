@@ -42,6 +42,7 @@ suspyApp
                     .error(function (data) {
                         $scope.results = '';
                     });
+
             };
 
             //$("#searchResults").DataTable();

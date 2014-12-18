@@ -17,11 +17,13 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   (1, 'ADMIN'),
   (2, 'NORMAL_USER'),
   (3, 'NORMAL_USER'),
-  (4, 'NORMAL_USER'),
-  (5, 'NORMAL_USER');
+  (4, 'PLACE_OWNER'),
+  (5, 'NORMAL_USER'),
+  (6, 'NORMAL_USER'),
+  (7, 'NORMAL_USER');
 
 ## Teams
-  INSERT INTO `suspy`.`team` (`id`, `created_date`, `deleted`, `name`, `leader`) VALUES
+  INSERT INTO `suspy`.`team` (`id`, `created_date`, `deleted`, `name`, `leader_id`) VALUES
   ('1', '1990-10-10', 0, '90ties kids', '1'),
   ('2', NOW(), 0, 'Wittigowo', '2'),
   ('3', '1990-10-10', 0, 'Univerki', '3'),
@@ -35,7 +37,7 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   ('1', '4'),  ('3', '4'),  ('4', '4');
 
 # Observation
-  INSERT INTO `suspy`.`observation` (`user`, `observing_user_id`) VALUES
+  INSERT INTO `suspy`.`observation` (`user_id`, `observing_user_id`) VALUES
   ('1', '2'), ('1', '3'), ('1', '4'), ('1', '5'),
   ('2', '5'), ('2', '3'),
   ('3', '5'),
@@ -43,7 +45,7 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   ('5', '5');
 
 ## Places
-INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`, `house_number`, `street`, `capacity`, `name`, `owner`) VALUES
+INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`, `house_number`, `street`, `capacity`, `name`, `owner_id`) VALUES
   ('1', NOW(), false, true , 'Internet', '99', 'League of Legends', '10', 'Games: League of Legends', '1'),
   ('2', NOW(), false, true , 'Wroclaw', '60', 'Wittiga', '100', 'Boisko Akademiki', '1'),
   ('3', NOW(), false, true , 'Przeworsk', '60', 'Mickiewicza', '50', 'Basen', '1'),
