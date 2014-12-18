@@ -1,6 +1,8 @@
 package com.pwr.suspy.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -21,12 +23,18 @@ public class Event extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @OneToOne
     @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
-    @JsonBackReference("teamEvent")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
 

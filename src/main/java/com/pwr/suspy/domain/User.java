@@ -1,8 +1,6 @@
 package com.pwr.suspy.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.util.MyUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -58,11 +56,15 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    /*@JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")*/
+    //tutaj jest problemik!! nie działa to z kolekcjami, trzeba znaleźć obejście
     @JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "observation",
-            joinColumns = { @JoinColumn(name = "user") },
+            joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "observing_user_id")})
     private Set<User> observed = new HashSet<>();
 
@@ -77,7 +79,10 @@ public class User extends BaseEntity {
     @Column(length = RANDOM_CODE_LENGTH)
     private String resetPasswordCode;
 
-    @JsonManagedReference("userTeam")
+    /*@JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")*/
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "user_team",

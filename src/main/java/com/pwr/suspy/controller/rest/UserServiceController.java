@@ -1,6 +1,7 @@
 package com.pwr.suspy.controller.rest;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserAlreadyExistsException;

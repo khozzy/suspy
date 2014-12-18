@@ -1,8 +1,6 @@
 package com.pwr.suspy.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -23,17 +21,23 @@ public class Team extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonBackReference("userTeam")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "leader", nullable = false)
+    @JoinColumn(name = "leader_id", nullable = false)
     private User leader;
 
-    @JsonBackReference("userTeam")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToMany(mappedBy = "teams")
     private Set<User> members;
 
-    @JsonManagedReference("teamEvent")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToMany(mappedBy = "team")
     private Set<Event> events;
 

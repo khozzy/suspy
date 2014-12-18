@@ -1,7 +1,9 @@
 package com.pwr.suspy.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -22,8 +24,11 @@ import java.util.Date;
 @Table(name = "time_slot")
 public class TimeSlot extends BaseEntity {
 
-    @JsonBackReference("placeTimeSlot")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
@@ -41,7 +46,9 @@ public class TimeSlot extends BaseEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @JsonIgnore
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @OneToOne(mappedBy = "timeSlot")
     private Event event;
 

@@ -85,7 +85,7 @@
                                 <form:option value=""><spring:message code='role.default.header'/></form:option>
                                 <form:option value="NORMAL_USER"><spring:message
                                         code='role.normal_user.header'/></form:option>
-                                <form:option value="OBJECT_OWNER"><spring:message
+                                <form:option value="PLACE_OWNER"><spring:message
                                         code='role.object_owner.header'/></form:option>
                             </form:select>
                             <form:errors path="role" cssClass="error"/>

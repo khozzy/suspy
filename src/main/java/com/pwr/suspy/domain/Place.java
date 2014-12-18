@@ -41,11 +41,16 @@ public class Place extends BaseEntity {
     @Column(name = "capacity", nullable = false)
     private int capacity;
 
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToOne
-    @JoinColumn(name = "owner", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @JsonManagedReference("placeTimeSlot")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @OneToMany(mappedBy = "place")
     private Set<TimeSlot> timeSlots = new HashSet<>();
 
