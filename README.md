@@ -56,7 +56,13 @@ To install all dependencies run:
 ```
 bower install
 ```
-After installing dependencies you should run:
+
+To add new dependency run:
+ ```
+ bower install nameOfDependency
+ ```
+
+After installing new dependencies you should run:
 ```
 bower init
  ```
@@ -66,19 +72,6 @@ bower init
 grunt wiredep
  ```
  to inject dependencies into html.
-
-To add new dependency run:
- ```
- bower install nameOfDependency
- ```
-
-
-
-After installing dependencies you should run:
-```
-grunt wiredep
-```
-to inject installed dependencies into html file.
 
 
 ##Run
