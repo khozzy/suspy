@@ -99,17 +99,11 @@ public class PlaceController {
         }
     }
 
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public String addPlace(@ModelAttribute("addPlaceForm") @Valid AddPlaceForm addPlaceForm,
-//                           BindingResult result,
-//                           RedirectAttributes redirectAttributes){
-
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public String editPlace(@ModelAttribute("addPlaceForm") @Valid EditPlaceForm editPlaceForm,
                             @RequestParam("id") String s_id,
                 BindingResult result,
                 RedirectAttributes redirectAttributes) {
-//        logger.info(s_id);
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
@@ -118,9 +112,7 @@ public class PlaceController {
             {
                 MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
                 return "redirect:/";
-               // return "redirect:/place/edit?id="+s_id;
             }
-//            model.addAttribute("editedPlace", place);
             placeService.editPlace(editPlaceForm,place);
             MyUtil.flash(redirectAttributes, "success", "place.edit.success");
 

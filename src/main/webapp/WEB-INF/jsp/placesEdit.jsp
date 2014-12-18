@@ -20,15 +20,6 @@
         <td><c:out value="${editedPlace.address.city}"/></td>
         <td><c:out value="${editedPlace.capacity}"/></td>
         <td><c:out value="${editedPlace.owner.name}"/></td>
-
-        <%--<c:forEach items="${placesFound}" var="place">--%>
-                <%--<tr>--%>
-                    <%--<td><c:out value="${place.name}" /></td>--%>
-                    <%--<td><c:out value="${place.address.city}"/></td>--%>
-                    <%--<td><c:out value="${place.capacity}"/></td>--%>
-                    <%--<td><c:out value="${place.owner.name}"/></td>--%>
-                <%--</tr>--%>
-            <%--</c:forEach>--%>
         </tbody>
     </table>
     <div class="row">
@@ -75,7 +66,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <form:button type="submit" class="btn btn-default"><spring:message code='place.edit.submit'/></form:button>
-                                    <%-- TODO: CHANGE Name of finish form button --%>
+
                             </div>
                         </div>
                     </form:form>
