@@ -1,0 +1,21 @@
+{
+  "name": "Suspy",
+  "version": "0.0.1",
+  "licenses": [
+    {
+        "type": "TYPE OF LICENCE: TO BE ANNOUNCED",
+        "url": "http://license"
+    }
+    ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khozzy/suspy"
+  },
+  "main": "lib",
+  "devDependencies": {
+    "bower": "~1.3.12",
+    "grunt": "~0.4.5",
+    "grunt-wiredep": "^2.0.0",
+    "less": "~2.1.1"
+  }
+}
