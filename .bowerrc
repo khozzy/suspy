@@ -1,0 +1,7 @@
+{
+    "directory": "src/main/resources/static/public/lib/bower_components",
+    "json": "bower.json",
+    "searchpath": [
+        "https://bower.herokuapp.com"
+    ]
+}

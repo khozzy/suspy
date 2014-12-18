@@ -10,6 +10,13 @@ Suspy will also be integrated with most popular social media websites like Faceb
 * Java Oracle JDK 1.8
 * Maven >= 3.1
 * MySQL
+* Node.js (npm) with the following node packages:
+** Bower (dependencies management)
+** Less (if someone want to change colours of bootstrap material design)
+** Grunt
+** Grunt-wiredep (injecting dependencies into html)
+** Grunt-init
+
 
 ##Database
 Create appropriate MySQL database:
@@ -19,6 +26,42 @@ CREATE DATABASE suspy;
 ```
 
 Change ```application.properties``` file for appropriate credentials.
+
+##Dependency injection
+After installing go to project folder and run:
+ ```
+ npm install
+ ```
+It will install all node packages into project (declared in package.json file).
+
+To use those node packages using command line install every needed package with:
+ ```
+ npm install -g nameOfNodePackage
+ ```
+
+ Packages needed to be used in command line:
+ * Bower
+ * Less
+ * Grunt
+ * Grunt-wiredep
+ * Grunt-init
+
+You can add new node package running:
+ ```
+ npm install nameOfNodePackage
+ ```
+
+To add new dependency run:
+ ```
+ bower install nameOfDependency
+ ```
+
+After installing dependencies you should run:
+```
+grunt wiredep
+```
+to inject installed dependencies into html file.
+
 
 ##Run
 Build and run the application:

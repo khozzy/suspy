@@ -13,15 +13,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Suspy!</title>
 
+    <!-- bower:js -->
+    <!-- endbower -->
+
     <!-- Bootstrap & our CSS-->
-    <link href="/public/lib/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet">
     <link href="/public/lib/css/styles.css" rel="stylesheet">
     <link href="/public/lib/css/commentsStyle.css" rel="stylesheet">
     <link href="/public/lib/css/datatables.css" rel="stylesheet">
 
     <!-- jQuery, Bootstrap and our JS -->
     <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
-    <script src="/public/lib/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+    <script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
     <script src=http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
     <script src="/public/lib/js/app.js"></script>

@@ -2,7 +2,7 @@
 <span ng-controller="SearchController">
             <div class="row" id="invitation">
                 <div class="jumbotron" style="text-align: center">
-                    <h1>Welcome in Suspy!</h1>
+                    <h1>Welcome to Suspy!</h1>
                     <p>Create or find teams, events and book places rapidly.</p>
                     <p>
                     <form class="form-horizontal" name="searchForm" role="search" action="#">
@@ -117,5 +117,4 @@
                 </section>
             </div>
 </span>
-           <script src="/public/lib/js/datatables.min.js"></script>
 <%@include file="includes/footer.jsp" %>
