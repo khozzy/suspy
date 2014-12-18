@@ -6,6 +6,7 @@ import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.TimeSlot;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.AddPlaceForm;
+import com.pwr.suspy.dto.EditPlaceForm;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,18 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         repository.save(place);
         return place;
     }
-
+    public Place editPlace(EditPlaceForm editPlaceForm, Place place)
+    {
+        Address placeAddress = new Address(
+                editPlaceForm.getStreet(),
+                editPlaceForm.getHouseNumber(),
+                editPlaceForm.getCity());
+        place.setAddress(placeAddress);
+        place.setName(editPlaceForm.getName());
+        place.setCapacity(Integer.parseInt(editPlaceForm.getCapacity()));
+        repository.save(place);
+        return place;
+    }
     public Place getPlace(AddPlaceForm addPlaceForm, User owner) {
         Address placeAddress = new Address(
                 addPlaceForm.getStreet(),
@@ -77,7 +89,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         place.setName(addPlaceForm.getName());
         place.setAddress(placeAddress);
         place.setOwner(owner);
-        place.setCapacity(addPlaceForm.getCapacity());
+        place.setCapacity(Integer.parseInt(addPlaceForm.getCapacity()));
         place.setCreatedDate(new Date());
 //        TODO: zmienione
 //        place.setActivities(addPlaceForm.getActivities());
