@@ -34,7 +34,7 @@ After installing go to project folder and run:
  ```
 It will install all node packages into project (declared in package.json file).
 
-To use those node packages using command line install every needed package with:
+To use those node packages using command line install every needed package globally with:
  ```
  npm install -g nameOfNodePackage
  ```
@@ -42,10 +42,7 @@ To use those node packages using command line install every needed package with:
  Packages needed to be used in command line:
  * Bower
  * Less
- * Grunt
  * Grunt-cli
- * Grunt-wiredep
- * Grunt-init
 
 You can add new node package running:
  ```
