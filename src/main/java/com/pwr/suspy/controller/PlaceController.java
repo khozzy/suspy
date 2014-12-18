@@ -2,6 +2,7 @@ package com.pwr.suspy.controller;
 
 import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.dto.AddPlaceForm;
+import com.pwr.suspy.dto.EditPlaceForm;
 import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.pkcs.ParsingException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -45,7 +47,6 @@ public class PlaceController {
     public String addPlace(@ModelAttribute("addPlaceForm") @Valid AddPlaceForm addPlaceForm,
                            BindingResult result,
                            RedirectAttributes redirectAttributes){
-
         if (result.hasErrors()) {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "addPlace";
@@ -65,5 +66,62 @@ public class PlaceController {
         model.addAttribute("placesFound", places);
 
         return "placesSearch";
+    }
+
+    @RequestMapping(value = "/edit",method = RequestMethod.GET)
+    public String editPlace(
+            @RequestParam("id") String s_id,
+            Model model) {
+        logger.info(s_id);
+        try {
+            long id = Long.parseLong(s_id);
+            Place place = placeService.findById(id);
+
+            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
+            {
+                return "redirect:/error";
+            }
+            model.addAttribute("editedPlace", place);
+
+            EditPlaceForm editPlaceForm = new EditPlaceForm();
+            editPlaceForm.setName(place.getName());
+            editPlaceForm.setCity(place.getAddress().getCity());
+            editPlaceForm.setStreet(place.getAddress().getStreet());
+            editPlaceForm.setHouseNumber(place.getAddress().getHouseNumber());
+            editPlaceForm.setCapacity(String.valueOf(place.getCapacity()));
+            model.addAttribute("editPlaceForm", editPlaceForm);
+
+            return "placesEdit";
+        }catch (NumberFormatException ex)
+        {
+            logger.info("ID not a number");
+            return "redirect:/";
+        }
+    }
+
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public String editPlace(@ModelAttribute("addPlaceForm") @Valid EditPlaceForm editPlaceForm,
+                            @RequestParam("id") String s_id,
+                BindingResult result,
+                RedirectAttributes redirectAttributes) {
+        try {
+            long id = Long.parseLong(s_id);
+            Place place = placeService.findById(id);
+
+            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
+            {
+                MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
+                return "redirect:/";
+            }
+            placeService.editPlace(editPlaceForm,place);
+            MyUtil.flash(redirectAttributes, "success", "place.edit.success");
+
+            return "redirect:/";
+        }catch (NumberFormatException ex)
+        {
+            MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
+            logger.info("ID not a number");
+            return "redirect:/";
+        }
     }
 }

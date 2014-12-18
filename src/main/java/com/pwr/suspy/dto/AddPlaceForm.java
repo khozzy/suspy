@@ -30,8 +30,9 @@ public class AddPlaceForm {
     private String houseNumber;
 
     @NotNull
+    @NotBlank(message = "{city.error.blank}")
     @Pattern(regexp ="[0-9]*")
-    private int capacity;
+    private String capacity;
 
     @NotNull
     private String name;
@@ -41,7 +42,7 @@ public class AddPlaceForm {
     private String date_to;
     private String hour_to;
     @Pattern(regexp ="[0-9]*")
-    private int price;
+    private String price;
 
     @NotNull
     private String timeSlotList;
@@ -87,11 +88,11 @@ public class AddPlaceForm {
         this.date_to = date_to;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -212,11 +213,11 @@ public class AddPlaceForm {
         this.houseNumber = houseNumber;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 

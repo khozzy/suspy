@@ -33,6 +33,12 @@
                                 <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="form-control input-md">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="capacity"><spring:message code="place.form.capacity"/></label>
+                            <div class="col-sm-10">
+                                <input id="capacity" name="capacity" type="text" placeholder="" class="form-control input-md">
+                            </div>
+                        </div>
                         <!-- ADD TIMESLOT -->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="timeSlotListBox"><spring:message code='place.form.timeslot.list'/></label>
