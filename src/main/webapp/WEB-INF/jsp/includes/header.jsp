@@ -13,28 +13,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Suspy!</title>
 
-    <!-- bower:js -->
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/ripples.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/datatables/media/css/jquery.dataTables.css" />
     <!-- endbower -->
 
-    <!-- Bootstrap & our CSS-->
-    <link href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet">
-    <link href="/public/lib/css/styles.css" rel="stylesheet">
-    <link href="/public/lib/css/commentsStyle.css" rel="stylesheet">
-    <link href="/public/lib/css/datatables.css" rel="stylesheet">
+    <link href="/public/lib/css/style.css" rel="stylesheet">
+    <!--<link href="/public/lib/css/commentsStyle.css" rel="stylesheet">-->
 
-    <!-- jQuery, Bootstrap and our JS -->
-    <script src="/public/lib/js/jquery-1.11.1.min.js"></script>
-    <script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
-    <script src=http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
 
 </head>
 
 <body ng-app="suspyApp" ng-controller="MainController">
+
+<!-- bower:js -->
+<script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
+<script src="/public/lib/bower_components/angular/angular.js"></script>
+<script src="/public/lib/bower_components/angularjs/angular.js"></script>
+<script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/public/lib/bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
+<script src="/public/lib/bower_components/angular-route/angular-route.js"></script>
+<script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.js"></script>
+<script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+<script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+<script src="/public/lib/bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="/public/lib/bower_components/restangular/dist/restangular.js"></script>
+<!-- endbower -->
 
     <div class="container">
         <div class="row" id="navbar">

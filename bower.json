@@ -7,7 +7,11 @@
     "Add your credentials"
   ],
   "description": "Find teams, friends, events, places and book places online.",
-  "main": "../src/main/resources/static/public/lib/css/styles.css",
+  "main": [
+      "src/main/resources/static/public/lib/css/style.css",
+      "src/main/resources/static/public/lib/app.js",
+      "src/main/resources/static/public/lib/controllers.js"
+  ],
   "keywords": [
     "bootstrap",
     "material",
@@ -19,7 +23,6 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "src/main/resources/static/public/lib/bower_components",
     "test",
     "tests"
   ],

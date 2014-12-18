@@ -12,47 +12,54 @@ Suspy will also be integrated with most popular social media websites like Faceb
 * MySQL
 * Node.js (npm) with the following node packages:
 ** Bower (dependencies management)
-** Less (if someone want to change colours of bootstrap material design)
 ** Grunt
 ** Grunt-wiredep (injecting dependencies into html)
-** Grunt-init
+** Less (if someone want to change colours of bootstrap material design)
 
 
-##Database
+##Getting Started
+
 Create appropriate MySQL database:
-
 ```
 CREATE DATABASE suspy;
 ```
+Then change ```application.properties``` file for appropriate credentials.
 
-Change ```application.properties``` file for appropriate credentials.
-
-##Dependency injection
-After installing go to project folder and run:
+Install Node.js and then run:
  ```
  npm install
  ```
 It will install all node packages into project (declared in package.json file).
 
-To use those node packages using command line install every needed package globally with:
+To use node packages in command line install every needed package globally with:
  ```
  npm install -g nameOfNodePackage
  ```
-
- Packages needed to be used in command line:
+ Packages which probably will be used in command line:
  * Bower
- * Less
  * Grunt-cli
+ * Less
 
-You can add new node package running:
- ```
- npm install nameOfNodePackage
- ```
-
-To install all dependencies run:
+Finally install all css and js dependencies with:
 ```
 bower install
 ```
+
+##Run
+Build and run the application:
+
+```
+mvn clean spring-boot:run
+```
+
+The application by default will run on localhost:8080.
+
+##Adding new node packages or dependencies
+
+There can be added new node package running:
+ ```
+ npm install nameOfNodePackage
+ ```
 
 To add new dependency run:
  ```
@@ -68,17 +75,9 @@ bower init
  ```
 grunt wiredep
  ```
- to inject dependencies into html.
+ to inject dependencies into html ( be careful that bootstrap css and js need to
+ be placed before material and ribbon css and js).
 
-
-##Run
-Build and run the application:
-
-```
-mvn clean spring-boot:run
-```
-
-The application by default will run on localhost:8080.
 
 ###Continuous Integration
 [![Build Status](https://travis-ci.org/khozzy/suspy.png)](https://travis-ci.org/khozzy/suspy)
