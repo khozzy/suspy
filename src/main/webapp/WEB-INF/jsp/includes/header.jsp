@@ -98,14 +98,15 @@
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="/place/add"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
+                                            <a href="/place/mylist"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                         <li>
                                             <a href="/place/list"><span class="glyphicon glyphicon-list"></span>&nbsp; List</a>
@@ -114,7 +115,8 @@
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="/new-event"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>

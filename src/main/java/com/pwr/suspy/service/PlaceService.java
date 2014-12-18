@@ -139,6 +139,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     public Page<Place> findPlaces(String query, Pageable pageable) {
         return repository.findByNameContaining("%" + query + "%", pageable);
     }
+    public List<Place> findByOwner(User owner) { return repository.findByOwner(owner); }
 
 
 }

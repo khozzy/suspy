@@ -31,10 +31,18 @@ public class PlaceController {
     @Autowired
     private PlaceService placeService;
 
-    @RequestMapping(value = "/list")
-    public String showUsersList()
+    @RequestMapping(value = "/list") //OBSOLETE
+    public String showPlacesList()
     {
         return "redirect:/place/search?query=";
+    }
+
+    @RequestMapping(value = "/mylist")
+    public String ShowMyPlacesList(Model model)
+    {
+        List<Place> places = placeService.findByOwner(MyUtil.getSessionUser());
+        model.addAttribute("placesFound", places);
+        return "placesMyList";
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET)
@@ -71,14 +79,14 @@ public class PlaceController {
     @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String editPlace(
             @RequestParam("id") String s_id,
-            Model model) {
-        logger.info(s_id);
+            Model model,
+            RedirectAttributes redirectAttributes) {
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
-
             if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
             {
+                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
                 return "redirect:/error";
             }
             model.addAttribute("editedPlace", place);
@@ -94,8 +102,8 @@ public class PlaceController {
             return "placesEdit";
         }catch (NumberFormatException ex)
         {
-            logger.info("ID not a number");
-            return "redirect:/";
+            logger.info("ID is not a number");
+            return "redirect:/error";
         }
     }
 
@@ -110,18 +118,18 @@ public class PlaceController {
 
             if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
             {
-                MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
-                return "redirect:/";
+                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
+                return "redirect:/error";
             }
             placeService.editPlace(editPlaceForm,place);
             MyUtil.flash(redirectAttributes, "success", "place.edit.success");
 
-            return "redirect:/";
+            return "redirect:/place/mylist";
         }catch (NumberFormatException ex)
         {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
-            logger.info("ID not a number");
-            return "redirect:/";
+            logger.info("ID is not a number");
+            return "redirect:/error";
         }
     }
 }
