@@ -43,6 +43,7 @@ To use those node packages using command line install every needed package with:
  * Bower
  * Less
  * Grunt
+ * Grunt-cli
  * Grunt-wiredep
  * Grunt-init
 
@@ -51,10 +52,27 @@ You can add new node package running:
  npm install nameOfNodePackage
  ```
 
+To install all dependencies run:
+```
+bower install
+```
+After installing dependencies you should run:
+```
+bower init
+ ```
+ to replace bower.json with new bower.json file with new dependencies or edit bower.json
+ file manually and:
+ ```
+grunt wiredep
+ ```
+ to inject dependencies into html.
+
 To add new dependency run:
  ```
  bower install nameOfDependency
  ```
+
+
 
 After installing dependencies you should run:
 ```

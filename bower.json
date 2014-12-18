@@ -1,0 +1,29 @@
+{
+  "name": "suspy",
+  "version": "0.0.1",
+  "homepage": "https://github.com/khozzy/teamfinder",
+  "authors": [
+    "supersyn <supersyn1234@gmail.com>",
+    "Add your credentials"
+  ],
+  "description": "Find teams, friends, events, places and book places online.",
+  "main": "../src/main/resources/static/public/lib/css/styles.css",
+  "keywords": [
+    "bootstrap",
+    "material",
+    "design",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/resources/static/public/lib/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "~2.8.3"
+  }
+}
