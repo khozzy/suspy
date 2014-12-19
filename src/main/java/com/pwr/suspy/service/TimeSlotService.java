@@ -99,10 +99,14 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try{
             timeSlot.setFrom(dateFormat.parse(editTimeSlotForm.getDate_from() + " " + editTimeSlotForm.getHour_from()));
-            timeSlot.setTo(dateFormat.parse(editTimeSlotForm.getDate_to() + " " + editTimeSlotForm.getHour_to()));
-            timeSlot.setPrice(new BigDecimal(Float.parseFloat(editTimeSlotForm.getPrice())));
-
         }catch (ParseException ex){ }
+        try {
+            timeSlot.setTo(dateFormat.parse(editTimeSlotForm.getDate_to() + " " + editTimeSlotForm.getHour_to()));
+        }catch (ParseException ex){ }
+        try{
+            timeSlot.setPrice(new BigDecimal(Float.parseFloat(editTimeSlotForm.getPrice())));
+        }catch (NumberFormatException  ex){ }
+
         repository.save(timeSlot);
         return timeSlot;
     }

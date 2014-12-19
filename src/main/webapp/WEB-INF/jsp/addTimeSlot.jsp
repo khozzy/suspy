@@ -1,58 +1,97 @@
 <%@include file="includes/header.jsp" %>
+
+<script src="/public/lib/js/datatables.min.js"></script>
+
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
+    <h2><spring:message code='place.form.timeslot.add'/></h2>
 
-            <div class="panel-heading">
-                <h3 class="panel-title"><spring:message code="signup"/></h3>
-            </div>
+    <table id="places_table" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th><spring:message code='place.form.place_name'/></th>
+            <th><spring:message code='place.form.city'/></th>
+            <th><spring:message code='place.form.street'/></th>
+            <th><spring:message code='place.form.houseNumber'/></th>
+            <th><spring:message code='place.form.capacity'/></th>
+        </tr>
+        </thead>
 
-            <div class="panel-body">
-                <%-- TODO1: ADD DATE FIELDS TO DATES --%>
+        <tbody>
+        <td><c:out value="${editedPlace.name}" /></td>
+        <td><c:out value="${editedPlace.address.city}"/></td>
+        <td><c:out value="${editedPlace.address.street}"/></td>
+        <td><c:out value="${editedPlace.address.houseNumber}"/></td>
+        <td><c:out value="${editedPlace.capacity}"/></td>
+        </tbody>
+    </table>
+    <br>
+    <div class="row2">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><spring:message code="place.edit.timeslot"/></h3>
+                </div>
+                <div class="panel-body">
+                    <form:form modelAttribute="editTimeSlotForm" class="form-horizontal" role="form" method="post">
+                        <errors/>
 
-                <form:form modelAttribute="addTimeSlotForm" class="form-horizontal" role="form" method="post">
-                    <form:errors/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="price"><spring:message code="place.form.timeslot.cost"/></label>
+                            <div class="col-sm-10">
+                                <input id="price" name="price" type="text" placeholder="" class="form-control input-md" value="${timeslot.price}"/>
 
-                    <div class="form-group">
-                        <form:label path="place_id">place_id</form:label>
-                        <form:input path="place_id" class="form-control" />
-                        <p class="help-block"> place_id</p>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 control-label">
-                            <form:label path="date_from" class="col-sm-2 control-label">Date From</form:label>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <form:input path="date_from" type="date" class="form-control" placeholder="event name"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="date_from" ><spring:message code='place.form.timeslot.date_from'/></label>
+                            <div class="col-sm-10">
+                                <input id="date_from" name="date_from" type="date" class="form-control" placeholder="event name"/>
+                            </div>
                         </div>
-                        <form:errors cssClass="error" path="date_from">EWWW1</form:errors>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 control-label">
-                            <form:label path="date_to" class="col-sm-2 control-label">Date To</form:label>
-                        </div>
-                        <div class="col-sm-10">
-                            <form:input path="date_to" type="date" class="form-control" placeholder="event name"/>
-                        </div>
-                        <form:errors cssClass="error" path="date_to">EWW2</form:errors>
-                    </div>
 
-                    <div class="form-group">
-                        <form:label path="price">price</form:label>
-                        <form:input path="price" class="form-control" />
-                        <p class="help-block">price</p>
-                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="hour_from"><spring:message code='place.form.timeslot.hour_from'/></label>
+                            <div class="col-sm-10">
+                                <input id="hour_from" name="hour_from" type="time" placeholder="00:00"
+                                       class="form-control input-md">
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-9">
-                            <form:button type="submit" class="btn btn-default"><spring:message
-                                    code='signup'/></form:button>
-                    <%-- TODO: CHANGE Name of finish form button --%>
+                            </div>
                         </div>
-                    </div>
-                </form:form>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="date_to"><spring:message code='place.form.timeslot.date_to'/></label>
+                            <div class="col-sm-10">
+                                <input id="date_to" name="date_to" type="date" class="form-control" placeholder="event name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="hour_to"><spring:message code='place.form.timeslot.hour_to'/></label>
+                            <div class="col-sm-10">
+                                <input id="hour_to" name="hour_to" type="time" placeholder="00:00"
+                                       class="form-control input-md">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <form:button type="submit" class="btn btn-default"><spring:message code='place.edit.submit'/></form:button>
+                            </div>
+                        </div>
+                    </form:form>
+                    <td><a href="/place/timeslot/mylist?id=<c:out value='${timeslot.place.id}'/>" class="btn btn-primary">
+                        <spring:message code='return'/></a></td>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        $("#places_table").DataTable();
+    })
+</script>
+
 <%@include file="includes/footer.jsp" %>
