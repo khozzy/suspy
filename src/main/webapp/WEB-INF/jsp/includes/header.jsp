@@ -132,7 +132,7 @@
                                             <a href="/place/mylist"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                         <li>
-                                            <a href="/place/list"><span class="glyphicon glyphicon-list"></span>&nbsp; List</a>
+                                            <a href="/place/search?query="><span class="glyphicon glyphicon-list"></span>&nbsp; All</a>
                                         </li>
                                     </ul>
                                 </li>

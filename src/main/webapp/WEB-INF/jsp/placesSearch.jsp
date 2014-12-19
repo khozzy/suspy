@@ -6,11 +6,12 @@
     <table id="places_table" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Capacity</th>
-                <th>Owner</th>
-                <th></th>
+                <th><spring:message code='place.form.place_name'/></th>
+                <th><spring:message code='place.form.city'/></th>
+                <th><spring:message code='place.form.street'/></th>
+                <th><spring:message code='place.form.houseNumber'/></th>
+                <th><spring:message code='place.form.capacity'/></th>
+                <th><spring:message code='place.form.owner'/></th>
             </tr>
         </thead>
 
@@ -19,9 +20,12 @@
                 <tr>
                     <td><c:out value="${place.name}" /></td>
                     <td><c:out value="${place.address.city}"/></td>
+                    <td><c:out value="${place.address.street}"/></td>
+                    <td><c:out value="${place.address.houseNumber}"/></td>
                     <td><c:out value="${place.capacity}"/></td>
                     <td><c:out value="${place.owner.name}"/></td>
-                    <td><a href="/place/edit?id=<c:out value='${place.id}'/>" class="btn btn-primary">Modify</a></td>
+                    <td><a href="/place/timeslots?id=<c:out value='${place.id}'/>" class="btn btn-primary">
+                        <spring:message code='place.list.check.timeslot.button'/></a></td>
                 </tr>
             </c:forEach>
         </tbody>
