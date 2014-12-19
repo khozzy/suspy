@@ -99,18 +99,18 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         String[] listOfTimeSlots = addPlaceForm.getTimeSlotList().split(";");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (int i = 0; i < listOfTimeSlots.length; i++) {
-            try{
-                String[] timeSlotArgs = listOfTimeSlots[i].split(",");
-                TimeSlot newTimeSlot = new TimeSlot();
-                newTimeSlot.setPlace(place);
-                newTimeSlot.setCreatedDate(new Date());
-                newTimeSlot.setFrom(dateFormat.parse(timeSlotArgs[0]));
-                newTimeSlot.setTo(dateFormat.parse(timeSlotArgs[1]));
-                newTimeSlot.setPrice(new BigDecimal(Float.parseFloat(timeSlotArgs[2])));
-                timeSlotService.createNewTimeSlot(newTimeSlot);
-            }catch (ParseException ex){
-
-            }
+//            try{
+            String[] timeSlotArgs = listOfTimeSlots[i].split(",");
+            TimeSlot newTimeSlot = timeSlotService.addTimeSlot(dateFormat,place,timeSlotArgs[0],timeSlotArgs[1],timeSlotArgs[2]);
+//                        new TimeSlot();
+//                newTimeSlot.setPlace(place);
+//                newTimeSlot.setCreatedDate(new Date());
+//                newTimeSlot.setFrom(dateFormat.parse(timeSlotArgs[0]));
+//                newTimeSlot.setTo(dateFormat.parse(timeSlotArgs[1]));
+//                newTimeSlot.setPrice(new BigDecimal(Float.parseFloat(timeSlotArgs[2])));
+//            }catch (ParseException ex){
+//
+//            }
         }
 
         return place;

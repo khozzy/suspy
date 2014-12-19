@@ -4,6 +4,7 @@ import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.TimeSlot;
 import com.pwr.suspy.dto.AddTimeSlotForm;
+import com.pwr.suspy.dto.EditTimeSlotForm;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.repository.TimeSlots;
@@ -18,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -61,13 +63,9 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
     public TimeSlot getTimeSlot(final AddTimeSlotForm addTimeSlotForm) throws ParseException, NumberFormatException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         TimeSlot timeSlot = new TimeSlot();
-//TODO: ZROBIC ZNAJDOWANIE MIEJSC: POTRZEBA FORMULARZA DO DODAWANIA MIEJSC
-//TODO: ZROBIC ZNAJDOWANIE EVENTOW: POTRZEBA FORMULARZA DO DODAWANIA EVENTOW;
         Place place = placeService.findById(Long.parseLong(addTimeSlotForm.getPlace_id()));
 
         timeSlot.setPlace(place); /* GET PLACE*/
-        //Event event = eventService.findById((long)1);
-       // timeSlot.setEvent(event); /* GET EVENT */
 
         timeSlot.setCreatedDate(new Date());
         timeSlot.setDeleted(false);
@@ -77,5 +75,38 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         timeSlot.setPrice(new BigDecimal(addTimeSlotForm.getPrice()));
         return timeSlot;
     }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public TimeSlot addTimeSlot(DateFormat dateFormat,Place place,String from,String to,String price)
+    {
+        TimeSlot newTimeSlot = new TimeSlot();
+        try {
+            newTimeSlot.setPlace(place);
+            newTimeSlot.setCreatedDate(new Date());
+            newTimeSlot.setFrom(dateFormat.parse(from));
+            newTimeSlot.setTo(dateFormat.parse(to));
+            newTimeSlot.setPrice(new BigDecimal(Float.parseFloat(price)));
+            repository.save(newTimeSlot);
+        }catch (ParseException ex)
+        {
+
+        }
+        return newTimeSlot;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public TimeSlot editTimeSlot(EditTimeSlotForm editTimeSlotForm, TimeSlot timeSlot){//, String from, String to, String price) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try{
+            timeSlot.setFrom(dateFormat.parse(editTimeSlotForm.getDate_from() + " " + editTimeSlotForm.getHour_from()));
+            timeSlot.setTo(dateFormat.parse(editTimeSlotForm.getDate_to() + " " + editTimeSlotForm.getHour_to()));
+            timeSlot.setPrice(new BigDecimal(Float.parseFloat(editTimeSlotForm.getPrice())));
+
+        }catch (ParseException ex){ }
+        repository.save(timeSlot);
+        return timeSlot;
+    }
+    public TimeSlot findById(long id){return  repository.findById(id);}
+    public List<TimeSlot> findByPlace(Place place){ return repository.findByPlace(place);}
 
 }

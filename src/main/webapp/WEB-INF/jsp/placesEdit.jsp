@@ -3,26 +3,29 @@
     <script src="/public/lib/js/datatables.min.js"></script>
 
 <div class="row">
-    <h2>Places</h2>
+    <h2><spring:message code='place.edit'/></h2>
 
     <table id="places_table" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Capacity</th>
-                <th>Owner</th>
+                <th><spring:message code='place.form.place_name'/></th>
+                <th><spring:message code='place.form.city'/></th>
+                <th><spring:message code='place.form.street'/></th>
+                <th><spring:message code='place.form.houseNumber'/></th>
+                <th><spring:message code='place.form.capacity'/></th>
             </tr>
         </thead>
 
         <tbody>
         <td><c:out value="${editedPlace.name}" /></td>
         <td><c:out value="${editedPlace.address.city}"/></td>
+        <td><c:out value="${editedPlace.address.street}"/></td>
+        <td><c:out value="${editedPlace.address.houseNumber}"/></td>
         <td><c:out value="${editedPlace.capacity}"/></td>
-        <td><c:out value="${editedPlace.owner.name}"/></td>
         </tbody>
     </table>
-    <div class="row">
+    <br>
+    <div class="row2">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -70,6 +73,8 @@
                             </div>
                         </div>
                     </form:form>
+                    <td><a href="/place/mylist" class="btn btn-primary">
+                        <spring:message code='return'/></a></td>
                 </div>
             </div>
         </div>
