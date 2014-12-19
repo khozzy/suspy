@@ -1,7 +1,5 @@
 <%@include file="includes/header.jsp" %>
 
-    <script src="/public/lib/js/datatables.min.js"></script>
-
 <div class="row">
     <h2>Places</h2>
 
@@ -12,6 +10,7 @@
                 <th>City</th>
                 <th>Capacity</th>
                 <th>Owner</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -22,6 +21,7 @@
                     <td><c:out value="${place.address.city}"/></td>
                     <td><c:out value="${place.capacity}"/></td>
                     <td><c:out value="${place.owner.name}"/></td>
+                    <td><a href="/place/edit?id=<c:out value='${place.id}'/>" class="btn btn-primary">Modify</a></td>
                 </tr>
             </c:forEach>
         </tbody>

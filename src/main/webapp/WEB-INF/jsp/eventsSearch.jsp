@@ -1,5 +1,4 @@
 <%@include file="includes/header.jsp" %>
-<script src="/public/lib/js/datatables.min.js"></script>
 
 <div class="row">
 

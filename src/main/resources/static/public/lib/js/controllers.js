@@ -1,9 +1,9 @@
 suspyApp
 
-    .controller('MainController', function() {
+    .controller('MainController',function () {
 
 })
-    .controller('HomeController', function($scope) {
+    .controller('HomeController', function() {
 
 })
     .controller('FriendsController', function() {
@@ -13,23 +13,20 @@ suspyApp
 
 })
     .controller('SearchController', function($scope,$http) {
-
-        $scope.selection = 'event';
-        $scope.pageNum = 0;
-        $scope.numOfResults = 10;
-
-        $scope.$watch('query', function() {
-            if ($scope.query != undefined && $scope.query !='') {
-
-                if($scope.selection=='event') {$scope.searchUrl = 'events/';};
-                if($scope.selection=='place') {$scope.searchUrl = 'places/';};
-                if($scope.selection=='team') {$scope.searchUrl = 'teams/';};
-
-                $http.get('/service/' + $scope.searchUrl,
+        $scope.form='';
+        $scope.form = {
+            selection: 'events',
+            pageNum : 0,
+            numOfResults : 10
+        };
+        $scope.$watchCollection('form', function() {
+            $scope.results = 'Loading...';
+            if ($scope.form.query != undefined && $scope.form.query !='') {
+                $http.get('/service/' + $scope.form.selection,
                     {params: {
-                        query: $scope.query,
-                        pageNum: $scope.pageNum,
-                        numOfResults: $scope.numOfResults
+                        query: $scope.form.query,
+                        pageNum: $scope.form.pageNum,
+                        numOfResults: $scope.form.numOfResults
                     }})
                     .success(function (data) {
                         if(data.numberOfElements!=0) {
@@ -37,13 +34,13 @@ suspyApp
                         }
                         else{
                             $scope.results = '';
-                        };
+                        }
                     })
                     .error(function (data) {
                         $scope.results = '';
                     });
 
-            };
+            }
 
             //$("#searchResults").DataTable();
 

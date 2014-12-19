@@ -1,7 +1,5 @@
 <%@include file="includes/header.jsp" %>
 
-    <script src="/public/lib/js/datatables.min.js"></script>
-
 <div class="row">
     <h2>Places</h2>
 
@@ -12,6 +10,8 @@
                 <th>City</th>
                 <th>Capacity</th>
                 <th>Owner</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -22,10 +22,8 @@
                     <td><c:out value="${place.address.city}"/></td>
                     <td><c:out value="${place.capacity}"/></td>
                     <td><c:out value="${place.owner.name}"/></td>
-                    <form>
-                        <td><a href="/place/edit?id=<c:out value='${place.id}'/>" class="btn btn-primary"><spring:message code='place.edit.placeEditButton'/></a></td>
-                        <td><a href="/place/timeslotedit?id=<c:out value='${place.id}'/>" class="btn btn-primary"><spring:message code='place.edit.timeslotEditButton'/></a></td>
-                    </form>
+                    <td><a href="/place/edit?id=<c:out value='${place.id}'/>" class="btn btn-primary"><spring:message code='place.edit.placeEditButton'/></a></td>
+                    <td><a href="/place/timeslotedit?id=<c:out value='${place.id}'/>" class="btn btn-primary"><spring:message code='place.edit.timeslotEditButton'/></a></td>
                 </tr>
             </c:forEach>
         </tbody>

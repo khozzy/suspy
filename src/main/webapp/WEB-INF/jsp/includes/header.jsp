@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/ripples.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/ng-table/ng-table.css" />
     <!-- endbower -->
 
     <link href="/public/lib/css/style.css" rel="stylesheet">
@@ -27,57 +28,69 @@
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
 
+    <!-- bower:js -->
+    <script src="/public/lib/bower_components/modernizr/modernizr.js"></script>
+    <script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/public/lib/bower_components/angular/angular.js"></script>
+    <script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.js"></script>
+    <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+    <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="/public/lib/bower_components/ng-table/ng-table.js"></script>
+    <!-- endbower -->
+
 </head>
 
 <body ng-app="suspyApp" ng-controller="MainController">
 
-<!-- bower:js -->
-<script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
-<script src="/public/lib/bower_components/angular/angular.js"></script>
-<script src="/public/lib/bower_components/angularjs/angular.js"></script>
-<script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="/public/lib/bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
-<script src="/public/lib/bower_components/angular-route/angular-route.js"></script>
-<script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.js"></script>
-<script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
-<script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
-<script src="/public/lib/bower_components/lodash/dist/lodash.compat.js"></script>
-<script src="/public/lib/bower_components/restangular/dist/restangular.js"></script>
-<!-- endbower -->
-
     <div class="container">
         <div class="row" id="navbar">
-            <nav class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
                         <a class="navbar-brand" href="/">Suspy</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <form:form
-                                modelAttribute="homePageSearch"
-                                role="search"
-                                method="post"
-                                cssClass="navbar-form navbar-left"
-                                action="/">
-                            <div class="form-group">
-                                <form:input path="searchText" cssClass="form-control" placeholder="Search" />
-                                <form:radiobutton path="searchTarget" value="event" cssClass="radio-inline" cssStyle="margin: 0 5px 0 5px;"/>Events
-                                <form:radiobutton path="searchTarget" value="place" cssClass="radio-inline" cssStyle="margin: 0 5px 0 5px;"/>Places
 
-                                <form:button type="submit" class="btn btn-success">Find</form:button>
-                            </div>
-                        </form:form>
+                        <c:if test="${requestScope['javax.servlet.forward.request_uri']!='/'}">
+                            <form:form
+                                    modelAttribute="homePageSearch"
+                                    role="search"
+                                    method="post"
+                                    cssClass="navbar-form navbar-left"
+                                    cssStyle="margin-top: 4px"
+                                    action="/">
+                                <div class="form-group" style="color:rgba(255, 255, 255, 0.84)">
+                                    <form:input path="searchText" cssClass="form-control" placeholder="Search" />
+                                    <div class="radio radio-primary" >
+                                        <label style="padding-left: 32px">
+                                            <form:radiobutton path="searchTarget" value="event"/>
+                                            <span class=circle></span><span class=check></span> Events
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-primary">
+                                        <label style="padding-left: 32px">
+                                            <form:radiobutton path="searchTarget" value="place"/>
+                                            <span class=circle></span><span class=check></span>Places
+                                        </label>
+                                    </div>
+
+                                    <div class="radio radio-primary">
+                                        <label style="padding-left: 32px">
+                                            <form:radiobutton path="searchTarget" value="team"/>
+                                            <span class=circle></span><span class=check></span>Teams
+                                        </label>
+                                    </div>
+
+                                    <form:button type="submit" class="btn btn-primary btn-raised btn-xs"
+                                                 style="margin-left:25px">Search</form:button>
+                                </div>
+                            </form:form>
+                        </c:if>
+
                         <ul class="nav navbar-nav navbar-right">
                             <sec:authorize access="isAnonymous()">
                                 <li>
@@ -95,7 +108,7 @@
                             <sec:authorize access="isAuthenticated()">
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-star-empty"></span> &nbsp; My Teams <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon mdi-social-group"></span> &nbsp; My Teams <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span>&nbsp; Friends</a>

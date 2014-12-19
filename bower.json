@@ -8,9 +8,9 @@
   ],
   "description": "Find teams, friends, events, places and book places online.",
   "main": [
-      "src/main/resources/static/public/lib/css/style.css",
-      "src/main/resources/static/public/lib/app.js",
-      "src/main/resources/static/public/lib/controllers.js"
+    "src/main/resources/static/public/lib/css/style.css",
+    "src/main/resources/static/public/lib/app.js",
+    "src/main/resources/static/public/lib/controllers.js"
   ],
   "keywords": [
     "bootstrap",
@@ -23,19 +23,17 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "src/main/resources/static/public/lib/bower_components",
     "test",
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "~0.12.0",
-    "angular-http-auth": "~1.2.2",
-    "angular-route": "~1.3.7",
-    "angularjs": "~1.3.7",
-    "bootstrap-material-design": "~0.2.1",
+    "angular": "~1.3.7",
     "bootstrap": "~3.3.1",
+    "bootstrap-material-design": "~0.2.1",
     "datatables": "~1.10.4",
     "jquery": "~2.1.2",
-    "protractor": "~1.5.0",
-    "restangular": "~1.4.0"
+    "modernizr": "~2.8.3",
+    "ng-table": "~0.3.3"
   }
 }

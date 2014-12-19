@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
 
             <div class="panel-heading">
                 <h3 class="panel-title"><spring:message code="signup"/></h3>
@@ -149,7 +149,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-9">
-                            <form:button type="submit" class="btn btn-default"><spring:message
+                            <form:button type="submit" class="btn btn-primary"><spring:message
                                     code='signup'/></form:button>
                         </div>
                     </div>
