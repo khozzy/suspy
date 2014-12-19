@@ -49,7 +49,7 @@
         </tbody>
     </table>
     <form:form>
-        <td><a href="/place/timeslot/mylist?id=<c:out value='x'/>" class="btn btn-primary">
+        <td><a href="/place/timeslot/add?id=<c:out value='${editedPlace.id}'/>" class="btn btn-primary">
             <spring:message code='place.edit.addNewTimeslot.button'/></a></td>
         <td><a href="/place/mylist/" class="btn btn-primary">
             <spring:message code='return'/></a></td>

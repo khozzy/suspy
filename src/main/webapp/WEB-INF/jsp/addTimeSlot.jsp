@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="price"><spring:message code="place.form.timeslot.cost"/></label>
                             <div class="col-sm-10">
-                                <input id="price" name="price" type="text" placeholder="" class="form-control input-md" value="${timeslot.price}"/>
+                                <input id="price" name="price" type="text" placeholder="" class="form-control input-md" value="0"/>
 
                             </div>
                         </div>
@@ -75,11 +75,11 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
-                                <form:button type="submit" class="btn btn-default"><spring:message code='place.edit.submit'/></form:button>
+                                <form:button type="submit" class="btn btn-default"><spring:message code='place.form.timeslot.add'/></form:button>
                             </div>
                         </div>
                     </form:form>
-                    <td><a href="/place/timeslot/mylist?id=<c:out value='${timeslot.place.id}'/>" class="btn btn-primary">
+                    <td><a href="/place/timeslot/mylist?id=<c:out value='${place.id}'/>" class="btn btn-primary">
                         <spring:message code='return'/></a></td>
                 </div>
             </div>

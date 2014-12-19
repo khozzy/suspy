@@ -93,6 +93,12 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         }
         return newTimeSlot;
     }
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public TimeSlot addTimeSlot(Place place,String from,String to,String price)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return addTimeSlot(dateFormat,place,from,to,price);
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public TimeSlot editTimeSlot(EditTimeSlotForm editTimeSlotForm, TimeSlot timeSlot){//, String from, String to, String price) {
