@@ -16,7 +16,7 @@
 
     <!-- bower:css -->
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material-wfont.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/ripples.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/datatables/media/css/jquery.dataTables.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/ng-table/ng-table.css" />

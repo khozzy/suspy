@@ -11,6 +11,8 @@
                 <th><spring:message code='place.form.street'/></th>
                 <th><spring:message code='place.form.houseNumber'/></th>
                 <th><spring:message code='place.form.capacity'/></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 

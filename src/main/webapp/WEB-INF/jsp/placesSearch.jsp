@@ -12,6 +12,7 @@
                 <th><spring:message code='place.form.houseNumber'/></th>
                 <th><spring:message code='place.form.capacity'/></th>
                 <th><spring:message code='place.form.owner'/></th>
+                <th></th>
             </tr>
         </thead>
 
