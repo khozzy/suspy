@@ -25,9 +25,6 @@
     <link href="/public/lib/css/style.css" rel="stylesheet">
     <!--<link href="/public/lib/css/commentsStyle.css" rel="stylesheet">-->
 
-    <script src="/public/lib/js/app.js"></script>
-    <script src="/public/lib/js/controllers.js"></script>
-
     <!-- bower:js -->
     <script src="/public/lib/bower_components/modernizr/modernizr.js"></script>
     <script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
@@ -38,6 +35,10 @@
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <script src="/public/lib/bower_components/ng-table/ng-table.js"></script>
     <!-- endbower -->
+
+
+    <script src="/public/lib/js/app.js"></script>
+    <script src="/public/lib/js/controllers.js"></script>
 
 </head>
 
