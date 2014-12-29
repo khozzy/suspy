@@ -47,7 +47,7 @@
 
     <div class="container">
         <div class="row" id="navbar">
-            <nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
+            <nav class="navbar navbar-material-lightblue navbar-fixed-top" role="navigation">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -63,9 +63,8 @@
                                     role="search"
                                     method="post"
                                     cssClass="navbar-form navbar-left"
-                                    cssStyle="margin-top: 4px"
+                                    cssStyle="margin-top: 0px"
                                     action="/">
-                                <p>
                                 <div class="form-group" style="color:rgba(255, 255, 255, 0.84)">
                                     <form:input path="searchText" cssClass="form-control floating-label" placeholder="Search" />
                                     <div class="radio radio-primary" >
@@ -90,7 +89,6 @@
 
                                     <form:button type="submit" class="btn btn-primary btn-raised btn-xs btn-material-deeppurple"
                                                  style="margin-left:15px">Search</form:button>
-                            </p>
                                 </div>
                             </form:form>
                         </c:if>
