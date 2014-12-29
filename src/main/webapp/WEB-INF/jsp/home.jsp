@@ -13,32 +13,26 @@
                                        placeholder="Search for events, places, teams" ng-model="form.query" />
                             </div>
                             <br><br><br>
-                                <div id="eventButton" class="btn btn-material-cyan btn-raised radio radio-success">
-                                    <label style="margin-right:25px">
-                                        <span class="glyphicon glyphicon-glass"></span>Events
-                                        <input type="radio" ng-model="form.selection"
-                                               value="events">
-                                        <span class=circle style="margin-left:110px"></span><span class=check style="margin-left:110px"></span>
-                                    </label>
-                                </div>
 
-                                <div class="btn btn-material-lightgreen btn-raised radio radio-success">
-                                    <label style="margin-right:25px">
-                                        <span class="glyphicon glyphicon-home"></span>Places
-                                        <input type="radio" ng-model="form.selection"
-                                               value="places">
-                                        <span class=circle style="margin-left:110px"></span><span class=check style="margin-left:110px"></span>
-                                    </label>
-                                </div>
+                                        <label class="btn btn-material-cyan active">
+                                            <input type="radio" name="selection" ng-model="form.selection"
+                                                   value="events" autocomplete="off">
+                                            <span class="glyphicon glyphicon-glass"></span>&nbsp;Events
+                                        </label>
 
-                                <div class="btn btn-material-pink btn-raised radio radio-success">
-                                    <label style="margin-right:25px">
-                                        <span class="glyphicon mdi-social-group"></span>Teams
-                                        <input type="radio" ng-model="form.selection"
-                                               value="teams">
-                                        <span class=circle style="margin-left:105px"></span><span class=check style="margin-left:105px"></span>
-                                    </label>
-                                </div>
+                                        <label class="btn btn-material-lightgreen">
+                                            <input type="radio" name="selection" ng-model="form.selection"
+                                                   value="places" autocomplete="off">
+                                            <span class="glyphicon glyphicon-home"></span>&nbsp;Places
+
+                                        </label>
+
+                                        <label class="btn btn-material-pink">
+                                            <input type="radio" name="selection" ng-model="form.selection"
+                                                   value="teams" autocomplete="off">
+                                            <span class="glyphicon mdi-social-group"></span>&nbsp;Teams
+                                        </label>
+
                             <!--<button type="button" class="btn btn-primary btn-lg" data-loading-text="Searching..."
                                     id="showSearchResults" autocomplete="off" ng-click="search()">Search</button>-->
                         </div>
