@@ -1,4 +1,6 @@
-var suspyApp = angular.module('suspyApp',[]);
+var suspyApp = angular.module('suspyApp',['duScroll'])
+    .value('duScrollDuration', 300)
+    .value('duScrollOffset', 70);
 
 //var suspyApp = angular.module('suspyApp',['ngRoute']);
 /*suspyApp.config(function($routeProvider) {

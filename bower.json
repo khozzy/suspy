@@ -34,6 +34,6 @@
     "datatables": "~1.10.4",
     "jquery": "~2.1.2",
     "modernizr": "~2.8.3",
-    "ng-table": "~0.3.3"
+    "angular-scroll": "~0.6.4"
   }
 }

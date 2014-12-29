@@ -1,6 +1,6 @@
 suspyApp
 
-    .controller('MainController',function () {
+    .controller('MainController',function ($document) {
         //$.material.init();
        /* $(document).arrive($.material.options.inputElements, function() {
             $.material.input($(this));
@@ -25,7 +25,7 @@ suspyApp
     .controller('ErrorController', function() {
 
 })
-    .controller('SearchController', function($scope,$http) {
+    .controller('SearchController', function($scope,$http,$document) {
         $scope.form='';
         $scope.form = {
             query: '',
@@ -33,9 +33,11 @@ suspyApp
             pageNum : 0,
             numOfResults : 10
         };
+        var searchInput = angular.element(document.getElementById('searchInput'));
         $scope.$watchCollection('form', function() {
             $scope.results = 'Loading...';
             if ($scope.form.query != undefined && $scope.form.query !='') {
+                $document.duScrollToElementAnimated(searchInput);
                 $http.get('/service/' + $scope.form.selection,
                     {params: {
                         query: $scope.form.query,
@@ -55,6 +57,7 @@ suspyApp
                     });
 
             }
+            else if($scope.form.query ==''){$document.duScrollTopAnimated(300);}
 
             //$("#searchResults").DataTable();
 

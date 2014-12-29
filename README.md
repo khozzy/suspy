@@ -56,22 +56,17 @@ The application by default will run on localhost:8080.
 
 ##Adding new node packages or dependencies
 
-There can be added new node package running:
+There can be added new node packages running:
  ```
  npm install nameOfNodePackage
  ```
 
 To add new dependency run:
  ```
- bower install nameOfDependency
+ bower install --save nameOfDependency
  ```
 
 After installing new dependencies you should run:
-```
-bower init
- ```
- to replace bower.json with new bower.json file with new dependencies or edit bower.json
- file manually and:
  ```
 grunt wiredep
  ```
