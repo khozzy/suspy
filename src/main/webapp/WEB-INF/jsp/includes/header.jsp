@@ -63,7 +63,7 @@
                                     role="search"
                                     method="post"
                                     cssClass="navbar-form navbar-left"
-                                    cssStyle="margin-top: 0px"
+                                    cssStyle="margin: 0 0 0 0"
                                     action="/">
                                 <div class="form-group" style="color:rgba(255, 255, 255, 0.84)">
                                     <form:input path="searchText" cssClass="form-control floating-label" placeholder="Search" />
