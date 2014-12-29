@@ -56,7 +56,28 @@
                     <%--
                         results of event search
                     --%>
-                        <table id="events_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" ng-switch-when="events" ng-show="results">
+
+                    <div class="row" id="eventsResults" ng-switch-when="events" ng-show="results">
+                        <div class="col-sm-6 col-md-4" ng-repeat="event in results track by $index">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <div class="thumbnail_wrap text-center">
+                                        <h4><a href="events/{{event.id}}">{{event.name}}</a> </h4>
+                                        <img data-src="holder.js/100%x200" alt="..." src="public/lib/assets/foot.jpg">
+                                    </div>
+                                    <br>
+                                    <p> <span class="h4">Team:</span> {{event.team.name}}</p>
+                                    <p> <span class="h4">Where:</span> {{event.timeSlot.place.name}}</p>
+                                    <p> <span class="h4">From:</span> {{event.timeSlot.from| date:'EEEE dd-MM-yy HH:mm'}}</p>
+                                    <p> <span class="h4">To:</span> {{event.timeSlot.to| date:'EEEE dd-MM-yy HH:mm'}}</p>
+                                    <div class="thumbnail_wrap text-center">
+                                        <p><a href="#" class="btn btn-primary" role="button">Show event</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                       <!-- <table id="events_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" ng-switch-when="events" ng-show="results">
                             <thead>
                                 <tr>
                                     <th class="col-md-4">Name</th>
@@ -76,7 +97,7 @@
                                     </tr>
                             </tbody>
                         </table>
-
+-->
                     <%--
                         end of results of event search
                     --%>

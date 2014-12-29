@@ -1,7 +1,7 @@
 suspyApp
 
     .controller('MainController',function () {
-
+        //$.material.init();
 })
     .controller('HomeController', function() {
 
@@ -15,6 +15,7 @@ suspyApp
     .controller('SearchController', function($scope,$http) {
         $scope.form='';
         $scope.form = {
+            query: '',
             selection: 'events',
             pageNum : 0,
             numOfResults : 10

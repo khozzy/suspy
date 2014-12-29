@@ -88,14 +88,6 @@ public class RootController {
         return "error";
     }
 
-
-    @RequestMapping(value = "/beta", method = RequestMethod.GET)
-    public String betaHomePage(Model model) {
-        model.addAttribute("homePageSearch", new HomepageSearchForm());
-        return "home2";
-    }
-
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String indexPage(@ModelAttribute("homePageSearch") HomepageSearchForm searchForm,
                             BindingResult result,
@@ -107,8 +99,10 @@ public class RootController {
         }
 
         switch (searchForm.getSearchTarget()) {
-            case "place" :  return "redirect:/place/search?query=" + searchForm.getSearchText();
-            case "event" :  return "redirect:/event/search?query=" + searchForm.getSearchText();
+            case "places" :  return "redirect:/places/search?query=" + searchForm.getSearchText();
+            case "events" :  return "redirect:/events/search?query=" + searchForm.getSearchText();
+            case "teams" :  return "redirect:/teams/search?query=" + searchForm.getSearchText();
+            
         }
 
         return "home";
@@ -118,17 +112,6 @@ public class RootController {
     public String signUp(Model model) {
         model.addAttribute(new SignupForm());
         return "signup";
-    }
-
-    @RequestMapping(value = "/new-event")
-    public String newEvent(Model model) {
-        model.addAttribute(new NewEventForm());
-        return "new-event";
-    }
-
-    @RequestMapping(value = "/event/{eventId}")
-    public String event(@PathVariable("eventId") String eventId, Model model) {
-        return "event";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)

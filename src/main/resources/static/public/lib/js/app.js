@@ -1,4 +1,5 @@
 var suspyApp = angular.module('suspyApp',[]);
+
 //var suspyApp = angular.module('suspyApp',['ngRoute']);
 /*suspyApp.config(function($routeProvider) {
     $routeProvider

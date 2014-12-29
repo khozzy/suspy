@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </form:form>
-                    <td><a href="/place/mylist" class="btn btn-primary">
+                    <td><a href="/places/manage" class="btn btn-primary">
                         <spring:message code='return'/></a></td>
                 </div>
             </div>

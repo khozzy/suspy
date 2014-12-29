@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </form:form>
-                    <td><a href="/place/timeslot/mylist?id=<c:out value='${timeslot.place.id}'/>" class="btn btn-primary">
+                    <td><a href="/places/timeslots/manage?id=<c:out value='${timeslot.place.id}'/>" class="btn btn-primary">
                         <spring:message code='return'/></a></td>
                 </div>
             </div>

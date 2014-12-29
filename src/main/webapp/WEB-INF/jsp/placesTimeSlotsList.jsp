@@ -42,7 +42,7 @@
                 <td><c:out value="${timeslot.price}" /></td>
                 <c:if test="${loggedUser.id == timeslot.place.id}">
                 <form:form>
-                    <td><a href="/place/timeslot/edit?id=<c:out value='${timeslot.id}'/>" class="btn btn-primary">
+                    <td><a href="/places/timeslots/edit?id=<c:out value='${timeslot.id}'/>" class="btn btn-primary">
                     <spring:message code='modify'/></a></td>
                 </form:form>
                 </c:if>
@@ -53,7 +53,7 @@
     <form:form>
         <%--<td><a href="/place/timeslot/mylist?id=<c:out value='x'/>" class="btn btn-primary">--%>
             <%--<spring:message code='place.edit.addNewTimeslot.button'/></a></td>--%>
-        <td><a href="/place/search?query=" class="btn btn-primary">
+        <td><a href="/places/search?query=" class="btn btn-primary">
             <spring:message code='return'/></a></td>
     </form:form>
 

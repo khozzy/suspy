@@ -25,7 +25,7 @@
                     <td><c:out value="${place.address.houseNumber}"/></td>
                     <td><c:out value="${place.capacity}"/></td>
                     <td><c:out value="${place.owner.name}"/></td>
-                    <td><a href="/place/timeslots?id=<c:out value='${place.id}'/>" class="btn btn-primary">
+                    <td><a href="/places/timeslots?id=<c:out value='${place.id}'/>" class="btn btn-primary">
                         <spring:message code='place.list.check.timeslot.button'/></a></td>
                 </tr>
             </c:forEach>

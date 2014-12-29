@@ -41,7 +41,7 @@
                 <td><c:out value="${timeslot.to}" /></td>
                 <td><c:out value="${timeslot.price}" /></td>
                 <form:form>
-                    <td><a href="/place/timeslot/edit?id=<c:out value='${timeslot.id}'/>" class="btn btn-primary">
+                    <td><a href="/places/timeslots/edit?id=<c:out value='${timeslot.id}'/>" class="btn btn-primary">
                     <spring:message code='modify'/></a></td>
                 </form:form>
             </tr>
@@ -49,9 +49,9 @@
         </tbody>
     </table>
     <form:form>
-        <td><a href="/place/timeslot/add?id=<c:out value='${editedPlace.id}'/>" class="btn btn-primary">
+        <td><a href="/places/timeslots/new?id=<c:out value='${editedPlace.id}'/>" class="btn btn-primary">
             <spring:message code='place.edit.addNewTimeslot.button'/></a></td>
-        <td><a href="/place/mylist/" class="btn btn-primary">
+        <td><a href="/places/manage/" class="btn btn-primary">
             <spring:message code='return'/></a></td>
     </form:form>
 
