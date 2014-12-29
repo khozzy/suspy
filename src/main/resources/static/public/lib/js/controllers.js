@@ -1,20 +1,7 @@
 suspyApp
 
     .controller('MainController',function ($document) {
-        //$.material.init();
-       /* $(document).arrive($.material.options.inputElements, function() {
-            $.material.input($(this));
-        });
-        $(document).arrive($.material.options.checkboxElements, function() {
-            $.material.checkbox($(this));
-        });
-        $(document).arrive($.material.options.radioElements, function() {
-            $.material.radio($(this));
-        });
-        $(document).arrive($.material.options.togglebuttonElements, function() {
-            $.material.togglebutton($(this));
-        });
-        */
+        $.material.init();
 })
     .controller('HomeController', function() {
 
