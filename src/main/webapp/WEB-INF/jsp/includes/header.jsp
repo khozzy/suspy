@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Suspy!</title>
 
-
     <!-- bower:css -->
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material-wfont.css" />
@@ -24,6 +23,8 @@
 
     <link href="/public/lib/css/style.css" rel="stylesheet">
     <!--<link href="/public/lib/css/commentsStyle.css" rel="stylesheet">-->
+
+    <script src="/public/lib/js/arrive.js"></script>
 
     <!-- bower:js -->
     <script src="/public/lib/bower_components/modernizr/modernizr.js"></script>
@@ -64,30 +65,32 @@
                                     cssClass="navbar-form navbar-left"
                                     cssStyle="margin-top: 4px"
                                     action="/">
+                                <p>
                                 <div class="form-group" style="color:rgba(255, 255, 255, 0.84)">
-                                    <form:input path="searchText" cssClass="form-control" placeholder="Search" />
+                                    <form:input path="searchText" cssClass="form-control floating-label" placeholder="Search" />
                                     <div class="radio radio-primary" >
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="event"/>
+                                            <form:radiobutton path="searchTarget" value="events"/>
                                             <span class=circle></span><span class=check></span> Events
                                         </label>
                                     </div>
                                     <div class="radio radio-primary">
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="place"/>
+                                            <form:radiobutton path="searchTarget" value="places"/>
                                             <span class=circle></span><span class=check></span>Places
                                         </label>
                                     </div>
 
                                     <div class="radio radio-primary">
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="team"/>
+                                            <form:radiobutton path="searchTarget" value="teams"/>
                                             <span class=circle></span><span class=check></span>Teams
                                         </label>
                                     </div>
 
-                                    <form:button type="submit" class="btn btn-primary btn-raised btn-xs"
-                                                 style="margin-left:25px">Search</form:button>
+                                    <form:button type="submit" class="btn btn-primary btn-raised btn-xs btn-material-deeppurple"
+                                                 style="margin-left:15px">Search</form:button>
+                            </p>
                                 </div>
                             </form:form>
                         </c:if>
@@ -112,11 +115,11 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon mdi-social-group"></span> &nbsp; My Teams <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span>&nbsp; Friends</a>
+                                            <a href="/teams/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="/users"><span class="glyphicon glyphicon-user"></span>&nbsp; List of Users</a>
+                                            <a href="/teams/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -126,14 +129,14 @@
                                         <span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/place/add"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
+                                            <a href="/places/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="/place/mylist"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
+                                            <a href="/places/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                         <li>
-                                            <a href="/place/search?query="><span class="glyphicon glyphicon-list"></span>&nbsp; All</a>
+                                            <a href="/places/search?query="><span class="glyphicon glyphicon-list"></span>&nbsp; All</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -143,7 +146,7 @@
                                         <span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="/new-event"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
+                                            <a href="events/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
@@ -159,9 +162,8 @@
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
-                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/><b
-                                            class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;
+                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/> <span class="badge">!</span></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="<c:url value='/users/' /><sec:authentication property='principal.user.id' />"><span
@@ -170,11 +172,15 @@
                                         <!--<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>-->
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-globe"></span> Notifications</a>
+                                            <a href="#"><span class="glyphicon glyphicon-globe"></span> Notifications <span class="badge">42</span></a>
                                         </li>
 
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                                            <a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages <span class="badge">42</span></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/friends"><span class="glyphicon glyphicon-eye-open"></span>&nbsp; Friends</a>
                                         </li>
 
                                         <li class="divider"></li>

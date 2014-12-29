@@ -130,7 +130,7 @@
                         <div class="col-sm-9">
                             <spring:message code='about.placeholder' var="aboutPlaceholder"/>
                             <form:textarea path="about" class="form-control" rows="3"
-                                           placeholder="${aboutPlaceholder}"></form:textarea>
+                                           placeholder="${aboutPlaceholder}"/>
                             <form:errors path="about" cssClass="error"/>
                         </div>
                     </div>
