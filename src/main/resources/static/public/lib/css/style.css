@@ -8,6 +8,8 @@ form .error {
 
 body { padding-top: 70px; }
 
+.thumbnail img { min-height:120px; height:120px; }
+
 .footer {
     text-align: right;
 }
