@@ -6,7 +6,7 @@
                     <p>Create or find teams, events and book places rapidly.</p>
                     <p>
                     <form class="form-horizontal" name="searchForm" role="search">
-                        <div class="form-group">
+                        <div class="form-group" id="searchPanel">
 
                             <div class="col-sm-6 col-lg-offset-3">
                                 <input id="searchInput" class="form-control"  style="text-align: center"
@@ -14,7 +14,7 @@
                             </div>
                             <br><br><br>
 
-                                        <label class="btn btn-material-cyan active">
+                                        <label class="btn btn-material-cyan">
                                             <input type="radio" name="selection" ng-model="form.selection"
                                                    value="events" autocomplete="off">
                                             <span class="glyphicon glyphicon-glass"></span>&nbsp;Events

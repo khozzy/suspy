@@ -23,13 +23,12 @@
     <link href="/public/lib/css/style.css" rel="stylesheet">
     <!--<link href="/public/lib/css/commentsStyle.css" rel="stylesheet">-->
 
-    <script src="/public/lib/js/arrive.js"></script>
-
     <!-- bower:js -->
     <script src="/public/lib/bower_components/modernizr/modernizr.js"></script>
     <script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
     <script src="/public/lib/bower_components/angular/angular.js"></script>
     <script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/public/lib/js/arrive.js"></script>
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.js"></script>
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
@@ -61,34 +60,37 @@
                                     modelAttribute="homePageSearch"
                                     role="search"
                                     method="post"
-                                    cssClass="navbar-form navbar-left"
-                                    cssStyle="margin: 0 0 0 0"
+                                    class="navbar-form navbar-left"
+                                    style="margin: 0 0 0 0"
                                     action="/">
-                                <div class="form-group" style="color:rgba(255, 255, 255, 0.84)">
-                                    <form:input path="searchText" cssClass="form-control floating-label" placeholder="Search" />
+                                <!--<div class="form-group">-->
+
+                                    <div class="col-lg-4" style="margin-top:12px;">
+                                        <form:input path="searchText" type="text" class="form-control" placeholder="Search" />
+                                    </div>
                                     <div class="radio radio-primary" >
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="events"/>
-                                            <span class=circle></span><span class=check></span> Events
+                                            <form:radiobutton path="searchTarget" name="headerSearchRadio" value="events" checked=""/>
+                                            Events
                                         </label>
                                     </div>
                                     <div class="radio radio-primary">
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="places"/>
-                                            <span class=circle></span><span class=check></span>Places
+                                            <form:radiobutton path="searchTarget" name="headerSearchRadio" value="places"/>
+                                            Places
                                         </label>
                                     </div>
 
                                     <div class="radio radio-primary">
                                         <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" value="teams"/>
-                                            <span class=circle></span><span class=check></span>Teams
+                                            <form:radiobutton path="searchTarget" name="headerSearchRadio" value="teams"/>
+                                            Teams
                                         </label>
                                     </div>
 
                                     <form:button type="submit" class="btn btn-primary btn-raised btn-xs btn-material-deeppurple"
                                                  style="margin-left:15px">Search</form:button>
-                                </div>
+                                <%--</div>--%>
                             </form:form>
                         </c:if>
 

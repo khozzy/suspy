@@ -1,15 +1,10 @@
 package com.pwr.suspy.controller.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserNotExistsException;
 import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

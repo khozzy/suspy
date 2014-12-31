@@ -5,8 +5,6 @@ import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.TimeSlot;
 import com.pwr.suspy.dto.AddTimeSlotForm;
 import com.pwr.suspy.dto.EditTimeSlotForm;
-import com.pwr.suspy.repository.Events;
-import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.repository.TimeSlots;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

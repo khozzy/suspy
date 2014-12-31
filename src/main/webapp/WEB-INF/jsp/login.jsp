@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="checkbox">
+                    <div class="togglebutton">
                         <label>
                             <input name="_spring_security_remember_me" type="checkbox"> <spring:message
                                 code='signin.rememberme'/>

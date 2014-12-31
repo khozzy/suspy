@@ -1,7 +1,6 @@
 package com.pwr.suspy.repository;
 
 import com.pwr.suspy.domain.Event;
-import com.pwr.suspy.domain.Place;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,5 @@
 package com.pwr.suspy.repository;
 
-import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

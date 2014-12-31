@@ -90,7 +90,7 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
-        <!-- JSON POJO mapper -->
+        <!-- JSON POJO mapper  not used anymore-->
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -108,6 +108,22 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.4.4</version>
+        </dependency>
+        
+        <!-- JSON POJO mapper GSON-->
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <!-- Stripe - payment-->
+
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>1.23.0</version>
         </dependency>
 
         <!-- Spring Security -->

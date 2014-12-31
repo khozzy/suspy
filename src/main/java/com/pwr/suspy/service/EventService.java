@@ -1,7 +1,6 @@
 package com.pwr.suspy.service;
 
 import com.pwr.suspy.domain.Event;
-import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

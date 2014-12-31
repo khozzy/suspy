@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.PlaceService;
-import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,9 +6,18 @@ form .error {
     border: 1px solid #000;
 }
 
-body { padding-top: 70px; }
+body { 
+    padding-top: 70px;
+}
 
-.thumbnail img { min-height:120px; height:120px; }
+.thumbnail img { 
+    min-height:120px; 
+    height:120px; 
+}
+
+#searchPanel input[type="radio"] {
+    display:none;
+}
 
 .footer {
     text-align: right;

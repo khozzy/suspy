@@ -16,7 +16,7 @@
                                 code='name.header'/></form:label>
                         <div class="col-sm-9">
                             <spring:message code='name.placeholder' var="namePlaceholder"/>
-                            <form:input path="name" class="form-control" id="name" placeholder="${namePlaceholder}"/>
+                            <form:input path="name" class="form-control floating-label" id="name" placeholder="${namePlaceholder}"/>
                             <form:errors path="name" cssClass="error"/>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-9">
-                            <div class="checkbox">
+                            <div class="togglebutton">
                                 <form:label path="termsAcceptance">
                                     <form:checkbox path="termsAcceptance" id="termsAcceptance" value="true"/>
                                     <spring:message code='termsAcceptance.header'/>

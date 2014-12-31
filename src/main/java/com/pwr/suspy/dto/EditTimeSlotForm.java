@@ -1,7 +1,5 @@
 package com.pwr.suspy.dto;
 
-import javax.validation.constraints.Pattern;
-
 public class EditTimeSlotForm
 {
     private String date_from;

@@ -1,7 +1,14 @@
 suspyApp
 
     .controller('MainController',function ($document) {
-        $.material.init();
+        //$.material.init(); to powinno być ale jest problem z arrive.js
+        //$.material.input(); to nie działa poprawnie
+        $.material.ripples();
+        $.material.checkbox();
+        $.material.togglebutton();
+        $.material.radio();
+        $.material.autofill();
+
 })
     .controller('HomeController', function() {
 
@@ -51,3 +58,5 @@ suspyApp
         });
 
     });
+
+//$('form input[type=radio]:checked').parents('li').css("font-size", "20px");

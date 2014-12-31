@@ -6,8 +6,8 @@ import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.SignupForm;
 import com.pwr.suspy.dto.UserDetailsImpl;
 import com.pwr.suspy.dto.UserEditForm;
-import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
+import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.mail.MailSender;
 import com.pwr.suspy.repository.Users;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
@@ -33,7 +33,6 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

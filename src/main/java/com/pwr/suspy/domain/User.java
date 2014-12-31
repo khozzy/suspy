@@ -1,6 +1,6 @@
 package com.pwr.suspy.domain;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
 import com.pwr.suspy.util.MyUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;

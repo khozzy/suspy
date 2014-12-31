@@ -1,6 +1,5 @@
 package com.pwr.suspy.service;
 
-import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.domain.Team;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.repository.Teams;

@@ -1,10 +1,6 @@
 package com.pwr.suspy.service;
 
-import com.pwr.suspy.domain.Activity;
-import com.pwr.suspy.domain.Address;
-import com.pwr.suspy.domain.Place;
-import com.pwr.suspy.domain.TimeSlot;
-import com.pwr.suspy.domain.User;
+import com.pwr.suspy.domain.*;
 import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.dto.EditPlaceForm;
 import com.pwr.suspy.repository.Places;
@@ -16,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
