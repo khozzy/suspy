@@ -27,7 +27,7 @@
                     <%--<td><c:out value="${place.owner.name}"/></td>--%>
                     <form>
                         <td><a href="/places/edit?id=<c:out value='${place.id}'/>" class="btn btn-material-orange btn-fab btn-fab-mini btn-raised mdi-image-edit"></a></td>
-                        <td><a href="/places/timeslots/manage?id=<c:out value='${place.id}'/>" class="btn btn-primary"><spring:message code='place.edit.timeslotEditButton'/></a></td>
+                        <td><a href="/places/timeslots/manage?id=<c:out value='${place.id}'/>" class="btn btn-material-grey"><spring:message code='place.edit.timeslotEditButton'/></a></td>
                     </form>
                 </tr>
             </c:forEach>
