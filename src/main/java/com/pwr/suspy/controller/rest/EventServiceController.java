@@ -1,7 +1,6 @@
 package com.pwr.suspy.controller.rest;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.EventService;
@@ -35,7 +34,7 @@ public class EventServiceController {
             @RequestParam(value = "query", defaultValue = "Suspy is the best") String query,
             @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
             @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
-            throws JsonProcessingException {
+            {
 
         return eventService.findEvents(
                 query,
@@ -47,7 +46,7 @@ public class EventServiceController {
 
     @RequestMapping(value = "/{eventID}", method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<Event> getEvent(
-            @PathVariable("eventID") Long eventID) throws JsonProcessingException {
+            @PathVariable("eventID") Long eventID)  {
 
         if (eventService.exists(eventID)) {
             return new ResponseEntity<>(eventService.findById(eventID), new HttpHeaders(), HttpStatus.OK);
@@ -58,7 +57,7 @@ public class EventServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createEvent(
-            @RequestBody Event event) throws JsonProcessingException, UserAlreadyExistsException {
+            @RequestBody Event event)throws UserAlreadyExistsException {
 
         event = eventService.createNewEvent(event);
         return new ResponseEntity<>("Event " + event.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
@@ -67,7 +66,7 @@ public class EventServiceController {
     @RequestMapping(value = "/{eventID}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> updateEvent(
             @PathVariable("eventID") Long eventID,
-            @RequestBody Event event) throws JsonProcessingException {
+            @RequestBody Event event){
 
         //userService.update(userID, user);
         return new ResponseEntity<>("Event " + event.getName() + " updated.", new HttpHeaders(), HttpStatus.OK);
@@ -76,7 +75,7 @@ public class EventServiceController {
     @RequestMapping(value = "/{eventID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteEvent(
             @PathVariable("eventID") Long eventID)
-            throws JsonProcessingException {
+            {
 
         eventService.delete(eventID);
         Event event = eventService.findById(eventID);

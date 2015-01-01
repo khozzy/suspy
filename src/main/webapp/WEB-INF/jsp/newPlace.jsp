@@ -1,7 +1,6 @@
 <%@include file="includes/header.jsp" %>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-material-orange">
                 <div class="panel-heading">
                     <h3 class="panel-title"><spring:message code="place.form"/></h3>
                 </div>
@@ -10,83 +9,105 @@
                         <errors/>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name"><spring:message code="place.form.place_name"/></label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input id="name" name="name" type="text" placeholder="" class="form-control input-md">
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="city"><spring:message code="place.form.city"/></label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="street"><spring:message code="place.form.street"/></label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input id="street" name="street" type="text" placeholder="" class="form-control input-md">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="houseNumber"><spring:message code="place.form.houseNumber"/></label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input id="houseNumber" name="houseNumber" type="text" placeholder="" class="form-control input-md">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="capacity"><spring:message code="place.form.capacity"/></label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input id="capacity" name="capacity" type="text" placeholder="" class="form-control input-md">
                             </div>
                         </div>
-                        <!-- ADD TIMESLOT -->
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="timeSlotListBox"><spring:message code='place.form.timeslot.list'/></label>
-                            <div class="col-sm-10">
-                                <textarea readonly class="form-control" id="timeSlotListBox" name="timeSlotListBox"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="price"><spring:message code="place.form.timeslot.cost"/></label>
-                            <div class="col-sm-10">
-                                <input id="price" name="price" type="text" placeholder="" class="form-control input-md">
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="date_from" ><spring:message code='place.form.timeslot.date_from'/></label>
-                            <div class="col-sm-10">
-                                <input id="date_from" type="date" class="form-control" placeholder="event name"/>
-                            </div>
-                        </div>
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Timeslots</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- ADD TIMESLOT -->
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="timeSlotListBox"><spring:message code='place.form.timeslot.list'/></label>
+                                            <div class="col-sm-9">
+                                                <textarea readonly class="form-control" id="timeSlotListBox" name="timeSlotListBox"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="price"><spring:message code="place.form.timeslot.cost"/></label>
+                                            <div class="col-sm-9">
+                                                <input id="price" name="price" type="text" placeholder="" class="form-control input-md">
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="hour_from"><spring:message code='place.form.timeslot.hour_from'/></label>
-                            <div class="col-sm-10">
-                                <input id="hour_from" name="hour_from" type="time" placeholder="00:00" class="form-control input-md">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="date_from" ><spring:message code='place.form.timeslot.date_from'/></label>
+                                            <div class="col-sm-9">
+                                                <input id="date_from" type="date" class="form-control" placeholder="event name"/>
+                                            </div>
+                                        </div>
 
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="hour_from"><spring:message code='place.form.timeslot.hour_from'/></label>
+                                            <div class="col-sm-9">
+                                                <input id="hour_from" name="hour_from" type="time" placeholder="00:00" class="form-control input-md">
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="date_to"><spring:message code='place.form.timeslot.date_to'/></label>
-                            <div class="col-sm-10">
-                                <input id="date_to" type="date" class="form-control" placeholder="event name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="hour_to"><spring:message code='place.form.timeslot.hour_to'/></label>
-                            <div class="col-sm-10">
-                                <input id="hour_to" name="hour_to" type="time" placeholder="00:00" class="form-control input-md">
+                                            </div>
+                                        </div>
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="addTimeSlotButton"></label>
-                            <div class="col-sm-10">
-                                <INPUT TYPE="button" id="addTimeSlotButton" name="addTimeSlotButton" class="btn btn-success" onClick="addTimeSlotToList(this.form)" Value="<spring:message code='place.form.timeslot.add'/>">
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="date_to"><spring:message code='place.form.timeslot.date_to'/></label>
+                                            <div class="col-sm-9">
+                                                <input id="date_to" type="date" class="form-control" placeholder="event name"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="hour_to"><spring:message code='place.form.timeslot.hour_to'/></label>
+                                            <div class="col-sm-9">
+                                                <input id="hour_to" name="hour_to" type="time" placeholder="00:00" class="form-control input-md">
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="addTimeSlotButton"></label>
+                                            <div class="col-sm-9">
+                                                <input type="button" id="addTimeSlotButton" name="addTimeSlotButton" class="btn btn-material-grey" onClick="addTimeSlotToList(this.form)" Value="<spring:message code='place.form.timeslot.add'/>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <label class="col-sm-2 control-label" > </label>
+                            <input type="button" class="btn btn-material-grey" data-toggle="modal" data-target="#myModal" value="Timeslots">
+
                         <%-- TODO1: ADD radio button activites!!!! --%>
 
                         <!--  HIDDEN -->
@@ -99,14 +120,13 @@
                         <!--  /HIDDEN -->
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
-                                <form:button type="submit" class="btn btn-default"><spring:message code='place.form.submit'/></form:button>
+                                <form:button type="submit" class="btn btn-material-orange pull-right"><spring:message code='place.form.submit'/></form:button>
                                     <%-- TODO: CHANGE Name of finish form button --%>
                             </div>
                         </div>
                     </form:form>
                 </div>
             </div>
-        </div>
     </div>
 
 <script>

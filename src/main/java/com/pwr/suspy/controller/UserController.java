@@ -69,11 +69,14 @@ public class UserController {
             @PathVariable("userID") Long userID,
             Model model){
 
-        RestTemplate restTemplate = new RestTemplate();
+        /*RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<User> entity = restTemplate.getForEntity(
                 MyUtil.hostUrl() + "/service/users/" + userID, User.class);
-
+        
         User user = entity.getBody();
+        */
+        
+        User user = userService.findById(userID);
 
         if (MyUtil.getSessionUser()!= null) {
             boolean observed = userService.findById(MyUtil.getSessionUser()

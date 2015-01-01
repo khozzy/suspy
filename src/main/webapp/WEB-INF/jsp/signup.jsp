@@ -1,7 +1,6 @@
 <%@include file="includes/header.jsp" %>
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
 
             <div class="panel-heading">
@@ -149,7 +148,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-9">
-                            <form:button type="submit" class="btn btn-primary"><spring:message
+                            <form:button type="submit" class="btn btn-primary pull-right"><spring:message
                                     code='signup'/></form:button>
                         </div>
                     </div>
@@ -157,7 +156,6 @@
                 </form:form>
             </div>
         </div>
-    </div>
 </div>
 
 <%@include file="includes/footer.jsp" %>

@@ -42,7 +42,7 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   ('2', '5'), ('2', '3'),
   ('3', '5'),
   ('4', '5'),('4', '1'),('4', '3'),
-  ('5', '5');
+  ('5', '1');
 
 ## Places
 INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`, `house_number`, `street`, `capacity`, `name`, `owner_id`) VALUES
@@ -71,7 +71,7 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
   ('8', '2010-05-06', 0, '2014-11-11', '40', '2014-12-12', '7');
 
 ## Event
-INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `priv`, `team_id`, `time_slot_id`) VALUES
+INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `priv`, `organizer`, `time_slot_id`) VALUES
 ('1', '2000-01-01', 0, 'Niedzielna gra', 0, '1', '1'),
 ('2', '2000-01-01', 0, 'Ja gra', 0, '1', '2'),
 ('3', '2000-01-01', 0, 'Kosz', 0, '2', '3'),

@@ -20,7 +20,7 @@
                                             <span class="glyphicon glyphicon-glass"></span>&nbsp;Events
                                         </label>
 
-                                        <label class="btn btn-material-lightgreen">
+                                        <label class="btn btn-material-orange">
                                             <input type="radio" name="selection" ng-model="form.selection"
                                                    value="places" autocomplete="off">
                                             <span class="glyphicon glyphicon-home"></span>&nbsp;Places
@@ -64,7 +64,7 @@
                                             <img data-src="holder.js/100x100" alt="..." src="public/lib/assets/profile-default.jpg">
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="h5"><span class="h4">Team:</span>{{event.team.name}}</p>
+                                            <p class="h5"><span class="h4">Organizer:</span>{{event.organizer.name}}</p>
                                             <p class="h5"><span class="h4">Where:</span>{{event.timeSlot.place.name}}</p>
                                             <p class="h5"><span class="h4">From:</span>{{event.timeSlot.from| date:'EEEE dd-MM-yy HH:mm'}}</p>
                                             <p class="h5"><span class="h4">To:</span>{{event.timeSlot.to| date:'EEEE dd-MM-yy HH:mm'}}</p>
@@ -106,7 +106,7 @@
                                     </div>
                                     <br>
                                     <div class="row text-center">
-                                        <p><a href="places/{{place.id}}" class="btn btn-material-lightgreen btn-raised" role="button">Show place</a> <a href="places/timeslots?id={{place.id}}" class="btn btn-material-grey btn-raised" role="button">Show timeslots</a></p>
+                                        <p><a href="places/{{place.id}}" class="btn btn-material-orange btn-raised" role="button">Show place</a> <a href="places/timeslots?id={{place.id}}" class="btn btn-material-grey btn-raised" role="button">Show timeslots</a></p>
                                     </div>
                                 </div>
                             </div>

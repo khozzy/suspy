@@ -1,7 +1,5 @@
 package com.pwr.suspy.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.dto.ForgotPasswordForm;
 import com.pwr.suspy.dto.HomepageSearchForm;
@@ -137,9 +135,9 @@ public class RootController {
     public String signUpJson(@ModelAttribute @Valid SignupForm signupForm,
                              BindingResult result,
                              RedirectAttributes redirectAttributes)
-            throws UserAlreadyExistsException, JsonProcessingException {
+            throws UserAlreadyExistsException {
 
-        if (result.hasErrors()) {
+       /* if (result.hasErrors()) {
             for (ObjectError err : result.getAllErrors()) {
                 logger.info(String.valueOf(err.toString()));
             }
@@ -157,7 +155,7 @@ public class RootController {
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.put(MyUtil.hostUrl() + "/service/users", entity, String.class);
-
+*/
         MyUtil.flash(redirectAttributes, "success", "signupSuccessMessage");
 
         return "redirect:/";

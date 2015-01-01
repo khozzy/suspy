@@ -1,7 +1,6 @@
 package com.pwr.suspy.controller.rest;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.PlaceService;
@@ -35,7 +34,7 @@ public class PlaceServiceController {
             @RequestParam(value = "query", defaultValue = "Suspy is the best") String query,
             @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
             @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
-            throws JsonProcessingException {
+            {
 
         return placeService.findPlaces(
                 query,
@@ -47,7 +46,7 @@ public class PlaceServiceController {
 
     @RequestMapping(value = "/{placeID}", method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<Place> getPlace(
-            @PathVariable("placeID") Long placeID) throws JsonProcessingException {
+            @PathVariable("placeID") Long placeID){
 
         if (placeService.exists(placeID)) {
             return new ResponseEntity<>(placeService.findById(placeID), new HttpHeaders(), HttpStatus.OK);
@@ -58,7 +57,7 @@ public class PlaceServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createPlace(
-            @RequestBody Place place) throws JsonProcessingException, UserAlreadyExistsException {
+            @RequestBody Place place) throws UserAlreadyExistsException {
 
         place = placeService.createNewPlace(place);
         return new ResponseEntity<>("Place " + place.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
@@ -67,7 +66,7 @@ public class PlaceServiceController {
     @RequestMapping(value = "/{placeID}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> updatePlace(
             @PathVariable("placeID") Long placeID,
-            @RequestBody Place place) throws JsonProcessingException {
+            @RequestBody Place place){
 
         //userService.update(userID, user);
         return new ResponseEntity<>("Place " + place.getName() + " updated.", new HttpHeaders(), HttpStatus.OK);
@@ -76,7 +75,7 @@ public class PlaceServiceController {
     @RequestMapping(value = "/{placeID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deletePlace(
             @PathVariable("placeID") Long placeID)
-            throws JsonProcessingException {
+            {
 
         placeService.delete(placeID);
         Place place = placeService.findById(placeID);

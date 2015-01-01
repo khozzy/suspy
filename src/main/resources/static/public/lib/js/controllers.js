@@ -1,8 +1,8 @@
 suspyApp
 
     .controller('MainController',function ($document) {
-        //$.material.init(); to powinno być ale jest problem z arrive.js
-        //$.material.input(); to nie działa poprawnie
+        //TODO: $.material.init(); to powinno być ale jest problem z arrive.js
+        //TODO: $.material.input(); to nie działa poprawnie
         $.material.ripples();
         $.material.checkbox();
         $.material.togglebutton();

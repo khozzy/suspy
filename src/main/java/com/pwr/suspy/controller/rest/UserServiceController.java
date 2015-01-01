@@ -1,7 +1,6 @@
 package com.pwr.suspy.controller.rest;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
@@ -38,7 +37,7 @@ public class UserServiceController {
     public Page<User> getUsers(
             @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
             @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
-            throws JsonProcessingException {
+            {
 
         return userService.findAll(
                 new PageRequest(
@@ -49,7 +48,7 @@ public class UserServiceController {
 
     @RequestMapping(value = "/{userID}", method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<User> getUser(
-            @PathVariable("userID") Long userID) throws JsonProcessingException {
+            @PathVariable("userID") Long userID){
 
         if (userService.exists(userID)) {
             return new ResponseEntity<>(userService.findById(userID), new HttpHeaders(), HttpStatus.OK);
@@ -60,7 +59,7 @@ public class UserServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createUser(
-            @RequestBody User user) throws JsonProcessingException, UserAlreadyExistsException {
+            @RequestBody User user) throws UserAlreadyExistsException {
 
         user = userService.createNewUser(user);
         return new ResponseEntity<>("User " + user.getEmail() + " created.", new HttpHeaders(), HttpStatus.CREATED);
@@ -69,7 +68,7 @@ public class UserServiceController {
     @RequestMapping(value = "/{userID}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> updateUser(
             @PathVariable("userID") Long userID,
-            @RequestBody User user) throws JsonProcessingException {
+            @RequestBody User user) {
 
         //userService.update(userID, user);
         return new ResponseEntity<>("User " + user.getEmail() + " updated.", new HttpHeaders(), HttpStatus.OK);
@@ -78,7 +77,7 @@ public class UserServiceController {
     @RequestMapping(value = "/{userID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteUser(
             @PathVariable("userID") Long userID)
-            throws JsonProcessingException {
+            {
 
         userService.delete(userID);
         User user = userService.findById(userID);
@@ -120,7 +119,7 @@ public class UserServiceController {
     @RequestMapping(value = "/observed", method = RequestMethod.GET, headers = "accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Set<User>> getObservedUsers()
-            throws JsonProcessingException {
+            {
         Set<User> observed = userService.findById(MyUtil.getSessionUser().getId()).getObserved();
         if (observed.isEmpty()) {
             return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);

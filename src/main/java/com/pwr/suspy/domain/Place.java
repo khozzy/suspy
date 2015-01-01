@@ -40,10 +40,9 @@ public class Place extends BaseEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    /*@JsonIdentityInfo(
+    @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")*/
-    @JsonIgnore
+            property = "id")
     @OneToMany(mappedBy = "place")
     private Set<TimeSlot> timeSlots = new HashSet<>();
 

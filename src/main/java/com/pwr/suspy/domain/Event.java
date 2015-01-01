@@ -23,6 +23,11 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organizer")
+    private User organizer;
+
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
@@ -49,6 +54,14 @@ public class Event extends BaseEntity {
 
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
+    }
+
+    public User getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(User organizer) {
+        this.organizer = organizer;
     }
 
     public Team getTeam() {
@@ -96,4 +109,5 @@ public class Event extends BaseEntity {
                 .append(priv)
                 .toHashCode();
     }
+    
 }

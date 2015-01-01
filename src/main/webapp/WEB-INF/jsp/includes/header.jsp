@@ -61,7 +61,7 @@
                                     role="search"
                                     method="post"
                                     class="navbar-form navbar-left"
-                                    style="margin: 0 0 0 0"
+                                    style="margin: 0 0 0 0; color:white;"
                                     action="/">
                                 <!--<div class="form-group">-->
 
@@ -69,26 +69,26 @@
                                         <form:input path="searchText" type="text" class="form-control" placeholder="Search" />
                                     </div>
                                     <div class="radio radio-primary" >
-                                        <label style="padding-left: 32px">
-                                            <form:radiobutton path="searchTarget" name="headerSearchRadio" value="events" checked=""/>
+                                        <label style="padding-left: 32px; font-size:12px;">
+                                            <form:radiobutton path="searchTarget" name="headerSearchRadio" value="events" checked="true"/>
                                             Events
                                         </label>
                                     </div>
                                     <div class="radio radio-primary">
-                                        <label style="padding-left: 32px">
+                                        <label style="padding-left: 32px; font-size:12px;">
                                             <form:radiobutton path="searchTarget" name="headerSearchRadio" value="places"/>
                                             Places
                                         </label>
                                     </div>
 
                                     <div class="radio radio-primary">
-                                        <label style="padding-left: 32px">
+                                        <label style="padding-left: 32px; font-size:12px;">
                                             <form:radiobutton path="searchTarget" name="headerSearchRadio" value="teams"/>
                                             Teams
                                         </label>
                                     </div>
 
-                                    <form:button type="submit" class="btn btn-primary btn-raised btn-xs btn-material-deeppurple"
+                                    <form:button type="submit" class="btn btn-raised btn-xs btn-material-primary"
                                                  style="margin-left:15px">Search</form:button>
                                 <%--</div>--%>
                             </form:form>
@@ -134,9 +134,6 @@
                                         <li>
                                             <a href="/places/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
-                                        <li>
-                                            <a href="/places/search?query="><span class="glyphicon glyphicon-list"></span>&nbsp; All</a>
-                                        </li>
                                     </ul>
                                 </li>
 
@@ -145,24 +142,18 @@
                                         <span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="events/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
+                                            <a href="/events/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Upcoming</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="glyphicon glyphicon-header"></span>&nbsp; History</a>
+                                            <a href="/events/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;
-                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/> <span class="badge">!</span></a>
+                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/> <span class="badge">84</span></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="<c:url value='/users/' /><sec:authentication property='principal.user.id' />"><span
