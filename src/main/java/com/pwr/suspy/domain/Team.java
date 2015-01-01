@@ -1,6 +1,7 @@
 package com.pwr.suspy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,6 +21,7 @@ public class Team extends BaseEntity {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull
     @ManyToOne
     @JoinColumn(name = "leader_id", nullable = false)
@@ -28,12 +30,14 @@ public class Team extends BaseEntity {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(mappedBy = "teams")
     private Set<User> members;
 
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(mappedBy = "team")
     private Set<Event> events;
 

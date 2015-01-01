@@ -1,6 +1,7 @@
 package com.pwr.suspy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -17,6 +18,7 @@ public class TimeSlot extends BaseEntity {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "place_id", nullable = false)
@@ -39,6 +41,7 @@ public class TimeSlot extends BaseEntity {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(mappedBy = "timeSlot")
     private Event event;
 

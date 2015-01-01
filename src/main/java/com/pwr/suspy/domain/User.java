@@ -1,6 +1,7 @@
 package com.pwr.suspy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.pwr.suspy.exception.UserAlreadyObservedException;
@@ -58,10 +59,10 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
-    //tutaj jest problemik!! nie działa to z kolekcjami, trzeba znaleźć obejście
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "observation",
@@ -83,6 +84,7 @@ public class User extends BaseEntity {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany
     @JoinTable(
             name = "user_team",

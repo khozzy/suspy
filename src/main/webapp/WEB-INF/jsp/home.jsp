@@ -14,21 +14,21 @@
                             </div>
                             <br><br><br>
 
-                                        <label class="btn btn-material-cyan">
-                                            <input type="radio" name="selection" ng-model="form.selection"
+                                        <label id="eventsLabel" class="btn btn-material-cyan btn-raised">
+                                            <input type="radio" id="eventsSelected" name="selection" ng-model="form.selection"
                                                    value="events" autocomplete="off">
                                             <span class="glyphicon glyphicon-glass"></span>&nbsp;Events
                                         </label>
 
-                                        <label class="btn btn-material-orange">
-                                            <input type="radio" name="selection" ng-model="form.selection"
+                                        <label id="placesLabel" class="btn btn-material-orange">
+                                            <input type="radio" id="placesSelected" name="selection" ng-model="form.selection"
                                                    value="places" autocomplete="off">
                                             <span class="glyphicon glyphicon-home"></span>&nbsp;Places
 
                                         </label>
 
-                                        <label class="btn btn-material-pink">
-                                            <input type="radio" name="selection" ng-model="form.selection"
+                                        <label id="teamsLabel" class="btn btn-material-pink">
+                                            <input type="radio" id="teamsSelected" name="selection" ng-model="form.selection"
                                                    value="teams" autocomplete="off">
                                             <span class="glyphicon mdi-social-group"></span>&nbsp;Teams
                                         </label>

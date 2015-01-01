@@ -18,7 +18,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(new MappingJackson2HttpMessageConverter());
+        MappingJackson2HttpMessageConverter conv = new MappingJackson2HttpMessageConverter();
+        //conv.enable(MapperFeature.USE_STATIC_TYPING)
+        converters.add(conv);
         super.configureMessageConverters(converters);
     }
 

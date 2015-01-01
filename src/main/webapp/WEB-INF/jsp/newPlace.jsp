@@ -39,6 +39,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Img</label>
+                            <div class="col-sm-9">
+                                    <span class="btn btn-default btn-file">
+                                        <input type="file">
+                                    </span>
+                            </div>
+                        </div>
+
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -106,8 +115,8 @@
                             </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
                         <label class="col-sm-2 control-label" > </label>
-                            <input type="button" class="btn btn-material-grey" data-toggle="modal" data-target="#myModal" value="Timeslots">
-
+                            <input type="button" class="btn btn-material-grey" data-toggle="modal" data-target="#myModal" value="Add timeslots">
+                        
                         <%-- TODO1: ADD radio button activites!!!! --%>
 
                         <!--  HIDDEN -->
@@ -117,6 +126,7 @@
                                 <textarea class="form-control" id="timeSlotList" name="timeSlotList" style="visibility:hidden"></textarea>
                             </div>
                         </div>
+                        
                         <!--  /HIDDEN -->
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">

@@ -1,7 +1,7 @@
 suspyApp
 
     .controller('MainController',function ($document) {
-        //TODO: $.material.init(); to powinno być ale jest problem z arrive.js
+        //TODO: $.material.init(); to powinno być ale jest problem jakiś z bindowaniem
         //TODO: $.material.input(); to nie działa poprawnie
         $.material.ripples();
         $.material.checkbox();
@@ -53,10 +53,6 @@ suspyApp
             }
             else if($scope.form.query ==''){$document.duScrollTopAnimated(300);}
 
-            //$("#searchResults").DataTable();
-
         });
 
     });
-
-//$('form input[type=radio]:checked').parents('li').css("font-size", "20px");
