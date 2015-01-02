@@ -61,7 +61,7 @@
                             <dt>Email</dt>
                             <dd><c:out value="${user.email}" /></dd>
                             <dt>Role</dt>
-                            <dd><c:out value="${user.roles}" /></dd>
+                            <dd ><c:out value="${user.roles}" /></dd>
                             <dt>City</dt>
                             <dd><c:out value="${user.address.city}" /></dd>
                             <dt>Street</dt>

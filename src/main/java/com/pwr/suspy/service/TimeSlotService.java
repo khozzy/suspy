@@ -36,16 +36,16 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         return repository;
     }
 
-    public TimeSlot addTimeSlot(final Place gym, final Event event, final Date from, final Date to,
+    public TimeSlot addTimeSlot(final Place place, final Date from, final Date to,
                                 final BigDecimal price) {
         TimeSlot timeSlot = new TimeSlot();
-        timeSlot.setPlace(gym); /* GET PLACE*/
+        timeSlot.setPlace(place); /* GET PLACE*/
        // timeSlot.setEvent(event); /* GET EVENT */
         timeSlot.setCreatedDate(new Date());
         timeSlot.setFrom(from);
         timeSlot.setTo(to);
         timeSlot.setPrice(price);
-        // Dodanie slotu czasowego do obiektu sportowego
+        // Dodanie slotu czasowego do obiektu
         repository.save(timeSlot);
         return timeSlot;
     }
@@ -114,6 +114,15 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         repository.save(timeSlot);
         return timeSlot;
     }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public TimeSlot bookTimeSlotForEvent(TimeSlot timeSlot, Event event)
+    {
+        timeSlot.setEvent(event);
+        
+        return repository.save(timeSlot);
+    }
+    
     public TimeSlot findById(long id){return  repository.findById(id);}
     public List<TimeSlot> findByPlace(Place place){ return repository.findByPlace(place);}
 

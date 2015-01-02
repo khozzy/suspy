@@ -5,6 +5,8 @@ import com.pwr.suspy.dto.AddPlaceForm;
 import com.pwr.suspy.dto.EditPlaceForm;
 import com.pwr.suspy.repository.Places;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,9 @@ import java.util.Set;
 
 @Service
 public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
+
+    private static final Logger logger = LoggerFactory.getLogger(PlaceService.class);
+
 
     @Autowired
     private Places repository;
@@ -92,6 +97,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         repository.save(place);
         String[] listOfTimeSlots = addPlaceForm.getTimeSlotList().split(";");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        logger.info(Integer.toString(listOfTimeSlots.length));
         for (int i = 0; i < listOfTimeSlots.length; i++) {
 //            try{
             String[] timeSlotArgs = listOfTimeSlots[i].split(",");
