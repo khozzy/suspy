@@ -30,6 +30,11 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
     }
 
     @Transactional(readOnly = true)
+    public List<Event> findAll() {
+        return repository.findAll();
+    }
+    
+    @Transactional(readOnly = true)
     public List<Event> findByNameContaining(String name) {
         return repository.findByNameContaining("%" + name + "%");
     }
