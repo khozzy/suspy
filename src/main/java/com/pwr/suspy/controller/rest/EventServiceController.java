@@ -57,7 +57,7 @@ public class EventServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createEvent(
-            @RequestBody Event event)throws UserAlreadyExistsException {
+            @RequestBody Event event) {
 
         event = eventService.createNewEvent(event);
         return new ResponseEntity<>("Event " + event.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);

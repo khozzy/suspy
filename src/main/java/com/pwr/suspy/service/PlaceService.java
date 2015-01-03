@@ -58,6 +58,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Place createNewPlace(Place place) {
         //TODO: SEND MAIL TO ADMIN WITH WITH NEW PLACE NOTIFICATION TO REJECT OR ACCEPT IT
+        place.setCreatedDate(new Date());
         repository.save(place);
         return place;
     }

@@ -2,7 +2,6 @@ package com.pwr.suspy.controller.rest;
 
 
 import com.pwr.suspy.domain.Place;
-import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.PlaceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +56,7 @@ public class PlaceServiceController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createPlace(
-            @RequestBody Place place) throws UserAlreadyExistsException {
+            @RequestBody Place place) {
 
         place = placeService.createNewPlace(place);
         return new ResponseEntity<>("Place " + place.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);

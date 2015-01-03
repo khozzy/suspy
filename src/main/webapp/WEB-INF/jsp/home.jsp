@@ -64,15 +64,15 @@
                                             <img data-src="holder.js/100x100" alt="..." src="public/lib/assets/profile-default.jpg">
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="h5"><span class="h4">Organizer:</span>{{event.organizer.name}}</p>
-                                            <p class="h5"><span class="h4">Where:</span>{{event.timeSlot.place.name}}</p>
+                                            <p class="h5"><span class="h4">Organizer:</span><a href="/users/{{event.organizer.id}}">{{event.organizer.name}}</a></p>
+                                            <p class="h5"><span class="h4">Where:</span><a href="/places/{{event.timeSlot.place.id}}">{{event.timeSlot.place.name}}</a></p>
                                             <p class="h5"><span class="h4">From:</span>{{event.timeSlot.from| date:'EEEE dd-MM-yy HH:mm'}}</p>
                                             <p class="h5"><span class="h4">To:</span>{{event.timeSlot.to| date:'EEEE dd-MM-yy HH:mm'}}</p>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row text-center">
-                                        <p><a href="events/{{event.id}}" class="btn btn-material-cyan btn-raised" role="button">Show event</a></p>
+                                        <p><a href="/events/{{event.id}}" class="btn btn-material-cyan btn-raised" role="button">Show event</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="thumbnail">
                                 <div class="caption">
                                     <div class="row text-center">
-                                        <h4><a href="places/{{place.id}}">{{place.name}}</a></h4>
+                                        <h4><a href="/places/{{place.id}}">{{place.name}}</a></h4>
                                     </div>
                                     <br>
                                     <div class="row">
@@ -100,7 +100,7 @@
                                         <div class="col-md-6">
                                             <p class="h5"><span class="h4">City:</span>  {{place.address.city}}</p>
                                             <p class="h5"><span class="h4">Capacity:</span> {{place.capacity}}</p>
-                                            <p class="h5"><span class="h4">Owner:</span> {{place.owner.name}}</p>
+                                            <p class="h5"><span class="h4">Owner:</span><a href="/users/{{place.owner.id}}"> {{place.owner.name}}</a></p>
 
                                         </div>
                                     </div>

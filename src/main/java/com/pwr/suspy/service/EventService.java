@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Event createNewEvent(Event event) {
+        event.setCreatedDate(new Date());
         repository.save(event);
         return event;
     }

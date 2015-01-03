@@ -8,6 +8,8 @@ import com.pwr.suspy.dto.EditTimeSlotForm;
 import com.pwr.suspy.repository.TimeSlots;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,7 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public TimeSlot createNewTimeSlot(TimeSlot timeSlot)
     {
+        timeSlot.setCreatedDate(new Date());
         repository.save(timeSlot);
         return timeSlot;
 
@@ -125,5 +128,8 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
     
     public TimeSlot findById(long id){return  repository.findById(id);}
     public List<TimeSlot> findByPlace(Place place){ return repository.findByPlace(place);}
-
+    @Transactional(readOnly = true)
+    public Page<TimeSlot> findTimeSlots( Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 }

@@ -25,6 +25,10 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizer")
