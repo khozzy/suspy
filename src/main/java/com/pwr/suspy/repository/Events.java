@@ -15,6 +15,7 @@ public interface Events extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e WHERE UPPER(e.name) LIKE UPPER(:name)")
     List<Event> findByNameContaining(@Param("name") String name);
-
     Page<Event> findByNameContaining(String query, Pageable pageable);
+
+
 }
