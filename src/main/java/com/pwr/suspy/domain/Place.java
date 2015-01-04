@@ -50,7 +50,7 @@ public class Place extends BaseEntity {
     private Set<TimeSlot> timeSlots = new HashSet<>();
 
     @NotNull
-    @Column(name = "accepted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
+    @Column(name = "accepted", columnDefinition = "TINYINT", nullable = false)
     private Boolean accepted = false;
 
     public String getName() {

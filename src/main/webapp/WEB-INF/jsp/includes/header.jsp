@@ -28,7 +28,6 @@
     <script src="/public/lib/bower_components/jquery/dist/jquery.js"></script>
     <script src="/public/lib/bower_components/angular/angular.js"></script>
     <script src="/public/lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="/public/lib/js/arrive.js"></script>
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/material.js"></script>
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>

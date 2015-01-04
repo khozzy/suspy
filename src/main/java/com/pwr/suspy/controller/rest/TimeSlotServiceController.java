@@ -1,7 +1,9 @@
 package com.pwr.suspy.controller.rest;
 
 
+import com.pwr.suspy.domain.Place;
 import com.pwr.suspy.domain.TimeSlot;
+import com.pwr.suspy.service.PlaceService;
 import com.pwr.suspy.service.TimeSlotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,31 +16,46 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/service/timeslots")
 public class TimeSlotServiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(TimeSlotServiceController.class);
 
+    @Autowired
     private TimeSlotService timeSlotService;
 
     @Autowired
-    public TimeSlotServiceController(TimeSlotService timeSlotService) {
-        this.timeSlotService = timeSlotService;
-    }
+    private PlaceService placeService;
 
     @RequestMapping(method = RequestMethod.GET, headers = "accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public Page<TimeSlot> getTimeSlots(
             @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
-            @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
-            {
+            @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults) {
 
         return timeSlotService.findTimeSlots(
                 new PageRequest(
                         pageNum.intValue(),
                         numOfResults.intValue(),
                         new Sort(Sort.Direction.ASC, "price")));
+    }
+
+    @RequestMapping(value = "/place/{placeId}", method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<TimeSlot> findForPlace(@PathVariable("placeId") long placeId) {
+
+        Optional<Place> place = Optional.ofNullable(placeService.findById(placeId));
+
+        if (place.isPresent()) {
+            return place.get().getTimeSlots();
+        }
+
+        return Collections.emptyList();
     }
 
     @RequestMapping(value = "/{timeSlotID}", method = RequestMethod.GET, headers = "Accept=application/json")

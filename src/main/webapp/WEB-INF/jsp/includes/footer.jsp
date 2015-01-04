@@ -3,7 +3,7 @@
                     <hr>
 
                     <footer>
-                        <p class="footer">AIC 2014</p>
+                        <p class="footer">AIC 2015</p>
                     </footer>
                 </div>
             </div><!-- end of container-->

@@ -1,17 +1,17 @@
 <%@include file="includes/header.jsp" %>
 
-    <script src="/public/lib/js/datatables.min.js"></script>
+<script src="/public/lib/js/datatables.min.js"></script>
 
 <div class="row">
     <h2><spring:message code='place.edit.timeslot'/></h2>
 
     <table id="places_table" class="display" cellspacing="0" width="100%">
         <thead>
-            <tr>
-                <th><spring:message code='place.form.timeslot.date_from'/></th>
-                <th><spring:message code='place.form.timeslot.date_to'/></th>
-                <th><spring:message code='place.form.timeslot.cost'/></th>
-            </tr>
+        <tr>
+            <th><spring:message code='place.form.timeslot.date_from'/></th>
+            <th><spring:message code='place.form.timeslot.date_to'/></th>
+            <th><spring:message code='place.form.timeslot.cost'/></th>
+        </tr>
         </thead>
 
         <tbody>
@@ -49,7 +49,7 @@
                             <label class="col-sm-2 control-label" for="hour_from"><spring:message code='place.form.timeslot.hour_from'/></label>
                             <div class="col-sm-10">
                                 <input id="hour_from" name="hour_from" type="time" placeholder="00:00"
-                                class="form-control input-md">
+                                       class="form-control input-md">
 
                             </div>
                         </div>
@@ -84,10 +84,10 @@
 </div>
 
 
-    <script>
-        $(document).ready(function() {
-            $("#places_table").DataTable();
-        })
-    </script>
+<script>
+    $(document).ready(function() {
+        $("#places_table").DataTable();
+    })
+</script>
 
 <%@include file="includes/footer.jsp" %>

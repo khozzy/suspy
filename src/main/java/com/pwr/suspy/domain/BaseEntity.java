@@ -21,7 +21,7 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "created_date", nullable = false)
     protected Date createdDate;
 
-    @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
+    @Column(name = "deleted", columnDefinition = "TINYINT(1) DEFAULT 0", nullable = false)
     protected boolean deleted = false;
 
     @JsonIgnore

@@ -36,21 +36,14 @@ public class PlaceController {
     @Autowired
     private TimeSlotService timeSlotService;
 
-//    @RequestMapping(value = "/list") //OBSOLETE
-//    public String showPlacesList()
-//    {
-//        return "redirect:/place/search?query=";
-//    }
-
     @RequestMapping(value = "/manage")
-    public String ShowMyPlacesList(Model model)
-    {
+    public String ShowMyPlacesList(Model model) {
         List<Place> places = placeService.findByOwner(MyUtil.getSessionUser());
         model.addAttribute("placesFound", places);
         return "placesManage";
     }
 
-    @RequestMapping(value = "/new",method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String addPlace(Model model) {
         model.addAttribute("addPlaceForm", new AddPlaceForm());
         return "newPlace";
@@ -59,11 +52,13 @@ public class PlaceController {
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addPlace(@ModelAttribute("addPlaceForm") @Valid AddPlaceForm addPlaceForm,
                            BindingResult result,
-                           RedirectAttributes redirectAttributes){
+                           RedirectAttributes redirectAttributes) {
+
         if (result.hasErrors()) {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             return "newPlace";
         }
+
         logger.info(addPlaceForm.toString());
         final Place place = placeService.getPlace(addPlaceForm, MyUtil.getSessionUser());
         MyUtil.flash(redirectAttributes, "success", "place.added");
@@ -81,85 +76,83 @@ public class PlaceController {
         return "placesSearch";
     }
 
-    @RequestMapping(value = "/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editPlace(
             @RequestParam("id") String s_id,
             Model model,
             RedirectAttributes redirectAttributes) {
+
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
-            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
-            {
+
+            if (MyUtil.getSessionUser().getId().equals(place.getOwner().getId())) {
                 MyUtil.flash(redirectAttributes, "failure", "noPermissions");
                 return "redirect:/error";
             }
+
             model.addAttribute("editedPlace", place);
             EditPlaceForm editPlaceForm = new EditPlaceForm();
             model.addAttribute("editPlaceForm", editPlaceForm);
 
             return "placesEdit";
-        }catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             logger.info("ID is not a number");
             return "redirect:/error";
         }
     }
 
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editPlace(@ModelAttribute("editPlaceForm") @Valid EditPlaceForm editPlaceForm,
                             @RequestParam("id") String s_id,
-                RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes) {
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
 
-            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
-            {
+            if (MyUtil.getSessionUser().getId() != place.getOwner().getId()) {
                 MyUtil.flash(redirectAttributes, "failure", "noPermissions");
                 return "redirect:/error";
             }
-            placeService.editPlace(editPlaceForm,place);
+
+            placeService.editPlace(editPlaceForm, place);
             MyUtil.flash(redirectAttributes, "success", "place.edit.success");
 
             return "redirect:/places/manage";
-        }catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
             logger.info("ID is not a number");
             return "redirect:/error";
         }
     }
 
-    @RequestMapping(value = "/timeslots/manage",method = RequestMethod.GET)
+    @RequestMapping(value = "/timeslots/manage", method = RequestMethod.GET)
     public String myPlaceListOfTimeSlots(
             @RequestParam("id") String s_id,
             Model model,
             RedirectAttributes redirectAttributes) {
+
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
-//            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
-//            {
-//                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-//                return "redirect:/place/mylist";
-//            }
-            model.addAttribute("loggedUser",MyUtil.getSessionUser());
+
+            model.addAttribute("loggedUser", MyUtil.getSessionUser());
             model.addAttribute("editedPlace", place);
             List<TimeSlot> timeSlots = timeSlotService.findByPlace(place);//placeService.findByOwner(MyUtil.getSessionUser());
             model.addAttribute("timeSlotsFound", timeSlots);
             return "placesTimeSlotsManage";
-        }catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             logger.info("ID is not a number");
             return "redirect:/places/manage";
         }
     }
-    @RequestMapping(value = "/timeslots",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/timeslots", method = RequestMethod.GET)
     public String placeListOfTimeSlots(
             @RequestParam("id") String s_id,
             Model model,
             RedirectAttributes redirectAttributes) {
+
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
@@ -167,114 +160,122 @@ public class PlaceController {
             List<TimeSlot> timeSlots = timeSlotService.findByPlace(place);//placeService.findByOwner(MyUtil.getSessionUser());
             model.addAttribute("timeSlotsFound", timeSlots);
             return "placesTimeSlotsList";
-        }catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             logger.info("ID is not a number");
             return "redirect:/";
         }
     }
 
-    @RequestMapping(value = "/timeslots/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "/timeslots/edit", method = RequestMethod.GET)
     public String editTimeslot(
             @RequestParam("id") String s_id,
             Model model,
             RedirectAttributes redirectAttributes) {
+
         try {
             long id = Long.parseLong(s_id);
             TimeSlot timeSlot = timeSlotService.findById(id);
 
-            if(MyUtil.getSessionUser().getId() != timeSlot.getPlace().getOwner().getId())
-            {
+            if (MyUtil.getSessionUser().getId().equals(timeSlot.getPlace().getOwner().getId())) {
                 MyUtil.flash(redirectAttributes, "failure", "noPermissions");
                 return "redirect:/";
             }
 
             EditTimeSlotForm editTimeSlotForm = new EditTimeSlotForm();
             model.addAttribute("editTimeSlotForm", editTimeSlotForm);
-            model.addAttribute("timeslot",timeSlot);
+            model.addAttribute("timeslot", timeSlot);
             return "editTimeslot";
-        }catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             logger.info("ID is not a number");
             return "redirect:/";
         }
     }
-    @RequestMapping(value = "/timeslots/edit",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/timeslots/edit", method = RequestMethod.POST)
     public String editTimeslot(@ModelAttribute("editTimeSlotForm") @Valid EditTimeSlotForm editTimeSlotForm,
-                            @RequestParam("id") String s_id,
-                            RedirectAttributes redirectAttributes) {
-        try {
-            long id = Long.parseLong(s_id);
-            TimeSlot timeSlot = timeSlotService.findById(id);
-            if(MyUtil.getSessionUser().getId() != timeSlot.getPlace().getOwner().getId())
-            {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/error";
-            }
-            timeSlotService.editTimeSlot(editTimeSlotForm,timeSlot);
-            if(!NumberUtils.isNumber(editTimeSlotForm.getPrice())
-                && (editTimeSlotForm.getDate_from().isEmpty() || editTimeSlotForm.getHour_from().isEmpty())
-                && (editTimeSlotForm.getDate_to().isEmpty() || editTimeSlotForm.getHour_to().isEmpty())) {
-                MyUtil.flash(redirectAttributes, "failure", "place.edit.timeslot.noChange");
-            }else {
-                MyUtil.flash(redirectAttributes, "success", "place.edit.timeslot.success");
-            }
-            return "redirect:/places/timeslots/manage?id="+timeSlot.getPlace().getId();
-        }catch (NumberFormatException ex)
-        {
-            return "redirect:/error";
-        }
-    }
-
-    @RequestMapping(value = "/timeslots/new",method = RequestMethod.GET)
-    public String addTimeslot(
-            @RequestParam("id") String s_id,
-            Model model,
-            RedirectAttributes redirectAttributes) {
-        try {
-            long id = Long.parseLong(s_id);
-            Place place = placeService.findById(id);
-
-            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
-            {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/";
-            }
-            EditTimeSlotForm editTimeSlotForm = new EditTimeSlotForm();
-            model.addAttribute("editTimeSlotForm", editTimeSlotForm);
-            model.addAttribute("place",place);
-            return "newTimeSlot";
-        }catch (NumberFormatException ex)
-        {
-            logger.info("ID is not a number");
-            return "redirect:/";
-        }
-    }
-    @RequestMapping(value = "/timeslots/new",method = RequestMethod.POST)
-    public String addTimeslot(@ModelAttribute("editTimeSlotForm") @Valid EditTimeSlotForm editTimeSlotForm,
                                @RequestParam("id") String s_id,
                                RedirectAttributes redirectAttributes) {
         try {
             long id = Long.parseLong(s_id);
-            Place place = placeService.findById(id);
-            if(MyUtil.getSessionUser().getId() != place.getOwner().getId())
-            {
+            TimeSlot timeSlot = timeSlotService.findById(id);
+
+            if (MyUtil.getSessionUser().getId().equals(timeSlot.getPlace().getOwner().getId())) {
                 MyUtil.flash(redirectAttributes, "failure", "noPermissions");
                 return "redirect:/error";
             }
-            timeSlotService.addTimeSlot(place, editTimeSlotForm.getDate_from() + " " + editTimeSlotForm.getHour_from(),
-                    editTimeSlotForm.getDate_to() + " " + editTimeSlotForm.getHour_to(), editTimeSlotForm.getPrice());
-            if(!NumberUtils.isNumber(editTimeSlotForm.getPrice())
+
+            timeSlotService.editTimeSlot(editTimeSlotForm, timeSlot);
+
+            if (!NumberUtils.isNumber(editTimeSlotForm.getPrice())
+                    && (editTimeSlotForm.getDate_from().isEmpty() || editTimeSlotForm.getHour_from().isEmpty())
+                    && (editTimeSlotForm.getDate_to().isEmpty() || editTimeSlotForm.getHour_to().isEmpty())) {
+                MyUtil.flash(redirectAttributes, "failure", "place.edit.timeslot.noChange");
+            } else {
+                MyUtil.flash(redirectAttributes, "success", "place.edit.timeslot.success");
+            }
+
+            return "redirect:/places/timeslots/manage?id=" + timeSlot.getPlace().getId();
+        } catch (NumberFormatException ex) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/timeslots/new", method = RequestMethod.GET)
+    public String addTimeslot(
+            @RequestParam("id") String s_id,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            long id = Long.parseLong(s_id);
+            Place place = placeService.findById(id);
+
+            if (MyUtil.getSessionUser().getId().equals(place.getOwner().getId())) {
+                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
+                return "redirect:/";
+            }
+
+            EditTimeSlotForm editTimeSlotForm = new EditTimeSlotForm();
+            model.addAttribute("editTimeSlotForm", editTimeSlotForm);
+            model.addAttribute("place", place);
+
+            return "newTimeSlot";
+        } catch (NumberFormatException ex) {
+            logger.info("ID is not a number");
+            return "redirect:/";
+        }
+    }
+
+    @RequestMapping(value = "/timeslots/new", method = RequestMethod.POST)
+    public String addTimeslot(@ModelAttribute("editTimeSlotForm") @Valid EditTimeSlotForm editTimeSlotForm,
+                              @RequestParam("id") String s_id,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            long id = Long.parseLong(s_id);
+            Place place = placeService.findById(id);
+
+            if (MyUtil.getSessionUser().getId() != place.getOwner().getId()) {
+                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
+                return "redirect:/error";
+            }
+
+            timeSlotService.addTimeSlot(
+                    place,
+                    editTimeSlotForm.getDate_from() + " " + editTimeSlotForm.getHour_from(),
+                    editTimeSlotForm.getDate_to() + " " + editTimeSlotForm.getHour_to(),
+                    editTimeSlotForm.getPrice());
+
+            if (!NumberUtils.isNumber(editTimeSlotForm.getPrice())
                     || (editTimeSlotForm.getDate_from().isEmpty() || editTimeSlotForm.getHour_from().isEmpty())
                     || (editTimeSlotForm.getDate_to().isEmpty() || editTimeSlotForm.getHour_to().isEmpty())) {
                 MyUtil.flash(redirectAttributes, "failure", "place.form.timeslot.notAdded");
-                return "redirect:/places/timeslots/new?id="+place.getId();
-            }else {
+                return "redirect:/places/timeslots/new?id=" + place.getId();
+            } else {
                 MyUtil.flash(redirectAttributes, "success", "place.form.timeSlot.added");
             }
-            return "redirect:/places/timeslots/manage?id="+place.getId();
-        }catch (NumberFormatException ex)
-        {
+
+            return "redirect:/places/timeslots/manage?id=" + place.getId();
+        } catch (NumberFormatException ex) {
             return "redirect:/error";
         }
     }

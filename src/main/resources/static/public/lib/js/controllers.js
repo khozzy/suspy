@@ -19,6 +19,32 @@ suspyApp
     .controller('ErrorController', function() {
 
 })
+    .controller('newEventController', function($scope, $http, $document) {
+
+        getPlaces();
+
+        $scope.updateTimeslots = function() {
+            $http.get('/service/timeslots/place/1')
+                .success(function (data) {
+                    $scope.timeslots = data;
+                })
+                .error(function (data) {
+                    console.log("Error when fetching places for creating new event")
+                });
+        };
+
+        function getPlaces() {
+            $http.get('/service/places/all')
+                .success(function (data) {
+                    $scope.places = data;
+                })
+                .error(function (data) {
+                    console.log("Error when fetching places for creating new event")
+                });
+        }
+
+
+})
     .controller('SearchController', function($scope,$http,$document) {
         $scope.form='';
         $scope.form = {

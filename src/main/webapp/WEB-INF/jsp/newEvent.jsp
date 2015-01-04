@@ -1,71 +1,82 @@
 <%@include file="includes/header.jsp" %>
 
+<script>
+    $(document).ready(function() {
+        $.material.init();
+    });
+</script>
+
 <div class="row">
-            <div class="panel panel-material-cyan">
-                <div class="panel-heading">
-                    <h3 class="panel-title">New event</h3>
+    <div class="panel panel-material-cyan">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create new event</h3>
+        </div>
+        <div class="panel-body">
+
+            <form:form ng-controller="newEventController" class="form-horizontal" role="form" method="post">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" ng-model="eventName" placeholder="Type events name here"/>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <form:form modelAttribute="newEventForm" class="form-horizontal" role="form" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" placeholder="Event name"/>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Details</label>
-                            <div class="col-sm-9">
-                                <textarea class="form-control" placeholder="Details"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Date</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" placeholder="event name"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Time</label>
-                            <div class="col-sm-9">
-                                <input type="time" class="form-control" placeholder="event name"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Place</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="Place"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Type</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Img</label>
-                            <div class="col-sm-9">
-                                <span class="btn btn-default btn-file">
-                                    <input type="file">
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-9">
-                                <button class="btn btn-material-cyan pull-right">Create event</button>
-                            </div>
-                        </div>
-                    </form:form>
+                <div class="form-group">
+                    <label for="textArea" class="col-lg-2 control-label">Details</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="2" id="textArea"></textarea>
+                        <span class="help-block">Type some extra details about your event.</span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="select" class="col-lg-2 control-label">Where</label>
+                    <div class="col-sm-9">
+                        <select
+                                class="form-control"
+                                ng-model="eventPlace"
+                                ng-change="updateTimeslots()"
+                                ng-options="obj.name for obj in places track by obj.id">
+                        </select>
+
+                        <span class="help-block">Where will the event take place</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="timeslots">
+                    <label for="select" class="col-lg-2 control-label">When</label>
+                    <div class="col-sm-9">
+                        <select
+                                class="form-control"
+                                ng-model="eventTime"
+                                ng-options="(obj.from | date:'dd-MM-yy HH:mm') + ' until ' + (obj.to | date:'dd-MM-yy HH:mm') + ' (' + obj.price + ' PLN)' for obj in timeslots track by obj.id"
+                                >
+                        </select>
+
+                        <span class="help-block">Available timeslots in selected location</span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-offset-2" ng-show="eventName && eventPlace && eventTime">
+                    <div class="pull-right">
+                        <div class="col-sm-12">
+                            <h3>{{eventName}}</h3>
+                            <p class="text-muted">{{eventPlace.name}}</p>
+                            <p class="text-info">
+                                <strong>Start time:</strong> {{eventTime.from | date:'dd-MM-yy HH:mm'}}<br/>
+                                <strong>End time:</strong> {{eventTime.to | date:'dd-MM-yy HH:mm'}}
+                            </p>
+                            You will have to pay <strong>{{eventTime.price}} PLN</strong>
+
+                            <div>
+                                <button class="btn btn-material-cyan">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form:form>
+        </div>
+    </div>
 </div>
 
 <%@include file="includes/footer.jsp" %>

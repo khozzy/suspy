@@ -44,7 +44,7 @@ public class Event extends BaseEntity {
     private Team team;
 
     @NotNull
-    @Column(name = "priv", columnDefinition = "bit(1) DEFAULT b'0'", nullable = false)
+    @Column(name = "priv", columnDefinition = "TINYINT", nullable = false)
     private Boolean priv = false;
 
     public String getName() {

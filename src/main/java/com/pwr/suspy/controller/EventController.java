@@ -1,15 +1,12 @@
 package com.pwr.suspy.controller;
 
 import com.pwr.suspy.domain.Event;
-import com.pwr.suspy.dto.NewEventForm;
 import com.pwr.suspy.service.EventService;
-import com.pwr.suspy.util.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,22 +24,16 @@ public class EventController {
 
     @RequestMapping(value = "/new")
     public String newEvent(Model model) {
-        model.addAttribute(new NewEventForm());
         return "newEvent";
     }
 
     @RequestMapping(value = "/manage")
-    public String ShowMyPlacesList(Model model)
-    {
+    public String showMyPlacesList(Model model) {
         List<Event> events = eventService.findAll();
         model.addAttribute("eventsFound", events);
         return "eventsManage";
     }
-    
-   /* @RequestMapping(value = "/{eventId}")
-    public String event(@PathVariable("eventId") String eventId, Model model) {
-        return "event";
-    }*/
+
     
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(
