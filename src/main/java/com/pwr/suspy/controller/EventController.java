@@ -34,7 +34,6 @@ public class EventController {
         return "eventsManage";
     }
 
-    
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(
             @RequestParam("query") String query,

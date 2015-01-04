@@ -68,8 +68,39 @@
                             </p>
                             You will have to pay <strong>{{eventTime.price}} PLN</strong>
 
+                            <%--
+                            Card number: 4242-4242-4242-4242
+                            Expiry: 12/16 (or any other date in the near future)
+                            CVC: 999
+                            --%>
+
                             <div>
-                                <button class="btn btn-material-cyan">Confirm</button>
+                                <br />
+
+                                <form stripe-form="stripeCallback" class="form-horizontal" name="checkoutForm">
+                                    <input ng-model="number"
+                                           placeholder="Card Number"
+                                           payments-format="card"
+                                           payments-validate="card"
+                                           name="card"
+                                           class="form-control"/>
+
+                                    <input ng-model="expiry"
+                                           placeholder="Expiration"
+                                           payments-format="expiry"
+                                           payments-validate="expiry"
+                                           name="expiry"
+                                           class="form-control"/>
+
+                                    <input ng-model="cvc"
+                                           placeholder="CVC"
+                                           payments-format="cvc"
+                                           payments-validate="cvc"
+                                           name="cvc"
+                                           class="form-control"/>
+
+                                    <button type="submit" class="btn btn-material-cyan">Confirm</button>
+                                </form>
                             </div>
                         </div>
                     </div>

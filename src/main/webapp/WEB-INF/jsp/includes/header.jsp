@@ -32,12 +32,17 @@
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <script src="/public/lib/bower_components/angular-scroll/angular-scroll.js"></script>
+    <script src="/public/lib/bower_components/angular-payments/lib/angular-payments.js"></script>
     <!-- endbower -->
 
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+    </script>
 
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
-
 </head>
 
 <body ng-app="suspyApp" ng-controller="MainController">

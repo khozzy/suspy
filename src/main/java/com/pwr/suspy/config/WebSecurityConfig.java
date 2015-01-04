@@ -73,24 +73,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
 
-        http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+        http.csrf().disable();
 
-            private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
-            private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/service/.*", null);
-
-            @Override
-            public boolean matches(HttpServletRequest httpServletRequest) {
-                if (allowedMethods.matcher(httpServletRequest.getMethod()).matches()) {
-                    return false;
-                }
-
-                if (apiMatcher.matches(httpServletRequest)) {
-                    return false;
-                }
-
-                return true;
-            }
-        });
+//        http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+//
+//            private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
+//            private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/service/.*", null);
+//
+//            @Override
+//            public boolean matches(HttpServletRequest httpServletRequest) {
+//                if (allowedMethods.matcher(httpServletRequest.getMethod()).matches()) {
+//                    return false;
+//                }
+//
+//                if (apiMatcher.matches(httpServletRequest)) {
+//                    return false;
+//                }
+//
+//                return true;
+//            }
+//        });
     }
 
     @Autowired

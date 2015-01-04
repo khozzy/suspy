@@ -24,13 +24,23 @@ suspyApp
         getPlaces();
 
         $scope.updateTimeslots = function() {
-            $http.get('/service/timeslots/place/1')
+            $http.get('/service/timeslots/place/' + $scope.eventPlace.id)
                 .success(function (data) {
                     $scope.timeslots = data;
                 })
                 .error(function (data) {
                     console.log("Error when fetching places for creating new event")
                 });
+        };
+
+        $scope.stripeCallback = function (code, result) {
+            console.log("stripe callback");
+
+            if (result.error) {
+                console.log('it failed! error: ' + result.error.message);
+            } else {
+                console.log('success! token: ' + result.id);
+            }
         };
 
         function getPlaces() {

@@ -2,6 +2,10 @@ form .error {
     color: #A94442
 }
 
+.ng-invalid {
+    color: red;
+}
+
 .ng-table {
     border: 1px solid #000;
 }
