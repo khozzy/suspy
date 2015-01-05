@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/ripples.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/public/lib/bower_components/angular-hotkeys/build/hotkeys.min.css" />
     <!-- endbower -->
 
     <link href="/public/lib/css/style.css" rel="stylesheet">
@@ -33,9 +34,10 @@
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <script src="/public/lib/bower_components/angular-scroll/angular-scroll.js"></script>
     <script src="/public/lib/bower_components/angular-payments/lib/angular-payments.js"></script>
-    <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/public/lib/bower_components/angular-route/angular-route.js"></script>
     <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-
+    <script src="/public/lib/bower_components/ng-parallax/angular-parallax.min.js"></script>
+    <script src="/public/lib/bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
     <!-- endbower -->
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

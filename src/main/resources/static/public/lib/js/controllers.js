@@ -1,7 +1,7 @@
 suspyApp
 
-    .controller('MainController',function ($document) {
-
+    .controller('MainController',function ($scope,$document,parallaxHelper) {
+        $scope.background = parallaxHelper.createAnimator(-0.3);
 })
     .controller('HomeController', function() {
 
@@ -108,7 +108,7 @@ suspyApp
 
 
 })
-    .controller('SearchController', function($scope,$http,$document) {
+    .controller('SearchController', function($scope,$http,$document,hotkeys) {
         $scope.form='';
         $scope.form = {
             query: '',
@@ -301,6 +301,47 @@ suspyApp
             }
         };
 
+
+        hotkeys
+            .add({
+                combo: 'right',
+                description: 'Changes form selection',
+                allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
+                callback: function() {
+                    switch($scope.form.selection){
+                        case 'events':
+                            $scope.form.selection = 'places';
+                            break;
+                        case 'places':
+                            $scope.form.selection = 'teams';
+                            break;
+                        case 'teams':
+                            $scope.form.selection = 'events';
+                            break;
+                    }
+                    $scope.searchButtons();
+                }
+            });
         
+        hotkeys
+            .add({
+                combo: 'left',
+                description: 'Changes form selection',
+                allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
+                callback: function(){
+                    switch ($scope.form.selection) {
+                        case 'events':
+                            $scope.form.selection = 'teams';
+                            break;
+                        case 'places':
+                            $scope.form.selection = 'events';
+                            break;
+                        case 'teams':
+                            $scope.form.selection = 'places';
+                            break;
+                    }
+                    $scope.searchButtons();
+                }
+            });
 
     });
