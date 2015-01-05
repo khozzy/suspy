@@ -19,6 +19,66 @@ suspyApp
     .controller('ErrorController', function() {
 
 })
+    .controller('newPlace', function ($scope, $http) {
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.open = function($event , opened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope[opened] = true;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+
+        $scope.format = 'dd/MM/yyyy';
+
+
+        
+        $scope.getLocation = function(val) {
+            return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+                // Any function returning a promise object can be used to load values asynchronously
+                params: {
+                    address: val,
+                    sensor: false
+                }
+            }).then(function(response){
+                return response.data.results.map(function(item){
+                    return item.formatted_address;
+                });
+            });
+        };
+    })
+
+    .controller('manageEvents', function($scope, $http){
+        
+        //Define function that will be used to fetch events
+        function getEvents () {
+            $http.get('/service/events/all')
+                .success(function(result) {
+                    $scope.events = result;
+                    console.log(events);
+                })
+                .error(function(data){
+                    console.log(data); //print out error to the log
+                });
+            
+        }
+
+        //get all the data
+        getEvents();
+        
+    })
     .controller('newEventController', function($scope, $http, $document) {
 
         getPlaces();

@@ -1,5 +1,5 @@
 <%@include file="includes/header.jsp" %>
-    <div class="row">
+    <div class="row" ng-controller="newPlace" >
             <div class="panel panel-material-orange">
                 <div class="panel-heading">
                     <h3 class="panel-title"><spring:message code="place.form"/></h3>
@@ -10,8 +10,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name"><spring:message code="place.form.place_name"/></label>
                             <div class="col-sm-9">
-                                <input id="name" name="name" type="text" placeholder="" class="form-control input-md">
-
+                                <input id="name" name="name" type="text" ng-model="asyncSelected" placeholder="Locations loaded via google geo api" typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="form-control">
+                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -73,7 +73,12 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="date_from" ><spring:message code='place.form.timeslot.date_from'/></label>
                                             <div class="col-sm-9">
-                                                <input id="date_from" type="date" class="form-control" placeholder="event name"/>
+                                                <p class="input-group">
+                                                    <input id="date_from" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt1" is-open="opened1" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default btn-xs" ng-click="open($event, 'opened1')"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button>
+                                                     </span>
+                                                </p>
                                             </div>
                                         </div>
 
@@ -88,7 +93,12 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="date_to"><spring:message code='place.form.timeslot.date_to'/></label>
                                             <div class="col-sm-9">
-                                                <input id="date_to" type="date" class="form-control" placeholder="event name"/>
+                                                <p class="input-group">
+                                                    <input id="date_to" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt2" is-open="opened2" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default btn-xs" ng-click="open($event, 'opened2')"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button>
+                                                     </span>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="form-group">
