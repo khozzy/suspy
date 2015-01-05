@@ -1,11 +1,5 @@
 <%@include file="includes/header.jsp" %>
 
-<script>
-    $(document).ready(function() {
-        $.material.init();
-    });
-</script>
-
 <div class="row">
     <div class="panel panel-material-cyan">
         <div class="panel-heading">

@@ -39,13 +39,9 @@
     <!-- endbower -->
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
-        // This identifies your website in the createToken call below
-        Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
-    </script>
-
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
+    <script src="/public/lib/js/scripts.js"></script>
 </head>
 
 <body ng-app="suspyApp" ng-controller="MainController">

@@ -1,13 +1,6 @@
 suspyApp
 
     .controller('MainController',function ($document) {
-        //TODO: $.material.init(); to powinno być ale jest problem jakiś z bindowaniem
-        //TODO: $.material.input(); to nie działa poprawnie
-        $.material.ripples();
-        $.material.checkbox();
-        $.material.togglebutton();
-        $.material.radio();
-        $.material.autofill();
 
 })
     .controller('HomeController', function() {
