@@ -5,7 +5,7 @@
                     <h3 class="panel-title"><spring:message code="place.form"/></h3>
                 </div>
                 <div class="panel-body">
-                    <form:form modelAttribute="addPlaceForm" class="form-horizontal" role="form" method="post">
+                    <form:form modelAttribute="addPlaceForm" class="form-horizontal form-group-material-orange" role="form" method="post">
                         <errors/>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name"><spring:message code="place.form.place_name"/></label>

@@ -1,4 +1,3 @@
-
             <div class="row" id="footer">
                     <hr>
 

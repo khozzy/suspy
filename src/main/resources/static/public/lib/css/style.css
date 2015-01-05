@@ -12,11 +12,18 @@ form .error {
 
 body { 
     padding-top: 70px;
+    min-height:120px;
+    height:120px;
 }
 
 .thumbnail img { 
     min-height:120px; 
     height:120px; 
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 #searchPanel input[type="radio"] {

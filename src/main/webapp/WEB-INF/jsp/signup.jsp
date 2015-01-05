@@ -8,7 +8,7 @@
             </div>
 
             <div class="panel-body">
-                <form:form modelAttribute="signupForm" class="form-horizontal" role="form" method="post">
+                <form:form modelAttribute="signupForm" class="form-horizontal form-group-primary" role="form" method="post">
                     <form:errors/>
                     <div class="form-group">
                         <form:label path="name" for="name" class="col-sm-2 control-label"><spring:message

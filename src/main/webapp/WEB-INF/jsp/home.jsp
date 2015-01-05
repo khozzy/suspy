@@ -1,35 +1,35 @@
 <%@include file="includes/header.jsp" %>
 <span ng-controller="SearchController">
-            <div class="row" id="invitation">
-                <div class="jumbotron" style="text-align: center">
+            <div class="row" id="invitation vertical-align">
+                <div class="jumbotron vertical-center" style="text-align: center">
                     <h1>Welcome to Suspy!</h1>
-                    <p>Create or find teams, events and book places rapidly.</p>
+                    <p>Create or find events and book places rapidly.</p>
                     <p>
                     <form class="form-horizontal" name="searchForm" role="search">
-                        <div class="form-group" id="searchPanel">
+                        <div class="form-group form-group-material-lightblue" id="searchPanel">
 
                             <div class="col-sm-6 col-lg-offset-3">
-                                <input id="searchInput" class="form-control"  style="text-align: center"
+                                <input id="searchInput" class="form-control form-control-material-cyan"  style="text-align: center"
                                        placeholder="Search for events, places, teams" ng-model="form.query" />
                             </div>
                             <br><br><br>
 
-                                        <label id="eventsLabel" class="btn btn-material-cyan btn-raised">
+                                        <label id="eventsLabel" class="btn btn-material-cyan shadow-z-5">
                                             <input type="radio" id="eventsSelected" name="selection" ng-model="form.selection"
-                                                   value="events" autocomplete="off">
+                                                   value="events" autocomplete="off" ng-click="searchButtons()">
                                             <span class="glyphicon glyphicon-glass"></span>&nbsp;Events
                                         </label>
 
                                         <label id="placesLabel" class="btn btn-material-orange">
                                             <input type="radio" id="placesSelected" name="selection" ng-model="form.selection"
-                                                   value="places" autocomplete="off">
+                                                   value="places" autocomplete="off" ng-click="searchButtons()">
                                             <span class="glyphicon glyphicon-home"></span>&nbsp;Places
 
                                         </label>
 
                                         <label id="teamsLabel" class="btn btn-material-pink">
                                             <input type="radio" id="teamsSelected" name="selection" ng-model="form.selection"
-                                                   value="teams" autocomplete="off">
+                                                   value="teams" autocomplete="off" ng-click="searchButtons()">
                                             <span class="glyphicon mdi-social-group"></span>&nbsp;Teams
                                         </label>
 

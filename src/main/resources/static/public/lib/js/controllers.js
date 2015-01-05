@@ -116,23 +116,12 @@ suspyApp
             pageNum : 0,
             numOfResults : 10
         };
-        var searchInput = angular.element(document.getElementById('searchInput'));
+        var searchInput = angular.element('#searchInput');
         $scope.$watchCollection('form', function() {
-            $document.duScrollToElementAnimated(searchInput);
             $scope.progressBarVal = 0;
             if ($scope.form.query != undefined && $scope.form.query !='') {
-                switch($scope.form.selection){
-                    case 'events':
-                        $scope.materialColour = 'cyan';
-                        break;
-                    case 'places':
-                        $scope.materialColour = 'orange';
-                        break;
-                    case 'teams':
-                        $scope.materialColour = 'pink';
-                        break;
-                }
                 $scope.results = 'Loading...';
+                $document.duScrollToElementAnimated(searchInput);
                 $http.get('/service/' + $scope.form.selection,
                     {params: {
                         query: $scope.form.query,
@@ -170,6 +159,7 @@ suspyApp
             }
             else if($scope.form.query ==''){$document.duScrollTopAnimated(300);}
 
+            
         });
 
         $scope.getOwners = function() {
@@ -289,7 +279,27 @@ suspyApp
             
             return Math.round(value);
             
-        }
+        };
+        
+        $scope.searchButtons = function(){
+            angular.element('#eventsLabel').removeClass('shadow-z-5');
+            angular.element('#placesLabel').removeClass('shadow-z-5');
+            angular.element('#teamsLabel').removeClass('shadow-z-5');
+            switch($scope.form.selection){
+                case 'events':
+                    $scope.materialColour = 'cyan';
+                    angular.element('#eventsLabel').addClass('shadow-z-5');
+                    break;
+                case 'places':
+                    $scope.materialColour = 'orange';
+                    angular.element('#placesLabel').addClass('shadow-z-5');
+                    break;
+                case 'teams':
+                    $scope.materialColour = 'pink';
+                    angular.element('#teamsLabel').addClass('shadow-z-5');
+                    break;
+            }
+        };
 
         
 

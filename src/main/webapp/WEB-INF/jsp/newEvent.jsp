@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
 
-            <form:form ng-controller="newEventController" class="form-horizontal" role="form" method="post">
+            <form:form ng-controller="newEventController" class="form-horizontal form-group-material-cyan" role="form" method="post">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-9">
