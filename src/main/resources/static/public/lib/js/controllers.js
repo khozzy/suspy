@@ -302,7 +302,7 @@ suspyApp
         };
 
 
-        hotkeys
+        hotkeys.bindTo($scope)
             .add({
                 combo: 'right',
                 description: 'Changes form selection',
@@ -323,7 +323,7 @@ suspyApp
                 }
             });
         
-        hotkeys
+        hotkeys.bindTo($scope)
             .add({
                 combo: 'left',
                 description: 'Changes form selection',

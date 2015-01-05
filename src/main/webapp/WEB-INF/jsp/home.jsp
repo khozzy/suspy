@@ -10,7 +10,7 @@
 
                             <div class="col-sm-6 col-lg-offset-3">
                                 <input id="searchInput" class="form-control form-control-material-cyan"  style="text-align: center"
-                                       placeholder="Search for events, places, teams" ng-model="form.query" />
+                                       placeholder="Search for events, places, teams" ng-model="form.query" autofocus/>
                             </div>
                             <br><br><br>
 
