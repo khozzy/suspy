@@ -43,16 +43,19 @@
             </div>
 
             <div class="row" id="listOfResults" ng-cloak>
+
                 <section id="searchResults" ng-switch="form.selection" ng-show="form.query">
 
-                    <h3 ng-hide="results">No results found :(</h3>
+                    <div class="progress" ng-hide="round(progressBarVal)==100">
+                        <div class="progress-bar progress-bar-material-{{materialColour}}" style="width: {{progressBarVal}}%"></div>
+                    </div>
+                    <h3 ng-show="round(progressBarVal)==100 && !results">No results found :(</h3>
 
                     <%--
                         results of event search
                     --%>
-
                     <div class="row" id="eventsResults" ng-switch-when="events" ng-show="results">
-                        <div class="col-sm-12 col-md-6" ng-repeat="event in results track by $index">
+                        <div class="col-sm-12 col-md-6" ng-repeat="event in results track by $index" ng-show="round(progressBarVal)==100">
                             <div class="thumbnail">
                                 <div class="caption">
                                     <div class="row text-center">
@@ -86,7 +89,7 @@
                         results of places search
                     --%>
                     <div class="row" id="placesResults" ng-switch-when="places" ng-show="results">
-                        <div class="col-sm-12 col-md-6" ng-repeat="place in results track by $index">
+                        <div class="col-sm-12 col-md-6" ng-repeat="place in results track by $index" ng-show="round(progressBarVal)==100">
                             <div class="thumbnail">
                                 <div class="caption">
                                     <div class="row text-center">
@@ -119,6 +122,7 @@
                         <%--
                             results of teams search
                         --%>
+                    
                             <table id="teams_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" ng-switch-when="teams" ng-show="results">
                                 <thead>
                                 <tr>
@@ -128,7 +132,7 @@
                                 </thead>
 
                                 <tbody>
-                                        <tr ng-repeat="team in results track by $index">
+                                        <tr ng-repeat="team in results track by $index" ng-show="round(progressBarVal)==100">
                                             <td><a href="teams/{{team.id}}">{{team.name}}</a></td>
                                             <td>{{team.leader.name + ' ' + team.leader.surname}}</td>
                                         </tr>

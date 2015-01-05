@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 
 @Controller
-@RequestMapping("timeslot")
+@RequestMapping("/places/{placeId}/timeslots/new")
 public class TimeSlotController {
 
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
@@ -26,20 +26,20 @@ public class TimeSlotController {
     @Autowired
     private TimeSlotService timeSlotService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String addTimeSlot(Model model) {
         model.addAttribute(new AddTimeSlotForm());
-        return "addTimeSlot";
+        return "newTimeSlot";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addTimeSlot(@ModelAttribute("addTimeSlotForm") @Valid AddTimeSlotForm addTimeSlotForm,
                               BindingResult result,
                               RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             MyUtil.flash(redirectAttributes, "failure", "errorTryAgain");
-            return "addTimeSlot";
+            return "newTimeSlot";
         }
 
         logger.info(addTimeSlotForm.toString());
@@ -48,10 +48,10 @@ public class TimeSlotController {
             timeSlotService.createNewTimeSlot(timeSlotService.getTimeSlot(addTimeSlotForm));
         } catch (ParseException ex) {
             MyUtil.flash(redirectAttributes, "failure", "Parsing error Try Again");
-            return "addTimeSlot";
+            return "newTimeSlot";
         } catch (NumberFormatException ex) {
             MyUtil.flash(redirectAttributes, "failure", "Not a number");
-            return "addTimeSlot";
+            return "newTimeSlot";
         }
 
         MyUtil.flash(redirectAttributes, "success", "timeSlot.added");

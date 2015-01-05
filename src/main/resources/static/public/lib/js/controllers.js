@@ -65,9 +65,21 @@ suspyApp
         };
         var searchInput = angular.element(document.getElementById('searchInput'));
         $scope.$watchCollection('form', function() {
-            $scope.results = 'Loading...';
+            $document.duScrollToElementAnimated(searchInput);
+            $scope.progressBarVal = 0;
             if ($scope.form.query != undefined && $scope.form.query !='') {
-                $document.duScrollToElementAnimated(searchInput);
+                switch($scope.form.selection){
+                    case 'events':
+                        $scope.materialColour = 'cyan';
+                        break;
+                    case 'places':
+                        $scope.materialColour = 'orange';
+                        break;
+                    case 'teams':
+                        $scope.materialColour = 'pink';
+                        break;
+                }
+                $scope.results = 'Loading...';
                 $http.get('/service/' + $scope.form.selection,
                     {params: {
                         query: $scope.form.query,
@@ -79,11 +91,13 @@ suspyApp
                             $scope.results = data.content;
                             switch($scope.form.selection) {
                                 case 'events':
+                                    $scope.progressBarVal += 1/4*100;
                                     $scope.getOrganizers();
                                     $scope.getTimeSlots();
                                     $scope.getPlaces();
                                     break;
                                 case 'places':
+                                    $scope.progressBarVal += 1/2*100;
                                     $scope.getOwners();
                                     break;
                                 case 'teams':
@@ -92,10 +106,13 @@ suspyApp
                         }
                         else{
                             $scope.results = '';
+                            $scope.progressBarVal = 100;
+
                         }
                     })
                     .error(function (data) {
                         $scope.results = '';
+                        $scope.progressBarVal = 100;
                     });
 
             }
@@ -115,6 +132,7 @@ suspyApp
                                 id:userId, 
                                 name:data.name + ' ' +data.surname
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*2)*100;
                         })
                         .error(function (data) {
                             $scope.results[i].owner=
@@ -122,6 +140,7 @@ suspyApp
                                 id:userId, 
                                 name:'Not found'
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*2)*100;
                         });
                 })(index);
             }
@@ -142,6 +161,7 @@ suspyApp
                                 id:userId, 
                                 name:data.name + ' ' +data.surname
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         })
                         .error(function (data) {
                             $scope.results[i].organizer=
@@ -149,6 +169,7 @@ suspyApp
                                 id:userId, 
                                 name:'Not found'
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         });
                 })(index);
             }
@@ -169,6 +190,7 @@ suspyApp
                                 from: data.from,
                                 to: data.to
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         })
                         .error(function (data) {
                             $scope.results[i].timeSlot=
@@ -178,6 +200,7 @@ suspyApp
                                 from: 'Not found',
                                 to: 'Not found'
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         });
                 })(index);
             }
@@ -187,7 +210,6 @@ suspyApp
         $scope.getPlaces = function() {
             for (index = 0; index < $scope.results.length; ++index) {
                 (function(i) {
-                    console.log($scope.results[i].timeSlot)
                     var placeId = $scope.results[i].timeSlot.place;
                     $http.get('/service/places/' + placeId)
                         .success(function (data) {
@@ -196,6 +218,7 @@ suspyApp
                                 id: placeId,
                                 name: data.name
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         })
                         .error(function (data) {
                             $scope.results[i].timeSlot.place=
@@ -203,12 +226,19 @@ suspyApp
                                 id: placeId,
                                 name: 'Not found'
                             };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         });
                 })(index);
                 
             }
         
         };
+        
+        $scope.round = function(value){
+            
+            return Math.round(value);
+            
+        }
 
         
 
