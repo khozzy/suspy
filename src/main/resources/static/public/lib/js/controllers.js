@@ -147,7 +147,6 @@ suspyApp
                                     $scope.progressBarVal += 1/4*100;
                                     $scope.getOrganizers();
                                     $scope.getTimeSlots();
-                                    $scope.getPlaces();
                                     break;
                                 case 'places':
                                     $scope.progressBarVal += 1/2*100;
@@ -244,6 +243,7 @@ suspyApp
                                 to: data.to
                             };
                             $scope.progressBarVal += 1/($scope.results.length*4)*100;
+                            $scope.getPlace(i);
                         })
                         .error(function (data) {
                             $scope.results[i].timeSlot=
@@ -260,10 +260,10 @@ suspyApp
 
         };
 
-        $scope.getPlaces = function() {
-            for (index = 0; index < $scope.results.length; ++index) {
+        $scope.getPlace = function(index) {
                 (function(i) {
                     var placeId = $scope.results[i].timeSlot.place;
+                    
                     $http.get('/service/places/' + placeId)
                         .success(function (data) {
                             $scope.results[i].timeSlot.place=
@@ -282,9 +282,7 @@ suspyApp
                             $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         });
                 })(index);
-                
-            }
-        
+
         };
         
         $scope.round = function(value){
