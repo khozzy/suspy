@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/service/events")
 public class EventServiceController {
@@ -42,6 +44,12 @@ public class EventServiceController {
                         pageNum.intValue(),
                         numOfResults.intValue(),
                         new Sort(Sort.Direction.ASC, "name")));
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<Event> getAllEvents() {
+        return eventService.findAll();
     }
 
     @RequestMapping(value = "/{eventID}", method = RequestMethod.GET, headers = "Accept=application/json")

@@ -33,6 +33,9 @@
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <script src="/public/lib/bower_components/angular-scroll/angular-scroll.js"></script>
     <script src="/public/lib/bower_components/angular-payments/lib/angular-payments.js"></script>
+    <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
     <!-- endbower -->
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
