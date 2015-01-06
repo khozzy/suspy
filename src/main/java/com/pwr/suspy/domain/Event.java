@@ -17,6 +17,9 @@ public class Event extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "event_details", nullable = true)
+    private String details;
+
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
@@ -46,6 +49,15 @@ public class Event extends BaseEntity {
     @NotNull
     @Column(name = "priv", columnDefinition = "TINYINT", nullable = false)
     private Boolean priv = false;
+    
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getName() {
         return name;

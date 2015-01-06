@@ -6,6 +6,8 @@ package com.pwr.suspy.dto;
 public class AddEvents {
     
     private String name;
+    
+    private String details;
 
     private long timeSlot;
 
@@ -15,6 +17,13 @@ public class AddEvents {
 
     private Boolean priv = false;
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getName() {
         return name;

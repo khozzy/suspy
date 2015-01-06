@@ -59,7 +59,7 @@ suspyApp
             $http.get('/service/events/all')
                 .success(function(result) {
                     $scope.events = result;
-                    console.log(events);
+                    console.log(result);
                 })
                 .error(function(data){
                     console.log(data); //print out error to the log
@@ -67,10 +67,12 @@ suspyApp
             
         }
 
+        
+        
         //get all the data
         getEvents();
-        
-        
+
+
     })
     .controller('newEventController', function($scope, $http, $document) {
 
@@ -84,6 +86,7 @@ suspyApp
             var newEvent = {
                 deleted : false,
                 name : $scope.eventName,
+                details : $scope.eventDetails,
                 timeSlot : $scope.eventTime.id,
                 team : null,
                 priv : false
@@ -100,6 +103,7 @@ suspyApp
                 });
             
             $scope.eventName = '';
+            $scope.eventDetails = '';
             $scope.eventPlace = '';
             $scope.eventTime = '';
         };

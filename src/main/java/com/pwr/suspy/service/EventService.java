@@ -5,6 +5,7 @@ import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import com.pwr.suspy.util.MyUtil;
+import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
 
     @Autowired
     private TeamService teamService;
-    
+
     @Override
     public Events getRepository() {
         return repository;
@@ -37,6 +38,7 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
         Event event = new Event();
         
         event.setName(AddEvents.getName());
+        event.setDetails(AddEvents.getDetails());
         event.setTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
         event.setTeam(teamService.findById(AddEvents.getTeam()));
         event.setPriv(AddEvents.getPriv());

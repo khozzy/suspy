@@ -18,8 +18,7 @@
                 <div class="form-group">
                     <label for="textArea" class="col-lg-2 control-label">Details</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" rows="2" id="textArea"></textarea>
-                        <span class="help-block">Type some extra details about your event.</span>
+                        <input class="form-control" ng-model="eventDetails" placeholder="Type some extra details about your event"/>
                     </div>
                 </div>
 
@@ -30,10 +29,10 @@
                                 class="form-control"
                                 ng-model="eventPlace"
                                 ng-change="updateTimeslots()"
-                                ng-options="obj.name for obj in places track by obj.id">
+                                ng-options="obj.name for obj in places track by obj.id"
+                                >
+                            <option value=''>Where will the event take place</option>
                         </select>
-
-                        <span class="help-block">Where will the event take place</span>
                     </div>
                 </div>
 
@@ -45,9 +44,8 @@
                                 ng-model="eventTime"
                                 ng-options="(obj.from | date:'dd-MM-yy HH:mm') + ' until ' + (obj.to | date:'dd-MM-yy HH:mm') + ' (' + obj.price + ' PLN)' for obj in timeslots track by obj.id"
                                 >
+                            <option value=''>Available timeslots in selected location</option>
                         </select>
-
-                        <span class="help-block">Available timeslots in selected location</span>
                     </div>
                 </div>
 
@@ -106,5 +104,10 @@
         </div>
     </div>
 </div>
-
+<style>
+    .form-control {
+        color: #9999AA;
+    }
+    
+</style>
 <%@include file="includes/footer.jsp" %>
