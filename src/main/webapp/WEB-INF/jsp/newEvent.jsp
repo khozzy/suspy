@@ -16,14 +16,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="textArea" class="col-lg-2 control-label">Details</label>
+                    <label class="col-lg-2 control-label">Details</label>
                     <div class="col-sm-9">
                         <input class="form-control" ng-model="eventDetails" placeholder="Type some extra details about your event"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="select" class="col-lg-2 control-label">Where</label>
+                    <label class="col-lg-2 control-label">Where</label>
                     <div class="col-sm-9">
                         <select
                                 class="form-control"
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group" ng-show="timeslots">
-                    <label for="select" class="col-lg-2 control-label">When</label>
+                    <label class="col-lg-2 control-label">When</label>
                     <div class="col-sm-9">
                         <select
                                 class="form-control"
@@ -99,7 +99,11 @@
                         </div>
                     </div>
                 </div>-->
-                <input type="submit" value="Submit" class="btn btn-material-cyan" />
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-9">
+                        <input type="submit" value="Submit" class="btn btn-material-cyan pull-right" />
+                    </div>
+                </div>
             </form>
         </div>
     </div>
