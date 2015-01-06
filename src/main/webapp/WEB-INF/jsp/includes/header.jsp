@@ -36,7 +36,6 @@
     <script src="/public/lib/bower_components/angular-payments/lib/angular-payments.js"></script>
     <script src="/public/lib/bower_components/angular-route/angular-route.js"></script>
     <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/public/lib/bower_components/ng-parallax/angular-parallax.min.js"></script>
     <script src="/public/lib/bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
     <!-- endbower -->
 

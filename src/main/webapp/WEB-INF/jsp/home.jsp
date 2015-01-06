@@ -1,7 +1,7 @@
 <%@include file="includes/header.jsp" %>
 <span ng-controller="SearchController">
-            <div class="row" id="invitation" style="height:100%">
-                <div class="jumbotron animated" style="text-align: center;min-height:100%;">
+            <div class="row" id="invitation">
+                <div class="jumbotron text-center" style="text-align: center;">
                     <h1>Welcome to Suspy!</h1>
                     <p>Create or find events and book places rapidly.</p>
                     <p>
@@ -40,7 +40,32 @@
                     </form>
 
                 </div>
+                
             </div>
+    
+             <div class="row text-center animated" ng-hide="form.query">
+                 <div class="col-md-4">
+                     <div class="well well-lg">
+                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" alt="" />
+                         <h2>Lorem ipsum</h2>
+                         <h3>Lorem ipsum inne sripsum</h3>
+                     </div>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="well well-lg">
+                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" alt="" />
+                         <h2>Lorem ipsum</h2>
+                         <h3>Lorem ipsum inne sripsum</h3>                     
+                     </div>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="well well-lg">
+                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" />
+                         <h2>Lorem ipsum</h2>
+                         <h3>Lorem ipsum inne sripsum</h3>                     
+                     </div>
+                 </div>
+             </div>
 
             <div class="row" id="listOfResults" ng-cloak>
 
@@ -48,8 +73,9 @@
 
                     <div class="progress" ng-hide="round(progressBarVal)==100">
                         <div class="progress-bar progress-bar-material-{{materialColour}}" style="width: {{progressBarVal}}%"></div>
+                        <div class="filler"></div>
                     </div>
-                    <h3 ng-show="round(progressBarVal)==100 && !results">No results found :(</h3>
+                    <h3 ng-show="round(progressBarVal)==100 && !results" class="filler">No results found :(</h3>
 
                     <%--
                         results of event search

@@ -10,17 +10,18 @@ form .error {
     border: 1px solid #000;
 }
 
-html {
+.foot-background{
+    background: url(/public/lib/assets/foot.jpg) no-repeat center center ;
+}
 
+html {
     min-height:100%;
-    
 }
 
 body { 
     padding-top: 70px;
     height:100%;
     min-height:100%;
-
 }
 
 .thumbnail img { 
@@ -28,26 +29,21 @@ body {
     height:120px; 
 }
 
-.vertical-align {
-    display: flex;
-    align-items: center;
-}
-
 #searchPanel input[type="radio"] {
     display:none;
 }
 
 .animated {
-
-    -webkit-transition-property:background-color;
-    -webkit-transition-duration:0.2s;
-    -webkit-transition-timing-function:ease-in;
-    -webkit-transition-delay:0s;
-    
+    transition: all linear 0.5s;
+    opacity:1;
 }
 
-.animated.ng-show {
+.animated.ng-hide {
+    opacity:0;
+}
 
+.animated:hover {
+    opacity:0.85;
 }
 
 .radio label .circle{

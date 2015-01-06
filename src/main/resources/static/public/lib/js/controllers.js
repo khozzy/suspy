@@ -1,7 +1,6 @@
 suspyApp
 
-    .controller('MainController',function ($scope,$document,parallaxHelper) {
-        $scope.background = parallaxHelper.createAnimator(-0.3);
+    .controller('MainController',function ($scope,$document) {
 })
     .controller('HomeController', function() {
 
@@ -157,7 +156,7 @@ suspyApp
                     });
 
             }
-            else if($scope.form.query ==''){$document.duScrollTopAnimated(300);}
+            else if($scope.form.query ==''){$document.duScrollTopAnimated(0);}
 
             
         });
