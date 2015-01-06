@@ -73,20 +73,20 @@
                                     <div class="col-lg-4" style="margin-top:12px;">
                                         <form:input path="searchText" type="text" class="form-control" placeholder="Search" />
                                     </div>
-                                    <div class="radio radio-primary" >
+                                    <div class="radio radio-material-cyan" >
                                         <label style="padding-left: 32px; font-size:12px;font-weight: inherit;">
                                             <form:radiobutton path="searchTarget" name="headerSearchRadio" value="events" checked="true"/>
                                             Events
                                         </label>
                                     </div>
-                                    <div class="radio radio-primary">
+                                    <div class="radio radio-material-orange">
                                         <label style="padding-left: 32px; font-size:12px;font-weight: inherit;">
                                             <form:radiobutton path="searchTarget" name="headerSearchRadio" value="places"/>
                                             Places
                                         </label>
                                     </div>
 
-                                    <div class="radio radio-primary">
+                                    <div class="radio radio-material-pink">
                                         <label style="padding-left: 32px; font-size:12px;font-weight: inherit;">
                                             <form:radiobutton path="searchTarget" name="headerSearchRadio" value="teams"/>
                                             Teams

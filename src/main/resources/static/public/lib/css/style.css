@@ -10,10 +10,17 @@ form .error {
     border: 1px solid #000;
 }
 
+html {
+
+    min-height:100%;
+    
+}
+
 body { 
     padding-top: 70px;
-    min-height:120px;
-    height:120px;
+    height:100%;
+    min-height:100%;
+
 }
 
 .thumbnail img { 
@@ -28,6 +35,31 @@ body {
 
 #searchPanel input[type="radio"] {
     display:none;
+}
+
+.animated {
+
+    -webkit-transition-property:background-color;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:ease-in;
+    -webkit-transition-delay:0s;
+    
+}
+
+.animated.ng-show {
+
+}
+
+.radio label .circle{
+
+    border: 2px solid white;
+
+}
+
+.radio label .check{
+
+    border: 2px solid rgba(0, 0, 0, 0.0);
+
 }
 
 .footer {

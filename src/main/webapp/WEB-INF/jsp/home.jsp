@@ -1,7 +1,7 @@
 <%@include file="includes/header.jsp" %>
 <span ng-controller="SearchController">
-            <div class="row" id="invitation vertical-align">
-                <div class="jumbotron vertical-center" style="text-align: center">
+            <div class="row" id="invitation" style="height:100%">
+                <div class="jumbotron animated" style="text-align: center;min-height:100%;">
                     <h1>Welcome to Suspy!</h1>
                     <p>Create or find events and book places rapidly.</p>
                     <p>
