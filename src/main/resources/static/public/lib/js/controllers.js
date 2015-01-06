@@ -70,11 +70,40 @@ suspyApp
         //get all the data
         getEvents();
         
+        
     })
     .controller('newEventController', function($scope, $http, $document) {
 
         getPlaces();
+        
+        
 
+        $scope.addNewEvent = function() {
+
+            
+            var newEvent = {
+                deleted : false,
+                name : $scope.eventName,
+                timeSlot : $scope.eventTime.id,
+                team : null,
+                priv : false
+            };
+
+            console.log(newEvent);
+            $http.post('/service/events/addNew', newEvent)
+                .success(function (result) {
+                    console.log(result);
+                    
+                })
+                .error(function (data) {
+                    console.log(data); //print out error to the log
+                });
+            
+            $scope.eventName = '';
+            $scope.eventPlace = '';
+            $scope.eventTime = '';
+        };
+        
         $scope.updateTimeslots = function() {
             $http.get('/service/timeslots/place/' + $scope.eventPlace.id)
                 .success(function (data) {
@@ -94,6 +123,8 @@ suspyApp
                 console.log('success! token: ' + result.id);
             }
         };
+
+
 
         function getPlaces() {
             $http.get('/service/places/all')

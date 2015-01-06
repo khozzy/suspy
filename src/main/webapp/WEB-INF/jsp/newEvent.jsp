@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
 
-            <form:form ng-controller="newEventController" class="form-horizontal form-group-material-cyan" role="form" method="post">
+            <form ng-controller="newEventController" ng-submit="addNewEvent()" class="form-horizontal form-group-material-cyan" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-9">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="form-group col-sm-offset-2" ng-show="eventName && eventPlace && eventTime">
+               <!-- <div class="form-group col-sm-offset-2" ng-show="eventName && eventPlace && eventTime">
                     <div class="pull-right">
                         <div class="col-sm-12">
                             <h3>{{eventName}}</h3>
@@ -92,14 +92,17 @@
                                            payments-validate="cvc"
                                            name="cvc"
                                            class="form-control"/>
-
-                                    <button type="submit" class="btn btn-material-cyan">Confirm</button>
+                                                                    
+                                    
                                 </form>
+
+                               
                             </div>
                         </div>
                     </div>
-                </div>
-            </form:form>
+                </div>-->
+                <input type="submit" value="Submit" class="btn btn-material-cyan" />
+            </form>
         </div>
     </div>
 </div>

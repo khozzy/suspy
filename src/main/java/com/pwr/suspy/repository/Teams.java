@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Teams extends JpaRepository<Team, Long> {
 
+    Team findById(long id);
     Page<Team> findByNameContaining(String query, Pageable pageable);
 
 }

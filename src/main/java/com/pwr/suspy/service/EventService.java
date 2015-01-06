@@ -1,8 +1,10 @@
 package com.pwr.suspy.service;
 
 import com.pwr.suspy.domain.Event;
+import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
+import com.pwr.suspy.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,14 +21,27 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
     @Autowired
     private Events repository;
 
+    @Autowired
+    private TimeSlotService timeSlotService;
+
+    @Autowired
+    private TeamService teamService;
+    
     @Override
     public Events getRepository() {
         return repository;
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Event createNewEvent(Event event) {
+    public Event createNewEvent(AddEvents AddEvents) {
+        Event event = new Event();
+        
+        event.setName(AddEvents.getName());
+        event.setTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
+        event.setTeam(teamService.findById(AddEvents.getTeam()));
+        event.setPriv(AddEvents.getPriv());
         event.setCreatedDate(new Date());
+        event.setOrganizer(MyUtil.getSessionUser());
         repository.save(event);
         return event;
     }

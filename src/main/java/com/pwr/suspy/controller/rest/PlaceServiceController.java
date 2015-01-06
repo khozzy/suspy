@@ -68,7 +68,7 @@ public class PlaceServiceController {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> createPlace(
             @RequestBody Place place) {
 
@@ -76,7 +76,7 @@ public class PlaceServiceController {
         return new ResponseEntity<>("Place " + place.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{placeID}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/{placeID}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> updatePlace(
             @PathVariable("placeID") Long placeID,
             @RequestBody Place place){

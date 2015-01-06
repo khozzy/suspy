@@ -2,6 +2,7 @@ package com.pwr.suspy.controller.rest;
 
 
 import com.pwr.suspy.domain.Event;
+import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.EventService;
 import org.slf4j.Logger;
@@ -63,15 +64,15 @@ public class EventServiceController {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+    @RequestMapping(value = "/addNew", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> createEvent(
-            @RequestBody Event event) {
+            @RequestBody AddEvents AddEvent) {
 
-        event = eventService.createNewEvent(event);
-        return new ResponseEntity<>("Event " + event.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
+        Event event = eventService.createNewEvent(AddEvent);
+        return new ResponseEntity<>("Event " + event.getTimeSlot() + event.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{eventID}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/{eventID}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> updateEvent(
             @PathVariable("eventID") Long eventID,
             @RequestBody Event event){
