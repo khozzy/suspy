@@ -116,36 +116,9 @@
                             <sec:authorize access="isAuthenticated()">
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon mdi-social-group"></span> &nbsp; My Teams <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="/teams/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="/teams/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="/places/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="/places/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         <span class="glyphicon glyphicon-glass"></span>&nbsp; My Events <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
+                                    <ul class="dropdown-menu dropdown-menu-material-cyan" role="menu">
                                         <li>
                                             <a href="/events/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
                                         </li>
@@ -155,6 +128,34 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <span class="glyphicon glyphicon-home"></span>&nbsp; My Places <span class="caret"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-material-orange" role="menu">
+                                        <li>
+                                            <a href="/places/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="/places/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon mdi-social-group"></span> &nbsp; My Teams <span class="caret"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-material-pink" role="menu">
+                                        <li>
+                                            <a href="/teams/new"><span class="glyphicon glyphicon-plus"></span>&nbsp; New</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="/teams/manage"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Manage</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;
