@@ -1,5 +1,6 @@
 suspyApp
 
+    
     .controller('MainController',function ($scope,$document) {
 })
     .controller('HomeController', function() {
@@ -53,27 +54,64 @@ suspyApp
     })
 
     .controller('manageEvents', function($scope, $http){
-        
-        //Define function that will be used to fetch events
+      
+
+        //I imagine it could be done better :)
         function getEvents () {
             $http.get('/service/events/all')
                 .success(function(result) {
                     $scope.events = result;
-                    console.log(result);
+                    
+                    angular.forEach( $scope.events , function (item) {
+                       
+                        $http.get('/service/timeslots/' + item.timeSlot)
+                            .success(function(timeSlot) {
+
+                                $http.get('/service/places/' + timeSlot.place)
+                                    .success(function(place) {
+                                        
+                                        timeSlot.place = place;
+                                        item.timeSlot = timeSlot;
+
+                                    })
+                                    .error(function(data){
+                                        console.log(data); 
+                                    });
+                            
+                            })
+                            .error(function(data){
+                                console.log(data); 
+                            });
+
+                        $http.get('/service/users/' + item.organizer)
+                            .success(function(user) {
+                                
+                                item.organizer = user;
+
+                            })
+                            .error(function(data){
+                                console.log(data);
+                            });
+
+                        
+                    });
+                    //console.log($scope.events);
                 })
                 .error(function(data){
-                    console.log(data); //print out error to the log
+                    console.log(data); 
                 });
             
         }
 
         
-        
-        //get all the data
         getEvents();
 
 
+
+
     })
+
+    
     .controller('newEventController', function($scope, $http, $document) {
 
         getPlaces();
