@@ -5,7 +5,6 @@ import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import com.pwr.suspy.util.MyUtil;
-import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,5 +60,10 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
     @Transactional(readOnly = true)
     public Page<Event> findEvents(String query, Pageable pageable) {
         return repository.findByNameContaining("%" + query + "%", pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Event findOne(long eventID) {
+        return repository.getOne(eventID);
     }
 }

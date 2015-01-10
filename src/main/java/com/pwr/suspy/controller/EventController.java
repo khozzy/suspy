@@ -54,7 +54,10 @@ public class EventController {
     
     @RequestMapping(value = "/{eventID}")
     public String showEventProfile(@PathVariable("eventID") Long eventID,
-                                   Model model){
+                                   Model model)
+    {
+        Event event = eventService.findOne(eventID);
+        model.addAttribute("event", event);
         return "event";
     }
 }
