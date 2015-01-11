@@ -53,6 +53,67 @@ suspyApp
         };
     })
 
+    .controller('placeCtrl', function($scope,$http){
+
+        
+        //carusel
+        $scope.myInterval = 5000;
+        
+        var slides = $scope.slides = [];
+        
+        $scope.addSlide = function() {
+            slides.push({
+                image: '/public/lib/assets/stadium' + slides.length + '.jpg'
+            });
+        };
+        for (var i=0; i<3; i++) {
+            $scope.addSlide();
+        }
+        
+        
+        $scope.init = function(placeID) {
+            $scope.placeID = placeID;
+            $scope.timeSlot = [];
+            $http.get('/service/places/' + placeID)
+                .success(function (place) {
+                    $scope.place = place;
+
+                    
+                    $http.get('/service/users/' + $scope.place.owner)
+                        .success(function(owner){
+                            
+                            $scope.place.owner = owner;
+                            
+                        });
+                    
+                    angular.forEach($scope.place.timeSlots ,function(item){
+                        
+                        
+                        $http.get('/service/timeslots/' + item)
+                            .success(function (timeSlots) {
+                                $http.get('/service/events/' + timeSlots.event)
+                                    .success(function(event) {
+
+                                        timeSlots.event = event;
+                                        $scope.timeSlot.push(timeSlots);
+                                        
+                                        //console.log(event);
+                                        //console.log(angular.toJson($scope.place));
+                                        //console.log(angular.toJson(timeSlot[0]));
+                                        //console.log(timeSlot[1]);
+                                        console.log($scope.timeSlot);
+                                    })
+
+                            })
+                    
+                    });
+
+
+
+                })
+        }
+    })
+
     .controller('manageEvents', function($scope, $http){
       
 

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,12 @@ public class TimeSlotServiceController {
 
     @Autowired
     private PlaceService placeService;
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<TimeSlot> getAllTimeSlots() {
+        return timeSlotService.findAll();
+    }
 
     @RequestMapping(method = RequestMethod.GET, headers = "accept=application/json")
     @ResponseStatus(HttpStatus.OK)

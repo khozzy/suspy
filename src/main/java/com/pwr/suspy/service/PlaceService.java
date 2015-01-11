@@ -142,5 +142,10 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
     }
     public List<Place> findByOwner(User owner) { return repository.findByOwner(owner); }
 
+    @Transactional(readOnly = true)
+    public Place findOne(long placeID) {
+        return repository.getOne(placeID);
+    }
+
 
 }

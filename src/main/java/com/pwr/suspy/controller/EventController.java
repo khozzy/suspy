@@ -32,8 +32,6 @@ public class EventController {
     
     @RequestMapping(value = "/manage")
     public String showMyPlacesList(Model model) {
-        //List<Event> events = eventService.findAll();
-        //model.addAttribute("eventsFound", events);
         return "eventsManage";
     }
 

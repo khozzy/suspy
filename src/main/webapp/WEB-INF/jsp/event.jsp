@@ -8,12 +8,6 @@
                     <div class="row">
                         <div class="col-md-7 column">
                             <div class="row margin-bot text-right">
-                                <button type="button" class="btn btn-material-cyan btn-raised">
-                                    Join
-                                </button>
-                                <button type="button" class="btn btn-material-cyan btn-raised">
-                                    Invite
-                                </button>
                                 <h1 class="pull-left font-title no-margin">   <c:out value="${event.name}"/></h1>
                             </div>
                             <div class="row">
@@ -40,6 +34,12 @@
                                                 <p class="text-center no-margin"><span class="text-center glyphicon glyphicon-map-marker glyph-big"></span></p>
                                                 <p class="text-center font-md no-margin"><b>Where:</b></p>
                                                 <p class="text-center font-md"><a href="../../places/${event.timeSlot.place.id}"><c:out value="${event.timeSlot.place.name}"/></a></p>
+                                                <button type="button" class="btn btn-sm btn-material-cyan btn-raised">
+                                                    Join
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-material-cyan btn-raised">
+                                                    Invite
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

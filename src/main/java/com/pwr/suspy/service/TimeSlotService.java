@@ -125,6 +125,11 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
         
         return repository.save(timeSlot);
     }
+
+    @Transactional(readOnly = true)
+    public List<TimeSlot> findAll() {
+        return repository.findAll();
+    }
     
     public TimeSlot findById(long id){return  repository.findById(id);}
     public List<TimeSlot> findByPlace(Place place){ return repository.findByPlace(place);}
