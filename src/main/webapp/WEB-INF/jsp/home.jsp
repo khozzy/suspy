@@ -8,8 +8,8 @@
                     <form class="form-horizontal" name="searchForm" role="search">
                         <div class="form-group form-group-material-lightblue" id="searchPanel">
 
-                            <div class="col-sm-6 col-lg-offset-3">
-                                <input id="searchInput" class="form-control form-control-material-cyan"  style="text-align: center"
+                            <div class="col-sm-6 col-lg-offset-3 text-center">
+                                <input id="searchInput" class="form-control form-control-material-cyan text-center"
                                        placeholder="Search for events, places, teams" ng-model="form.query" autofocus/>
                             </div>
                             <br><br><br>
