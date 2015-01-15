@@ -4,11 +4,16 @@ import com.pwr.suspy.domain.Team;
 import com.pwr.suspy.domain.User;
 import com.pwr.suspy.repository.Teams;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
+import com.pwr.suspy.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.swing.text.html.parser.DTDConstants;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TeamService extends GenericServiceImpl<Team, Long, Teams> {
@@ -46,6 +51,29 @@ public class TeamService extends GenericServiceImpl<Team, Long, Teams> {
     @Transactional(readOnly = true)
     public Page<Team> findEvents(String query, Pageable pageable) {
         return repository.findByNameContaining("%" + query + "%", pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Team> findAll() {
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Team> findMy() {
+        List<Team> allTeams = findAll();
+        List<Team> myTeams = new ArrayList<Team>();
+        Long sessionUserId = MyUtil.getSessionUser().getId();
+
+        for (Team team : allTeams) {
+            for (User user : team.getMembers()) {
+                if (user.getId() == sessionUserId) {
+                    myTeams.add(team);
+                    break;
+                }
+            }
+        }
+
+        return myTeams;
     }
 
 }

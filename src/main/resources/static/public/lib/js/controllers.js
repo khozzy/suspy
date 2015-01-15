@@ -12,6 +12,59 @@ suspyApp
     .controller('ErrorController', function() {
 
 })
+
+    .controller('teamsManage', function($scope, $http) {
+        function getTeams() {
+            $http.get('/service/teams/my').success(function(result) {
+                $scope.teams = result;
+
+                angular.forEach($scope.teams, function (team) {
+                    team.memberNames = [];
+                    angular.forEach(team.members, function (member) {
+                        $http.get('/service/users/' + member).success(function (user) {
+                            team.memberNames.push(user);
+                        })
+                    })
+                })
+                console.log($scope.teams);
+            })
+        }
+        getTeams();
+    })
+
+    .controller('teamProfile', function($scope, $http) {
+        $scope.init = function(teamID) {
+            $scope.teamID = teamID;
+            $http.get('/service/teams/' + teamID).success(function (result) {
+                $scope.team = result;
+
+                // Get leader name and surname
+                $http.get('/service/users/' + $scope.team.leader).success(function(result) {
+                    $scope.team.leaderName = result.name;
+                    $scope.team.leaderSurname = result.surname;
+                })
+
+                // Get members names and surnames
+                angular.forEach($scope.team.members, function(member) {
+                    $scope.team.membersData = [];
+                    $http.get('/service/users/' + member).success(function(result) {
+                        $scope.team.membersData.push(result);
+                    })
+                })
+
+                // Get events of the team
+                angular.forEach($scope.team.events, function(event) {
+                    $scope.team.eventsData = [];
+                    $http.get('/service/events/' + event).success(function(result) {
+                        $scope.team.eventsData.push(result);
+                    })
+                })
+            })
+
+        }
+
+    })
+
     .controller('newPlace', function ($scope, $http) {
         $scope.today = function() {
             $scope.dt = new Date();

@@ -33,7 +33,8 @@ INSERT INTO `user_roles` (user_id, roles) VALUES
   INSERT INTO `suspy`.`user_team` (`user_id`, `team_id`) VALUES
   ('1', '1'), ('2', '1'),  ('3', '1'),
   ('1', '2'), ('2', '2'),
-  ('1', '3'), ('3', '3'),
+#  ('1', '3'), ('3', '3'),
+  ('3', '3'),
   ('1', '4'),  ('3', '4'),  ('4', '4');
 
 # Observation
