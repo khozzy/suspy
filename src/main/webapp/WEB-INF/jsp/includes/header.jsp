@@ -94,8 +94,8 @@
                                         </label>
                                     </div>
 
-                                    <form:button type="submit" class="btn btn-raised btn-xs btn-material-primary"
-                                                 style="margin-left:15px">Search</form:button>
+                                    <form:button type="submit" class="btn btn-xs btn-material-primary shadow-z-1"
+                                                 style="margin-left:15px; margin-top:12px;">Search</form:button>
                                 <%--</div>--%>
                             </form:form>
                         </c:if>
