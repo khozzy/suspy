@@ -67,17 +67,27 @@
 
     <div class="row clearfix">
         <div class="well">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#">Upcoming</a>
-                </li>
-                <li>
-                    <a href="#">Popular</a>
-                </li>
-                <li>
-                    <a href="#">Proposed</a>
-                </li>
-            </ul>
+            <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#participants" aria-controls="teams" role="tab" data-toggle="tab">Participants</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="participants" >
+                        <div ng-controller="teamProfile" ng-init="init('${event.team.id}')">
+                            <accordion close-others="true">
+                                <accordion-group  ng-repeat="member in team.membersData">
+                                    <h1>{{member}}</h1>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

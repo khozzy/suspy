@@ -72,12 +72,12 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
   ('8', '2010-05-06', 0, '2014-11-11', '40', '2014-12-12', '7');
 
 ## Event
-INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `event_details` ,`priv`, `organizer`, `time_slot_id`) VALUES
-('1', '2000-01-01', 0, 'Niedzielna gra', 'Chcesz sobie pograc w niedziele? Idealnie trafiles!', 0, '1', '1'),
-('2', '2000-01-01', 0, 'Ja gra', 'Gram ja i to wystarczy.', 0, '1', '2'),
-('3', '2000-01-01', 0, 'Kosz', 'Idziemy pograc w kosza ze znajomymi z dzielni', 0, '2', '3'),
-('4', '2000-01-01', 0, 'Reczna', 'Czy jestes na tyle wytwaly zeby pilke reka rzucac ?', 0, '2', '4'),
-('5', '2000-01-01', 0, 'tenis', 'Pilka zielona, jedna siata, dwie rakiety tylko my we dwoje .....', 0, '2', '5'),
-('6', '2000-01-01', 0, 'MASAKRYCZNA GRA', 'Bedzie hardcore', 0, '4', '6'),
-('7', '2000-01-01', 0, 'Lepiej Masakryczna Gra', 'Nawet nie pytaj co to bedzie!!!', 0, '4', '7'),
-('8', '2000-01-01', 0, 'Bardziej Lepiej Masakryczna gra', 'Taka gra ze szok', 0, '4', '8');
+INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `event_details` ,`priv`, `organizer`, `team_id` , `time_slot_id`) VALUES
+('1', '2000-01-01', 0, 'Niedzielna gra', 'Chcesz sobie pograc w niedziele? Idealnie trafiles!', 0, '1', '1', '1'),
+('2', '2000-01-01', 0, 'Ja gra', 'Gram ja i to wystarczy.', 0, '1', '2', '2'),
+('3', '2000-01-01', 0, 'Kosz', 'Idziemy pograc w kosza ze znajomymi z dzielni', 0, '2', '1', '3'),
+('4', '2000-01-01', 0, 'Reczna', 'Czy jestes na tyle wytwaly zeby pilke reka rzucac ?', 0, '2', '3', '4'),
+('5', '2000-01-01', 0, 'tenis', 'Pilka zielona, jedna siata, dwie rakiety tylko my we dwoje .....', 0, '2', '4', '5'),
+('6', '2000-01-01', 0, 'MASAKRYCZNA GRA', 'Bedzie hardcore', 0, '4', '1', '6'),
+('7', '2000-01-01', 0, 'Lepiej Masakryczna Gra', 'Nawet nie pytaj co to bedzie!!!', 0, '4', '2', '7'),
+('8', '2000-01-01', 0, 'Bardziej Lepiej Masakryczna gra', 'Taka gra ze szok', 0, '4', '4', '8');
