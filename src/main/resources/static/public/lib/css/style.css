@@ -24,6 +24,10 @@ body {
     min-height:100%;
 }
 
+.modal {
+    padding-top: 50px;
+}
+
 .thumbnail img { 
     min-height:120px; 
     height:120px; 
