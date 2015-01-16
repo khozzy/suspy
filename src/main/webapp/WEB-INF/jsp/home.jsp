@@ -43,26 +43,38 @@
                 
             </div>
     
-             <div class="row text-center animated" ng-hide="form.query">
+             <div class="row text-center animated" ng-hide="form.query" ng-controller="homeAdvisorCtrl">
                  <div class="col-md-4">
                      <div class="well well-lg">
-                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" alt="" />
-                         <h2>Lorem ipsum</h2>
-                         <h3>Lorem ipsum inne sripsum</h3>
+                         <carousel interval="myInterval2">
+                             <slide ng-repeat="slide in slides2" active="slide.active">
+                                 <img ng-src="{{ slide.image }}" style="height: 200px; width: 350px">
+                             </slide>
+                         </carousel>
+                         <h2>Take all from life</h2>
+                         <h4>Lorem ipsum inne sripsum</h4>
                      </div>
                  </div>
                  <div class="col-md-4">
                      <div class="well well-lg">
-                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" alt="" />
-                         <h2>Lorem ipsum</h2>
-                         <h3>Lorem ipsum inne sripsum</h3>                     
+                         <carousel interval="myInterval1">
+                             <slide ng-repeat="slide in slides1" active="slide.active">
+                                 <img ng-src="{{ slide.image }}" style="height: 200px; width: 350px">
+                             </slide>
+                         </carousel>
+                         <h2>Always have fun</h2>
+                         <h4>Lorem ipsum inne sripsum</h4>
                      </div>
                  </div>
                  <div class="col-md-4">
                      <div class="well well-lg">
-                         <img src="/public/lib/assets/foot.jpg" du-parallax y="background" />
-                         <h2>Lorem ipsum</h2>
-                         <h3>Lorem ipsum inne sripsum</h3>                     
+                         <carousel interval="myInterval3">
+                             <slide ng-repeat="slide in slides3" active="slide.active">
+                                 <img ng-src="{{ slide.image }}" style="height: 200px; width: 350px">
+                             </slide>
+                         </carousel>
+                         <h2>Try something new</h2>
+                         <h4>Lorem ipsum inne sripsum</h4>
                      </div>
                  </div>
              </div>
@@ -135,7 +147,32 @@
                                     </div>
                                     <br>
                                     <div class="row text-center">
-                                        <p><a href="places/{{place.id}}" class="btn btn-material-orange btn-raised" role="button">Show place</a> <a href="places/timeslots?id={{place.id}}" class="btn btn-material-grey btn-raised" role="button">Show timeslots</a></p>
+                                        <p><a href="places/{{place.id}}" class="btn btn-material-orange btn-raised" role="button">Show place</a>
+                                            <input type="button" class="btn btn-material-grey btn-raised" data-toggle="modal" 
+                                                   data-target="#myModal{{place.id}}" value="Show timeslots"></p>
+
+                                        <div class="modal fade" id="myModal{{place.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title">Timeslots of {{place.name}}</h4>
+                                                        
+                                                        <div ng-bind="(obj.from | date:'dd-MM-yy HH:mm') + ' until ' + (obj.to | date:'dd-MM-yy HH:mm') + ' (' + obj.price + ' PLN)' for obj in timeslots track by obj.id">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Trollo
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                        
                                     </div>
                                 </div>
                             </div>

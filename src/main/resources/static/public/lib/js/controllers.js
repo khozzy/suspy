@@ -9,9 +9,39 @@ suspyApp
     .controller('FriendsController', function() {
 
 })
-    .controller('ErrorController', function() {
+    .controller('ErrorCtrl', function($scope) {
+
 
 })
+    .controller('homeAdvisorCtrl', function($scope){
+
+            //carusel
+            $scope.myInterval1 = 3000;
+            $scope.myInterval2 = 2000;
+            $scope.myInterval3 = 2500;
+        
+
+            var slides1 = $scope.slides1 = [];
+            var slides2 = $scope.slides2 = [];
+            var slides3 = $scope.slides3 = [];
+
+            $scope.addSlides = function() {
+                slides1.push({
+                    image: '/public/lib/assets/stadium' + slides1.length + '.jpg'
+                });
+                slides2.push({
+                    image: '/public/lib/assets/pool' + slides2.length + '.jpg'
+                });
+                slides3.push({
+                    image: '/public/lib/assets/voley' + slides3.length + '.jpg'
+                });
+            };
+        
+            for (var i=0; i<3; i++) {
+                $scope.addSlides();
+            }
+        
+    })
 
     .controller('teamsManage', function($scope, $http) {
         function getTeams() {
@@ -307,7 +337,6 @@ suspyApp
             $scope.progressBarVal = 0;
             if ($scope.form.query != undefined && $scope.form.query !='') {
                 $scope.results = 'Loading...';
-                $document.duScrollToElementAnimated(searchInput);
                 $http.get('/service/' + $scope.form.selection,
                     {params: {
                         query: $scope.form.query,
@@ -330,6 +359,7 @@ suspyApp
                                 case 'teams':
                                     break;
                             }
+                            $document.duScrollToElementAnimated(searchInput);
                         }
                         else{
                             $scope.results = '';
@@ -436,6 +466,38 @@ suspyApp
 
         };
 
+        $scope.getTimeSlotsForPlaces = function() {
+
+            for (index = 0; index < $scope.results.length; ++index) {
+                (function(i) {
+                    var timeSlotId = $scope.results[i].timeSlot;
+                    $http.get('/service/timeslots/' + timeSlotId)
+                        .success(function (data) {
+                            $scope.results[i].timeSlot=
+                            {
+                                id:timeSlotId,
+                                place: data.place,
+                                from: data.from,
+                                to: data.to
+                            };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
+                            $scope.getPlace(i);
+                        })
+                        .error(function (data) {
+                            $scope.results[i].timeSlot=
+                            {
+                                id:timeSlotId,
+                                place:'Not found',
+                                from: 'Not found',
+                                to: 'Not found'
+                            };
+                            $scope.progressBarVal += 1/($scope.results.length*4)*100;
+                        });
+                })(index);
+            }
+
+        };
+
         $scope.getPlace = function(index) {
                 (function(i) {
                     var placeId = $scope.results[i].timeSlot.place;
@@ -471,20 +533,27 @@ suspyApp
             angular.element('#eventsLabel').removeClass('shadow-z-5');
             angular.element('#placesLabel').removeClass('shadow-z-5');
             angular.element('#teamsLabel').removeClass('shadow-z-5');
+            angular.element('#searchInput').removeClass('form-control-material-cyan');
+            angular.element('#searchInput').removeClass('form-control-material-orange');
+            angular.element('#searchInput').removeClass('form-control-material-pink');
             switch($scope.form.selection){
                 case 'events':
                     $scope.materialColour = 'cyan';
                     angular.element('#eventsLabel').addClass('shadow-z-5');
+                    angular.element('#searchInput').addClass('form-control-material-cyan');
                     break;
                 case 'places':
                     $scope.materialColour = 'orange';
                     angular.element('#placesLabel').addClass('shadow-z-5');
+                    angular.element('#searchInput').addClass('form-control-material-orange');
                     break;
                 case 'teams':
                     $scope.materialColour = 'pink';
                     angular.element('#teamsLabel').addClass('shadow-z-5');
+                    angular.element('#searchInput').addClass('form-control-material-pink');
                     break;
             }
+
         };
 
 
