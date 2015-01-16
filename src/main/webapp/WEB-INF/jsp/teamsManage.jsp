@@ -14,9 +14,18 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Team name</th>
-          <th>Members</th>
-          <th>Events</th>
+          <th>
+            <span class="glyphicon mdi-social-group"></span>
+            Name
+          </th>
+          <th>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            Members
+          </th>
+          <th>
+            <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            Events
+          </th>
         </tr>
       </thead>
         <tr ng-repeat="team in teams">

@@ -63,6 +63,10 @@ suspyApp
     })
 
     .controller('teamProfile', function($scope, $http) {
+
+        var isMemberBool = false;
+        var isLeaderBool = false;
+
         $scope.init = function(teamID) {
             $scope.teamID = teamID;
             $http.get('/service/teams/' + teamID).success(function (result) {
@@ -89,10 +93,28 @@ suspyApp
                         $scope.team.eventsData.push(result);
                     })
                 })
-            })
 
+                $http.get('/service/users/current').success(function (result) {
+                    // Determine if the current user is member of the team
+                    if ($scope.team.members.indexOf(result.id) != -1) {
+                        isMemberBool = true;
+                    }
+
+                    // Determine if the current user is leader of the team
+                    if (result.id == $scope.team.leader) {
+                        isLeaderBool = true;
+                    }
+                })
+            })
         }
 
+        $scope.isMember = function() {
+            return isMemberBool;
+        }
+
+        $scope.isLeader = function() {
+            return isLeaderBool;
+        }
     })
 
     .controller('newPlace', function ($scope, $http) {
