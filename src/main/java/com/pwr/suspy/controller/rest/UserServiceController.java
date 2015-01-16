@@ -57,6 +57,12 @@ public class UserServiceController {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/current", method = RequestMethod.GET, headers = "Accept=application/json")
+    public ResponseEntity<User> getCurrentUser() {
+        return new ResponseEntity<>(userService.findById(MyUtil.getSessionUser().getId()),
+                new HttpHeaders(), HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> createUser(
             @RequestBody User user) throws UserAlreadyExistsException {

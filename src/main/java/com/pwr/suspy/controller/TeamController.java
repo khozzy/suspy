@@ -27,7 +27,7 @@ public class TeamController {
     private TeamService teamService;
 
     @RequestMapping(value = "/new")
-    public String newEvent(Model model) {
+    public String newTeam(Model model) {
         return "newTeam";
     }
 
@@ -47,6 +47,7 @@ public class TeamController {
         model.addAttribute("team", team);
         return("team");
     }
+
 //    public String search(
 //            @RequestParam("query") String query,
 //            Model model) {
