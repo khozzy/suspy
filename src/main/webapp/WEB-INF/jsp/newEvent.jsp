@@ -51,7 +51,21 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-9">
-                        <input type="submit" value="Submit" class="btn btn-material-cyan pull-right" />
+
+                        <div class="pull-right">
+                            <script
+                                    src="https://checkout.stripe.com/checkout.js"
+                                    class="stripe-button"
+                                    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                                    data-name="Suspy"
+                                    data-description="Event reservation (100 PLN)"
+                                    data-currency="EUR"
+                                    data-amount="100">
+                            </script>
+
+                            <input type="submit" value="Submit" class="btn btn-material-cyan" />
+                        </div>
+
                     </div>
                 </div>
             </form>
