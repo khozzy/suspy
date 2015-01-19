@@ -70,7 +70,7 @@ public class EventServiceController {
             @RequestBody AddEvents AddEvent) {
 
         Event event = eventService.createNewEvent(AddEvent);
-        return new ResponseEntity<>("Event " + event.getTimeSlot() + event.getName() + " created.", new HttpHeaders(), HttpStatus.CREATED);
+        return new ResponseEntity<>(event.getId().toString(), new HttpHeaders(), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{eventID}", method = RequestMethod.PUT, consumes = "application/json")
