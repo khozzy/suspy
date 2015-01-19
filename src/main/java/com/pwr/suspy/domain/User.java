@@ -90,7 +90,7 @@ public class User extends BaseEntity {
             name = "user_team",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
 
     public String getName() {
         return name;

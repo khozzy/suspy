@@ -17,18 +17,19 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li ng-hide="isLeader()"><a href="#">Leave Team</a></li>
+            <li ng-hide="isLeader()"><a href="../../teams/{{team.id}}/leave">Leave Team</a></li>
             <li ng-show="isLeader()"><a href="#">Edit Team</a></li>
-            <li ng-show="isLeader()"><a href="#">Delete Team</a></li>
+            <li ng-show="isLeader()"><a href="../../teams/{{team.id}}/delete">Delete Team</a></li>
           </ul>
         </div>
-
-        <button type="button" class="btn btn-success" ng-show="!isMember()">Join Team</button>
+        <a href="../../teams/{{team.id}}/join">
+          <button type="button" class="btn btn-success" ng-show="!isMember()">Join Team</button>
+        </a>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <h2>
           <small>Leader</small><br>
           <a href="../../users/{{team.leader}}">
@@ -37,7 +38,7 @@
         </h2>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
@@ -47,7 +48,7 @@
           <div class="panel-body">
             <h4 ng-repeat="event in team.eventsData">
               <a href="../../events/{{event.id}}">
-                <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                 {{ event.name }}
               </a>
             </h4>
@@ -55,7 +56,7 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
