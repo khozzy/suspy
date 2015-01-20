@@ -44,6 +44,9 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
+    <script src="/public/lib/js/eventController.js"></script>
+    <script src="/public/lib/js/placeController.js"></script>
+    <script src="/public/lib/js/teamController.js"></script>
     <script src="/public/lib/js/scripts.js"></script>
 </head>
 
