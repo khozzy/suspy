@@ -2,7 +2,7 @@
 <span ng-controller="SearchController">
             <div class="row" id="invitation">
                 <div class="jumbotron text-center" style="text-align: center;">
-                    <h1>Welcome to Suspy!</h1>
+                    <h1>Welc<img src="public/lib/assets/logo.svg" height="45px">me to Suspy!</h1>
                     <p>Create or find events and book places rapidly.</p>
                     <p>
                     <form class="form-horizontal" name="searchForm" role="search">
@@ -102,7 +102,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6 text-center">
-                                            <img data-src="holder.js/100x100" alt="..." src="public/lib/assets/profile-default.jpg">
+                                            <img data-src="holder.js/100x100" alt="..." src="/public/lib/assets/profile-default.jpg">
                                         </div>
                                         <div class="col-md-6">
                                             <p class="h5"><span class="h4">Organizer:</span><a href="/users/{{event.organizer.id}}">{{event.organizer.name}}</a></p>
@@ -136,7 +136,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6 text-center">
-                                            <img data-src="holder.js/100x100" alt="..." src="public/lib/assets/profile-default.jpg">
+                                            <img data-src="holder.js/100x100" alt="..." src="/public/lib/assets/profile-default.jpg">
                                         </div>
                                         <div class="col-md-6">
                                             <p class="h5"><span class="h4">City:</span>  {{place.address.city}}</p>
