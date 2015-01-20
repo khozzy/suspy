@@ -160,7 +160,7 @@
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;
-                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/> <span class="badge">84</span></a>
+                                        <spring:message code='greeting'/>, <sec:authentication property="principal.user.name"/> <span class="badge">84</span><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="<c:url value='/users/' /><sec:authentication property='principal.user.id' />"><span

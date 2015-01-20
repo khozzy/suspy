@@ -3,7 +3,7 @@
 <div class="row">
     <div class="panel panel-material-cyan">
         <div class="panel-heading">
-            <h3 class="panel-title">Create new event</h3>
+            <h3 class="panel-title">New event</h3>
         </div>
         <div class="panel-body">
 

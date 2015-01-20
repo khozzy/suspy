@@ -26,7 +26,7 @@ public class TeamServiceController {
         this.teamService = teamService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Collection<Team> getAllTeams() {
         return teamService.findAll();
