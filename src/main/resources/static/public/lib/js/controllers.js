@@ -141,8 +141,6 @@ suspyApp
 
         $scope.format = 'dd/MM/yyyy';
 
-
-        
         $scope.getLocation = function(val) {
             return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
                 // Any function returning a promise object can be used to load values asynchronously
@@ -160,7 +158,6 @@ suspyApp
 
     .controller('placeCtrl', function($scope,$http){
 
-        
         //carusel
         $scope.myInterval = 5000;
         
@@ -174,8 +171,7 @@ suspyApp
         for (var i=0; i<3; i++) {
             $scope.addSlide();
         }
-        
-        
+
         $scope.init = function(placeID) {
             $scope.placeID = placeID;
             $scope.timeSlot = [];
@@ -183,7 +179,6 @@ suspyApp
                 .success(function (place) {
                     $scope.place = place;
 
-                    
                     $http.get('/service/users/' + $scope.place.owner)
                         .success(function(owner){
                             
@@ -192,7 +187,6 @@ suspyApp
                         });
                     
                     angular.forEach($scope.place.timeSlots ,function(item){
-                        
                         
                         $http.get('/service/timeslots/' + item)
                             .success(function (timeSlots) {
@@ -212,9 +206,6 @@ suspyApp
                             })
                     
                     });
-
-
-
                 })
         }
     })
@@ -259,9 +250,7 @@ suspyApp
                                 console.log(data);
                             });
 
-                        
                     });
-                    //console.log($scope.events);
                 })
                 .error(function(data){
                     console.log(data); 
@@ -269,24 +258,15 @@ suspyApp
             
         }
 
-        
         getEvents();
-
-
-
-
     })
 
-    
-    .controller('newEventController', function($scope, $http, $document) {
+    .controller('newEventController', function($scope, $http, $document, $location) {
 
         getPlaces();
-        
-        
 
         $scope.addNewEvent = function() {
 
-            
             var newEvent = {
                 deleted : false,
                 name : $scope.eventName,
@@ -300,10 +280,10 @@ suspyApp
             $http.post('/service/events/addNew', newEvent)
                 .success(function (result) {
                     console.log(result);
-                    
+                    changeLocation("/events/" + result)
                 })
                 .error(function (data) {
-                    console.log(data); //print out error to the log
+                    console.log(data);
                 });
             
             $scope.eventName = '';
@@ -322,18 +302,6 @@ suspyApp
                 });
         };
 
-        $scope.stripeCallback = function (code, result) {
-            console.log("stripe callback");
-
-            if (result.error) {
-                console.log('it failed! error: ' + result.error.message);
-            } else {
-                console.log('success! token: ' + result.id);
-            }
-        };
-
-
-
         function getPlaces() {
             $http.get('/service/places/all')
                 .success(function (data) {
@@ -344,6 +312,21 @@ suspyApp
                 });
         }
 
+        //be sure to inject $scope and $location
+        var changeLocation = function(url, forceReload) {
+            $scope = $scope || angular.element(document).scope();
+            if(forceReload || $scope.$$phase) {
+                window.location = url;
+            }
+            else {
+                //only use this if you want to replace the history stack
+                //$location.path(url).replace();
+
+                //this this if you want to change the URL and add it to the history stack
+                $location.path(url);
+                $scope.$apply();
+            }
+        };
 
 })
     .controller('SearchController', function($scope,$http,$document,hotkeys) {
@@ -427,7 +410,6 @@ suspyApp
             
         };
 
-        
         //wiem że dublowanie ale nie chce mi sie przerabiać
         $scope.getOrganizers = function() {
 
@@ -546,9 +528,7 @@ suspyApp
         };
         
         $scope.round = function(value){
-            
             return Math.round(value);
-            
         };
         
         $scope.searchButtons = function(){
@@ -577,7 +557,6 @@ suspyApp
             }
 
         };
-
 
         hotkeys.bindTo($scope)
             .add({

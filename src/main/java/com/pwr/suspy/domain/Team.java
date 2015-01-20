@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,7 +33,7 @@ public class Team extends BaseEntity {
             property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(mappedBy = "teams")
-    private Set<User> members;
+    private Set<User> members = new HashSet<>();
 
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,

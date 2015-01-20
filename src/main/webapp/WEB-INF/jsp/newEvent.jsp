@@ -49,59 +49,23 @@
                     </div>
                 </div>
 
-               <!-- <div class="form-group col-sm-offset-2" ng-show="eventName && eventPlace && eventTime">
-                    <div class="pull-right">
-                        <div class="col-sm-12">
-                            <h3>{{eventName}}</h3>
-                            <p class="text-muted">{{eventPlace.name}}</p>
-                            <p class="text-info">
-                                <strong>Start time:</strong> {{eventTime.from | date:'dd-MM-yy HH:mm'}}<br/>
-                                <strong>End time:</strong> {{eventTime.to | date:'dd-MM-yy HH:mm'}}
-                            </p>
-                            You will have to pay <strong>{{eventTime.price}} PLN</strong>
-
-                            <%--
-                            Card number: 4242-4242-4242-4242
-                            Expiry: 12/16 (or any other date in the near future)
-                            CVC: 999
-                            --%>
-
-                            <div>
-                                <br />
-
-                                <form stripe-form="stripeCallback" class="form-horizontal" name="checkoutForm">
-                                    <input ng-model="number"
-                                           placeholder="Card Number"
-                                           payments-format="card"
-                                           payments-validate="card"
-                                           name="card"
-                                           class="form-control"/>
-
-                                    <input ng-model="expiry"
-                                           placeholder="Expiration"
-                                           payments-format="expiry"
-                                           payments-validate="expiry"
-                                           name="expiry"
-                                           class="form-control"/>
-
-                                    <input ng-model="cvc"
-                                           placeholder="CVC"
-                                           payments-format="cvc"
-                                           payments-validate="cvc"
-                                           name="cvc"
-                                           class="form-control"/>
-                                                                    
-                                    
-                                </form>
-
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-9">
-                        <input type="submit" value="Submit" class="btn btn-material-cyan pull-right" />
+
+                        <div class="pull-right">
+                            <script
+                                    src="https://checkout.stripe.com/checkout.js"
+                                    class="stripe-button"
+                                    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                                    data-name="Suspy"
+                                    data-description="Event reservation (100 PLN)"
+                                    data-currency="EUR"
+                                    data-amount="100">
+                            </script>
+
+                            <input type="submit" value="Submit" class="btn btn-material-cyan" />
+                        </div>
+
                     </div>
                 </div>
             </form>
