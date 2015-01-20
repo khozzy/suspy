@@ -75,4 +75,4 @@ suspyApp
         $scope.isLeader = function() {
             return isLeaderBool;
         }
-    })
+    });

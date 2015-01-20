@@ -314,4 +314,54 @@ suspyApp
                 }
             });
 
+    })
+
+    .controller('userProfile', function($scope, $http) {
+
+        var isObservedBool = false;
+        var isMyselfBool = false;
+
+        $scope.init = function(userID) {
+            $scope.userID = userID;
+
+            $http.get('/service/users/' + userID).success(function (result) {
+                $scope.user = result;
+
+                // Get teams data
+                angular.forEach($scope.user.teams, function(team) {
+                    $scope.user.teamsData = [];
+                    $http.get('/service/teams/' + team).success(function(result) {
+                        $scope.user.teamsData.push(result);
+                    })
+                });
+
+                // Get observed data
+                angular.forEach($scope.user.observed, function(obs) {
+                    $scope.user.observedData = [];
+                    $http.get('/service/users/' + obs).success(function(result) {
+                        $scope.user.observedData.push(result);
+                    })
+                });
+
+                $http.get('/service/users/current').success(function (result) {
+                    // Determine if observed
+                    if (result.observed.indexOf($scope.user.id) != -1) {
+                        isObservedBool = true;
+                    }
+
+                    // Determine if myself
+                    if (result.id == $scope.user.id) {
+                        isMyselfBool = true;
+                    }
+                })
+            });
+        }
+
+        $scope.isObserved = function() {
+            return isObservedBool;
+        }
+
+        $scope.isMyself = function() {
+            return isMyselfBool;
+        }
     });

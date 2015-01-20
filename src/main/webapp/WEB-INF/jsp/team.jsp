@@ -29,7 +29,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <h2>
           <small>Leader</small><br>
           <a href="../../users/{{team.leader}}">
@@ -38,7 +38,7 @@
         </h2>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
