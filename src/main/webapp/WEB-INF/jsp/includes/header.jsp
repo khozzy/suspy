@@ -59,7 +59,8 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <!--<a class="navbar-brand" href="/">Suspy</a>-->
-                        <c:if test="${requestScope['javax.servlet.forward.request_uri']!='/'}"><img src="/public/lib/assets/logo.svg" height="60px"></c:if>
+                        <!--<c:if test="${requestScope['javax.servlet.forward.request_uri']!='/'}"><a href="/"><img src="/public/lib/assets/logo.svg" height="60px"></a></c:if>-->
+                        <a href="/"><img src="/public/lib/assets/logo.svg" height="60px"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
