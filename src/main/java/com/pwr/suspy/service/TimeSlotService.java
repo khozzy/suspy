@@ -137,4 +137,9 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
     public Page<TimeSlot> findTimeSlots( Pageable pageable) {
         return repository.findAll(pageable);
     }
+
+    public void bookTimeSlot(TimeSlot timeSlot) {
+        timeSlot.setBooked(true);
+        repository.save(timeSlot);
+    }
 }

@@ -49,7 +49,6 @@ public class Event extends BaseEntity {
     @NotNull
     @Column(name = "priv", columnDefinition = "TINYINT", nullable = false)
     private Boolean priv = false;
-    
 
     public String getDetails() {
         return details;

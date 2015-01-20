@@ -58,33 +58,6 @@ suspyApp
 
         getPlaces();
 
-        $scope.addNewEvent = function() {
-
-            var newEvent = {
-                deleted : false,
-                name : $scope.eventName,
-                details : $scope.eventDetails,
-                timeSlot : $scope.eventTime.id,
-                team : null,
-                priv : false
-            };
-
-            console.log(newEvent);
-            $http.post('/service/events/addNew', newEvent)
-                .success(function (result) {
-                    console.log(result);
-                    changeLocation("/events/" + result)
-                })
-                .error(function (data) {
-                    console.log(data);
-                });
-
-            $scope.eventName = '';
-            $scope.eventDetails = '';
-            $scope.eventPlace = '';
-            $scope.eventTime = '';
-        };
-
         $scope.updateTimeslots = function() {
             $http.get('/service/timeslots/place/' + $scope.eventPlace.id)
                 .success(function (data) {
@@ -92,6 +65,17 @@ suspyApp
                 })
                 .error(function (data) {
                     console.log("Error when fetching places for creating new event")
+                });
+        };
+
+        $scope.pay = function(e) {
+            var promise = $http.get('/service/timeslots/' + $scope.eventTime.id)
+                .success(function (data) {
+                    $scope.timeSlotInfo = data;
+                    $scope.openPayment(e);
+                })
+                .error(function (data) {
+                    console.log("Error when fetching timeslot")
                 });
         };
 
@@ -105,20 +89,68 @@ suspyApp
                 });
         }
 
-        //be sure to inject $scope and $location
-        var changeLocation = function(url, forceReload) {
-            $scope = $scope || angular.element(document).scope();
-            if(forceReload || $scope.$$phase) {
-                window.location = url;
-            }
-            else {
-                //only use this if you want to replace the history stack
-                //$location.path(url).replace();
+        var handler = StripeCheckout.configure({
+            key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+            image: '/square-image.png',
+            token: function(token) {
+                // Use the token to create the charge with a server-side script.
+                // You can access the token ID with `token.id`
+                var newEvent = {
+                    deleted : false,
+                    name : $scope.eventName,
+                    details : $scope.eventDetails,
+                    timeSlot : $scope.eventTime.id,
+                    team : null,
+                    priv : false
+                };
+                console.log(newEvent);
+                $http.post('/service/events/addNew', newEvent)
+                    .success(function (result) {
+                        console.log(result);
+                        changeLocation("/events/" + result)
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
 
-                //this this if you want to change the URL and add it to the history stack
-                $location.path(url);
-                $scope.$apply();
+                $scope.eventName = '';
+                $scope.eventDetails = '';
+                $scope.eventPlace = '';
+                $scope.eventTime = '';
+                
+                //be sure to inject $scope and $location
+                var changeLocation = function(url, forceReload) {
+                    $scope = $scope || angular.element(document).scope();
+                    if(forceReload || $scope.$$phase) {
+                        window.location = url;
+                    }
+                    else {
+                        //only use this if you want to replace the history stack
+                        //$location.path(url).replace();
+
+                        //this this if you want to change the URL and add it to the history stack
+                        $location.path(url);
+                        $scope.$apply();
+                    }
+                };
             }
+        });
+        
+        $scope.openPayment =  function(e) {
+            // Open Checkout with further options
+            console.log($scope.timeSlotInfo);
+            handler.open({
+                name: $scope.eventName,
+                description: $scope.eventPlace.name +' '+$scope.timeSlotInfo.from +' '+$scope.timeSlotInfo.to,
+                amount: $scope.timeSlotInfo.price*100,
+                currency: 'USD'
+            });
+            e.preventDefault();
         };
+
+        // Close Checkout on page navigation
+        $(window).on('popstate', function() {
+            handler.close();
+        });
 
     })

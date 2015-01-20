@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
 
-            <form ng-controller="newEventController" ng-submit="addNewEvent()" class="form-horizontal form-group-material-cyan" role="form">
+            <form ng-controller="newEventController" ng-submit="pay($event)" class="form-horizontal form-group-material-cyan" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-9">
@@ -53,7 +53,7 @@
                     <div class="col-sm-offset-2 col-sm-9">
 
                         <div class="pull-right">
-                            <script
+                            <%--<script
                                     src="https://checkout.stripe.com/checkout.js"
                                     class="stripe-button"
                                     data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
@@ -61,9 +61,9 @@
                                     data-description="Event reservation (100 PLN)"
                                     data-currency="EUR"
                                     data-amount="100">
-                            </script>
+                            </script>--%>
 
-                            <input type="submit" value="Submit" class="btn btn-material-cyan" />
+                            <input type="submit" value="Submit" id="payButton" class="btn btn-material-cyan" />
                         </div>
 
                     </div>

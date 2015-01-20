@@ -43,10 +43,6 @@ suspyApp
         
     })
 
-
-
-
-
     .controller('SearchController', function($scope,$http,$document,hotkeys) {
         $scope.form='';
         $scope.form = {

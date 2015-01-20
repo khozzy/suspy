@@ -45,6 +45,10 @@ public class TimeSlot extends BaseEntity {
     @OneToOne(mappedBy = "timeSlot")
     private Event event;
 
+    @NotNull
+    @Column(name = "booked", columnDefinition = "TINYINT", nullable = false)
+    private Boolean booked = false;
+
     public Place getPlace() {
         return place;
     }
@@ -83,6 +87,14 @@ public class TimeSlot extends BaseEntity {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Boolean getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Boolean booked) {
+        this.booked = booked;
     }
 
     @Override

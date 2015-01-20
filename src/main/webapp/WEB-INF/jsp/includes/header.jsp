@@ -34,14 +34,14 @@
     <script src="/public/lib/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
     <script src="/public/lib/bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <script src="/public/lib/bower_components/angular-scroll/angular-scroll.js"></script>
-    <script src="/public/lib/bower_components/angular-payments/lib/angular-payments.js"></script>
     <script src="/public/lib/bower_components/angular-route/angular-route.js"></script>
-    <script src="/public/lib/bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="/public/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/public/lib/bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+    <script src="/public/lib/bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
-
+    
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>
     <script src="/public/lib/js/eventController.js"></script>

@@ -39,6 +39,7 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
         event.setName(AddEvents.getName());
         event.setDetails(AddEvents.getDetails());
         event.setTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
+        timeSlotService.bookTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
         event.setTeam(teamService.findById(AddEvents.getTeam()));
         event.setPriv(AddEvents.getPriv());
         event.setCreatedDate(new Date());
