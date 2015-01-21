@@ -39,7 +39,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="panel panel-default">
+        <div class="panel panel-material-lightblue">
           <div class="panel-heading">
             <h3 class="panel-title">
               Events <span class="badge">{{team.events.length}}</span>
@@ -57,7 +57,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="panel panel-default">
+        <div class="panel panel-material-teal">
           <div class="panel-heading">
             <h3 class="panel-title">
               Members <span class="badge">{{team.members.length}}</span>
