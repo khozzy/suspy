@@ -25,6 +25,22 @@ html {
     min-height:100%;
 }
 
+.teamStyle {
+    color: #e91e63;
+}
+
+.placeStyle {
+    color: #ff9800;
+}
+
+.eventStyle {
+    color: #03a9f4;
+}
+
+.userStyle {
+    color: #009587;
+}
+
 body { 
     padding-top: 70px;
     height:100%;

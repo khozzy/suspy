@@ -6,7 +6,7 @@
       <div class="col-md-10">
         <h1>
           <small>Team</small><br>
-          {{ team.name }}
+          <span class="teamStyle">{{ team.name }}</span>
         </h1>
       </div>
 
@@ -48,8 +48,8 @@
           <div class="panel-body">
             <h4 ng-repeat="event in team.eventsData">
               <a href="../../events/{{event.id}}">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                {{ event.name }}
+                <span class="eventStyle"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                {{ event.name }}</span>
               </a>
             </h4>
           </div>
