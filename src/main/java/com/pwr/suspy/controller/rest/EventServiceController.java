@@ -92,4 +92,11 @@ public class EventServiceController {
         return new ResponseEntity<>("Event " + event.getName() + " deleted.", new HttpHeaders(), HttpStatus.GONE);
     }
 
+    @RequestMapping(value = "/sendToken", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> getToken(
+            @RequestBody String token) {
+        eventService.makePayment(token);
+        return new ResponseEntity<>(token, new HttpHeaders(), HttpStatus.OK);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.pwr.suspy.controller;
 
 import com.pwr.suspy.domain.Event;
+import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,15 @@ public class EventController {
     private EventService eventService;
 
     
-    @RequestMapping(value = "/new")
-    public String newEvent(Model model) {
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String newEvent(@RequestParam(value = "place", defaultValue = "") String placeID,
+                           @RequestParam(value = "timeslot", defaultValue = "0") String timeslotID,
+                           Model model) {
+
+        AddEvents form = new AddEvents();
+        form.setTimeSlot(Long.valueOf(timeslotID));
+        model.addAttribute(form);
+        
         return "newEvent";
     }
 

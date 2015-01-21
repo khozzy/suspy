@@ -46,8 +46,8 @@ public class TimeSlot extends BaseEntity {
     private Event event;
 
     @NotNull
-    @Column(name = "booked", columnDefinition = "TINYINT", nullable = false)
-    private Boolean booked = false;
+    @Column(name = "paid", columnDefinition = "TINYINT", nullable = false)
+    private Boolean paid = false;
 
     public Place getPlace() {
         return place;
@@ -89,12 +89,12 @@ public class TimeSlot extends BaseEntity {
         this.event = event;
     }
 
-    public Boolean getBooked() {
-        return booked;
+    public Boolean getPaid() {
+        return paid;
     }
 
-    public void setBooked(Boolean booked) {
-        this.booked = booked;
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
     @Override

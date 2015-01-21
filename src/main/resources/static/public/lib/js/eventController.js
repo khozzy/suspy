@@ -54,7 +54,7 @@ suspyApp
     getEvents();
 })
 
-    .controller('newEventController', function($scope, $http, $document, $location) {
+    .controller('newEventController', function($scope, $http, $document, $location, $filter) {
 
         getPlaces();
 
@@ -103,6 +103,15 @@ suspyApp
                     team : null,
                     priv : false
                 };
+                
+                $http.post('/service/events/sendToken', '"'+ token.id +'"')
+                    .success(function (result) {
+                        console.log(result);
+                    })
+                    .error(function (result) {
+                        console.log(result);
+                    });
+                
                 console.log(newEvent);
                 $http.post('/service/events/addNew', newEvent)
                     .success(function (result) {
@@ -112,11 +121,6 @@ suspyApp
                     .error(function (data) {
                         console.log(data);
                     });
-
-                $scope.eventName = '';
-                $scope.eventDetails = '';
-                $scope.eventPlace = '';
-                $scope.eventTime = '';
                 
                 //be sure to inject $scope and $location
                 var changeLocation = function(url, forceReload) {
@@ -140,8 +144,10 @@ suspyApp
             // Open Checkout with further options
             console.log($scope.timeSlotInfo);
             handler.open({
-                name: $scope.eventName,
-                description: $scope.eventPlace.name +' '+$scope.timeSlotInfo.from +' '+$scope.timeSlotInfo.to,
+                name: $scope.eventPlace.name,
+                description:
+                $filter('date')($scope.timeSlotInfo.from,'dd-MM-yy HH:mm') +' - '+
+                $filter('date')($scope.timeSlotInfo.to,'dd-MM-yy HH:mm'),
                 amount: $scope.timeSlotInfo.price*100,
                 currency: 'USD'
             });
@@ -149,8 +155,8 @@ suspyApp
         };
 
         // Close Checkout on page navigation
-        $(window).on('popstate', function() {
+        angular.element(window).on('popstate',function() {
             handler.close();
         });
-
+        
     })

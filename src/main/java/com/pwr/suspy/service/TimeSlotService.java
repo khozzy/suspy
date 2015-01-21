@@ -139,7 +139,7 @@ public class TimeSlotService extends GenericServiceImpl<TimeSlot, Long, TimeSlot
     }
 
     public void bookTimeSlot(TimeSlot timeSlot) {
-        timeSlot.setBooked(true);
+        timeSlot.setPaid(true);
         repository.save(timeSlot);
     }
 }

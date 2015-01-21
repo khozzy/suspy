@@ -61,15 +61,15 @@ INSERT INTO `suspy`.`place` (`id`, `created_date`, `deleted`, `accepted`, `city`
 #Places activity (TODO)
 
 #Time Slots
-  INSERT INTO `suspy`.`time_slot` (`id`, `created_date`, `deleted`, `date_from`, `price`, `date_to`, `place_id`,`booked`) VALUES
-  ('1', NOW(), 0, NOW(), '100', '2015-01-01', '1',1),
+  INSERT INTO `suspy`.`time_slot` (`id`, `created_date`, `deleted`, `date_from`, `price`, `date_to`, `place_id`,`paid`) VALUES
+  ('1', NOW(), 0, NOW(), '100', '2015-01-01', '1',0),
   ('2', NOW(), 0, NOW(), '111', '2015-02-02', '2',0),
   ('3', NOW(), 0, NOW(), '222', '2015-03-03', '3',0),
-  ('4', NOW(), 0, NOW(), '333', '2015-04-04', '4',1),
+  ('4', NOW(), 0, NOW(), '333', '2015-04-04', '4',0),
   ('5', NOW(), 0, NOW(), '444', '2015-05-06', '5',0),
   ('6', '2000-05-06', 0, '2014-05-06', '444', '2014-06-06', '6',0),
   ('7', '2010-05-06', 0, '2013-05-06', '2000', '2014-06-08', '7',0),
-  ('8', '2010-05-06', 0, '2014-11-11', '40', '2014-12-12', '7',1);
+  ('8', '2010-05-06', 0, '2014-11-11', '40', '2014-12-12', '7',0);
 
 ## Event
 INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `event_details` ,`priv`, `organizer`, `team_id` , `time_slot_id`) VALUES
@@ -78,6 +78,4 @@ INSERT INTO `suspy`.`event` (`id`, `created_date`, `deleted`, `name`, `event_det
 ('3', '2000-01-01', 0, 'Kosz', 'Idziemy pograc w kosza ze znajomymi z dzielni', 0, '2', '1', '3'),
 ('4', '2000-01-01', 0, 'Reczna', 'Czy jestes na tyle wytwaly zeby pilke reka rzucac ?', 0, '2', '3', '4'),
 ('5', '2000-01-01', 0, 'tenis', 'Pilka zielona, jedna siata, dwie rakiety tylko my we dwoje .....', 0, '2', '4', '5'),
-('6', '2000-01-01', 0, 'MASAKRYCZNA GRA', 'Bedzie hardcore', 0, '4', '1', '6'),
-('7', '2000-01-01', 0, 'Lepiej Masakryczna Gra', 'Nawet nie pytaj co to bedzie!!!', 0, '4', '2', '7'),
-('8', '2000-01-01', 0, 'Bardziej Lepiej Masakryczna gra', 'Taka gra ze szok', 0, '4', '4', '8');
+('6', '2000-01-01', 0, 'MASAKRYCZNA GRA', 'Bedzie hardcore', 0, '4', '1', '6');

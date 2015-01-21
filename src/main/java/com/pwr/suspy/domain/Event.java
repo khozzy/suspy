@@ -25,7 +25,7 @@ public class Event extends BaseEntity {
             property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @OneToOne
-    @JoinColumn(name = "time_slot_id")
+    @JoinColumn(name = "time_slot_id", unique = true)
     private TimeSlot timeSlot;
 
     @JsonIdentityInfo(
