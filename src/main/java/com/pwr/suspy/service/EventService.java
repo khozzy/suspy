@@ -1,10 +1,14 @@
 package com.pwr.suspy.service;
 
 import com.pwr.suspy.domain.Event;
+import com.pwr.suspy.domain.TimeSlot;
 import com.pwr.suspy.dto.AddEvents;
 import com.pwr.suspy.repository.Events;
 import com.pwr.suspy.service.generic.GenericServiceImpl;
 import com.pwr.suspy.util.MyUtil;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EventService extends GenericServiceImpl<Event, Long, Events> {
@@ -37,17 +44,25 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Event createNewEvent(AddEvents AddEvents) {
-        Event event = new Event();
+    public Event createNewEvent(AddEvents addEvents) {
         
-        event.setName(AddEvents.getName());
-        event.setDetails(AddEvents.getDetails());
-        event.setTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
-        timeSlotService.bookTimeSlot(timeSlotService.findById(AddEvents.getTimeSlot()));
-        event.setTeam(teamService.findById(AddEvents.getTeam()));
-        event.setPriv(AddEvents.getPriv());
+        Event event = new Event();
+        event.setName(addEvents.getName());
+        event.setDetails(addEvents.getDetails());
+        TimeSlot timeSlot = timeSlotService.findById(addEvents.getTimeSlot());
+        event.setTimeSlot(timeSlot);
+        timeSlotService.bookTimeSlot(timeSlotService.findById(addEvents.getTimeSlot()));
+        event.setTeam(teamService.findById(addEvents.getTeam()));
+        event.setPriv(addEvents.getPriv());
         event.setCreatedDate(new Date());
         event.setOrganizer(MyUtil.getSessionUser());
+
+        makePayment(timeSlot.getPrice(),
+                addEvents.getToken(),
+                timeSlot.getPlace().getName()+" booked from " + timeSlot.getFrom() +" to "+
+                timeSlot.getTo() + " by " + MyUtil.getSessionUser().getEmail(),
+                String.valueOf(timeSlot.getId()));
+        
         repository.save(event);
         return event;
     }
@@ -72,7 +87,21 @@ public class EventService extends GenericServiceImpl<Event, Long, Events> {
         return repository.getOne(eventID);
     }
 
-    public void makePayment(String token) {
+    public void makePayment(BigDecimal amount, String token, String description, String timeSlotID) {
         logger.info(token);
+        Stripe.apiKey = "sk_test_BQokikJOvBiI2HlWgH4olfQ2";
+        Map<String, Object> chargeMap = new HashMap<>();
+        chargeMap.put("amount", amount.multiply(BigDecimal.valueOf(100)).intValue());
+        chargeMap.put("currency", "usd");
+        chargeMap.put("card", token);
+        chargeMap.put("description", description);
+        Map<String, String> initialMetadata = new HashMap<String, String>();
+        initialMetadata.put("order_id", timeSlotID);
+        try {
+            Charge charge = Charge.create(chargeMap);
+            System.out.println(charge);
+        } catch (StripeException e) {
+            e.printStackTrace();
+        }
     }
 }

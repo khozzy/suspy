@@ -3,7 +3,6 @@ package com.pwr.suspy.controller.rest;
 
 import com.pwr.suspy.domain.Event;
 import com.pwr.suspy.dto.AddEvents;
-import com.pwr.suspy.exception.UserAlreadyExistsException;
 import com.pwr.suspy.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,9 +66,8 @@ public class EventServiceController {
 
     @RequestMapping(value = "/addNew", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> createEvent(
-            @RequestBody AddEvents AddEvent) {
-
-        Event event = eventService.createNewEvent(AddEvent);
+            @RequestBody AddEvents addEvent) {
+        Event event = eventService.createNewEvent(addEvent);
         return new ResponseEntity<>(event.getId().toString(), new HttpHeaders(), HttpStatus.CREATED);
     }
 
@@ -90,13 +88,6 @@ public class EventServiceController {
         eventService.delete(eventID);
         Event event = eventService.findById(eventID);
         return new ResponseEntity<>("Event " + event.getName() + " deleted.", new HttpHeaders(), HttpStatus.GONE);
-    }
-
-    @RequestMapping(value = "/sendToken", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> getToken(
-            @RequestBody String token) {
-        eventService.makePayment(token);
-        return new ResponseEntity<>(token, new HttpHeaders(), HttpStatus.OK);
     }
 
 }

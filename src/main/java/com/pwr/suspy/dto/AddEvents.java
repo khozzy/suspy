@@ -16,6 +16,8 @@ public class AddEvents {
     private long team;
 
     private Boolean priv = false;
+    
+    private String token;
 
     public String getDetails() {
         return details;
@@ -65,6 +67,14 @@ public class AddEvents {
         this.team = team;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "AddEvents{" +
@@ -75,4 +85,5 @@ public class AddEvents {
                 ", priv=" + priv +
                 '}';
     }
+    
 }

@@ -14,6 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Suspy!</title>
 
+    <link rel="icon"
+          type="image/png"
+          href="/public/lib/assets/logo.png">
+
     <!-- bower:css -->
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
@@ -40,7 +44,6 @@
     <script src="/public/lib/bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
     
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="/public/lib/js/app.js"></script>
     <script src="/public/lib/js/controllers.js"></script>

@@ -101,22 +101,15 @@ suspyApp
                     details : $scope.eventDetails,
                     timeSlot : $scope.eventTime.id,
                     team : null,
-                    priv : false
+                    priv : false,
+                    token : token.id
                 };
-                
-                $http.post('/service/events/sendToken', '"'+ token.id +'"')
-                    .success(function (result) {
-                        console.log(result);
-                    })
-                    .error(function (result) {
-                        console.log(result);
-                    });
                 
                 console.log(newEvent);
                 $http.post('/service/events/addNew', newEvent)
                     .success(function (result) {
                         console.log(result);
-                        changeLocation("/events/" + result)
+                        changeLocation("/events/" + result);
                     })
                     .error(function (data) {
                         console.log(data);

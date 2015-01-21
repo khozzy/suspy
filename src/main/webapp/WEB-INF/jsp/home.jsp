@@ -160,7 +160,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row clearfix">
-                                                                <table class="table table-hover" ng-show="timeslots">
+                                                                <table class="table table-hover" ng-show="timeslots[0]">
                                                                     <thead>
                                                                     <th>From</th>
                                                                     <th>To</th>
@@ -176,7 +176,7 @@
                                                                         <td ng-hide="timeslot.event"><a href='../../events/new?place={{ place.id }}&timeslot={{timeslot.id}}' class="btn btn-material-cyan">Book</a></td>
                                                                     </tr>
                                                                 </table>
-                                                            <h5 ng-hide="timeslots">No timeslots found.</h5>
+                                                            <h5 ng-hide="timeslots[0]">No timeslots found.</h5>
                                                         </div>
                                                     </div>
 
