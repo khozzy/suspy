@@ -83,10 +83,10 @@ public class PlaceController {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
 
-            if (MyUtil.getSessionUser().getId().equals(place.getOwner().getId())) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/error";
-            }
+            //if (MyUtil.getSessionUser().getId().equals(place.getOwner().getId())) {
+            //   MyUtil.flash(redirectAttributes, "failure", "noPermissions");
+            //    return "redirect:/error";
+            //}
 
             model.addAttribute("editedPlace", place);
             EditPlaceForm editPlaceForm = new EditPlaceForm();
@@ -107,10 +107,10 @@ public class PlaceController {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
 
-            if (MyUtil.getSessionUser().getId() != place.getOwner().getId()) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/error";
-            }
+            //if (MyUtil.getSessionUser().getId() != place.getOwner().getId()) {
+            //    MyUtil.flash(redirectAttributes, "failure", "noPermissions");
+            //    return "redirect:/error";
+            //}
 
             placeService.editPlace(editPlaceForm, place);
             MyUtil.flash(redirectAttributes, "success", "place.edit.success");
@@ -173,11 +173,6 @@ public class PlaceController {
             long id = Long.parseLong(s_id);
             TimeSlot timeSlot = timeSlotService.findById(id);
 
-            if (MyUtil.getSessionUser().getId().equals(timeSlot.getPlace().getOwner().getId())) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/";
-            }
-
             EditTimeSlotForm editTimeSlotForm = new EditTimeSlotForm();
             model.addAttribute("editTimeSlotForm", editTimeSlotForm);
             model.addAttribute("timeslot", timeSlot);
@@ -195,11 +190,6 @@ public class PlaceController {
         try {
             long id = Long.parseLong(s_id);
             TimeSlot timeSlot = timeSlotService.findById(id);
-
-            if (MyUtil.getSessionUser().getId().equals(timeSlot.getPlace().getOwner().getId())) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/error";
-            }
 
             timeSlotService.editTimeSlot(editTimeSlotForm, timeSlot);
 
@@ -227,11 +217,6 @@ public class PlaceController {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
 
-            if (MyUtil.getSessionUser().getId().equals(place.getOwner().getId())) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/";
-            }
-
             EditTimeSlotForm editTimeSlotForm = new EditTimeSlotForm();
             model.addAttribute("editTimeSlotForm", editTimeSlotForm);
             model.addAttribute("place", place);
@@ -250,11 +235,6 @@ public class PlaceController {
         try {
             long id = Long.parseLong(s_id);
             Place place = placeService.findById(id);
-
-            if (MyUtil.getSessionUser().getId() != place.getOwner().getId()) {
-                MyUtil.flash(redirectAttributes, "failure", "noPermissions");
-                return "redirect:/error";
-            }
 
             timeSlotService.addTimeSlot(
                     place,
