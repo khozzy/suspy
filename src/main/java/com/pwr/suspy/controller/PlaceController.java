@@ -56,7 +56,7 @@ public class PlaceController {
             return "newPlace";
         }
 
-        logger.info(addPlaceForm.toString());
+        logger.info(addPlaceForm.getTimeSlotList());
         final Place place = placeService.getPlace(addPlaceForm, MyUtil.getSessionUser());
         MyUtil.flash(redirectAttributes, "success", "place.added");
         return "redirect:/";

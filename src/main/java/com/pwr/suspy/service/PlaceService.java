@@ -97,7 +97,7 @@ public class PlaceService extends GenericServiceImpl<Place, Long, Places> {
         place.setActivities(activities);
         repository.save(place);
         String[] listOfTimeSlots = addPlaceForm.getTimeSlotList().split(";");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         logger.info(Integer.toString(listOfTimeSlots.length));
         for (int i = 0; i < listOfTimeSlots.length; i++) {
 //            try{
