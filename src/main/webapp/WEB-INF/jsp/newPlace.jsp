@@ -10,14 +10,14 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name"><spring:message code="place.form.place_name"/></label>
                             <div class="col-sm-9">
-                                <input id="name" name="name" type="text" ng-model="asyncSelected" placeholder="Locations loaded via google geo api" typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="form-control">
-                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                <input id="name" name="name" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="city"><spring:message code="place.form.city"/></label>
                             <div class="col-sm-9">
-                                <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
+                                <input id="city" name="city" type="text" ng-model="asyncSelected" placeholder="Locations loaded via google geo api" typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="form-control input-md">
+                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -160,7 +160,7 @@
                 form.hour_from.value.length<=0 || form.hour_to.value.length<=0){
             return;
         }
-        form.timeSlotList.value += form.date_from.value + " " +  form.hour_from.value + "," + form.date_to.value + " " + form.hour_to.value + ","+ form.price.value+ ";";
+        form.timeSlotList.value += form.date_from.value + " " +  form.hour_from.value + "," + form.date_to.value + " " + form.hour_to.value + ","+ form.price.value;
         form.timeSlotListBox.value += form.date_from.value + " " + form.hour_from.value + " - " + form.date_to.value + " " + form.hour_to.value + ", " + "Cost" + ": "+ form.price.value + "\n";
     }
 </script>

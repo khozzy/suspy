@@ -12,6 +12,7 @@ import java.util.List;
 public interface Teams extends JpaRepository<Team, Long> {
 
     Team findById(long id);
+    
     Page<Team> findByNameContaining(String query, Pageable pageable);
 
 }

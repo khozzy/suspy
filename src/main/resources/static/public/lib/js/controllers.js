@@ -76,6 +76,8 @@ suspyApp
                                     $scope.getOwners();
                                     break;
                                 case 'teams':
+                                    $scope.progressBarVal += 1/2*100;
+                                    $scope.getLeaders();
                                     break;
                             }
                             $document.duScrollToElementAnimated(searchInput);
@@ -238,6 +240,46 @@ suspyApp
                             $scope.progressBarVal += 1/($scope.results.length*4)*100;
                         });
                 })(index);
+
+        };
+
+        //wiem że dublowanie ale nie chce mi sie przerabiać
+        $scope.getLeaders = function() {
+
+            for (index = 0; index < $scope.results.length; ++index) {
+                (function(i) {
+                    var userId = $scope.results[i].leader;
+                    $http.get('/service/users/' + userId)
+                        .success(function (data) {
+                            $scope.results[i].leader=
+                            {
+                                id:userId,
+                                name:data.name + ' ' +data.surname
+                            };
+                            $scope.progressBarVal += 1/($scope.results.length*2)*100;
+                        })
+                        .error(function (data) {
+                            $scope.results[i].organizer=
+                            {
+                                id:userId,
+                                name:'Not found'
+                            };
+                            $scope.progressBarVal += 1/($scope.results.length*2)*100;
+                        });
+                })(index);
+            }
+
+        };
+
+        $scope.showTimeslots = function(id) {
+
+                $http.get('/service/timeslots/place/' + id)
+                    .success(function (data) {
+                        $scope.timeslots = data;
+                    })
+                    .error(function (data) {
+                        $scope.timeslots = '';
+                    });
 
         };
         

@@ -4,6 +4,9 @@ import com.pwr.suspy.domain.Team;
 import com.pwr.suspy.service.TeamService;
 import com.pwr.suspy.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +29,22 @@ public class TeamServiceController {
         this.teamService = teamService;
     }
 
+    @RequestMapping(method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Team> getTeams(
+            @RequestParam(value = "query", defaultValue = "Suspy is the best") String query,
+            @RequestParam(value = "pageNum", defaultValue = "0") Long pageNum,
+            @RequestParam(value = "numOfResults", defaultValue = "10") Long numOfResults)
+    {
+
+        return teamService.findTeams(
+                query,
+                new PageRequest(
+                        pageNum.intValue(),
+                        numOfResults.intValue(),
+                        new Sort(Sort.Direction.ASC, "name")));
+    }
+    
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Collection<Team> getAllTeams() {

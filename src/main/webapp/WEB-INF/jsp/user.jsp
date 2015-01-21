@@ -6,7 +6,7 @@
             <div class="col-md-10">
                 <h1>
                     <small>User</small><br>
-                    {{ user.name }} {{ user.surname }}
+                    <span class="userStyle">{{ user.name }} {{ user.surname }}</span>
                 </h1>
             </div>
 
@@ -21,10 +21,10 @@
                     </ul>
                 </div>
                 <a href="../../users/{{user.id}}/startObserving">
-                    <button type="button" class="btn btn-success" ng-show="!isObserved() && !isMyself()">Observe User</button>
+                    <button type="button" class="btn btn-material-teal" ng-show="!isObserved() && !isMyself()">Observe User</button>
                 </a>
                 <a href="../../users/{{user.id}}/stopObserving">
-                    <button type="button" class="btn btn-danger" ng-show="isObserved()">Don't Observe</button>
+                    <button type="button" class="btn btn-material-teal" ng-show="isObserved()">Don't Observe</button>
                 </a>
             </div>
         </div>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="panel panel-material-pink">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             Teams <span class="badge">{{user.teams.length}}</span>
@@ -59,8 +59,8 @@
                     <div class="panel-body">
                         <h4 ng-repeat="team in user.teamsData">
                             <a href="../../teams/{{team.id}}">
-                                <span class="glyphicon mdi-social-group"></span>
-                                {{ team.name }}
+                                <span class="teamStyle"><span class="glyphicon mdi-social-group"></span>
+                                {{ team.name }}</span>
                             </a>
                         </h4>
                     </div>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="panel panel-material-teal">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             Observed <span class="badge">{{user.observed.length}}</span>

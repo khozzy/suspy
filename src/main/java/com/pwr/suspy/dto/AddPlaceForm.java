@@ -43,6 +43,7 @@ public class AddPlaceForm {
     private String hour_to;
     @Pattern(regexp ="[0-9]*")
     private String price;
+    private int booked;
 
     @NotNull
     private String timeSlotList;
@@ -227,5 +228,13 @@ public class AddPlaceForm {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getBooked() {
+        return booked;
+    }
+
+    public void setBooked(int booked) {
+        this.booked = booked;
     }
 }

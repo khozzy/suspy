@@ -73,8 +73,9 @@ public class TeamService extends GenericServiceImpl<Team, Long, Teams> {
     }
 
     public Team findById(long id){return  repository.findById(id);}
+    
     @Transactional(readOnly = true)
-    public Page<Team> findEvents(String query, Pageable pageable) {
+    public Page<Team> findTeams(String query, Pageable pageable) {
         return repository.findByNameContaining("%" + query + "%", pageable);
     }
 
