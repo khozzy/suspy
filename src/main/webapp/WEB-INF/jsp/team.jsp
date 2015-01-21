@@ -12,18 +12,18 @@
 
       <div class="col-md-2 text-right">
         <div class="btn-group" ng-show="isMember()">
-          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          <button class="btn btn-material-pink dropdown-toggle" data-toggle="dropdown">
             Settings
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" role="menu">
+          <ul class="dropdown-menu dropdown-menu-material-pink" role="menu">
             <li ng-hide="isLeader()"><a href="../../teams/{{team.id}}/leave">Leave Team</a></li>
             <li ng-show="isLeader()"><a href="#">Edit Team</a></li>
             <li ng-show="isLeader()"><a href="../../teams/{{team.id}}/delete">Delete Team</a></li>
           </ul>
         </div>
         <a href="../../teams/{{team.id}}/join">
-          <button type="button" class="btn btn-success" ng-show="!isMember()">Join Team</button>
+          <button type="button" class="btn btn-material-pink" ng-show="!isMember()">Join Team</button>
         </a>
       </div>
     </div>
