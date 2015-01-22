@@ -65,7 +65,7 @@
                     <div class="navbar-header">
                         <!--<a class="navbar-brand" href="/">Suspy</a>-->
                         <!--<c:if test="${requestScope['javax.servlet.forward.request_uri']!='/'}"><a href="/"><img src="/public/lib/assets/logo.svg" height="60px"></a></c:if>-->
-                        <a href="/"><img src="/public/lib/assets/logo.svg" height="50px" style="padding-top:10px;" onerror="this.onerror=null; this.src='/public/lib/assets/logo.png'"></a>
+                        <a href="/"><img src="/public/lib/assets/logo_with_text.png" height="55px" style="padding-top:5px;" onerror="this.onerror=null; this.src='/public/lib/assets/logo.png'"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
