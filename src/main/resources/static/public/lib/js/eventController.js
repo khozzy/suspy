@@ -56,12 +56,17 @@ suspyApp
 
     .controller('newEventController', function($scope, $http, $document, $location, $filter) {
 
+        var searchObject = $location.search();
+        
         getPlaces();
 
         $scope.updateTimeslots = function() {
-            $http.get('/service/timeslots/place/' + $scope.eventPlace.id)
+            $http.get('/service/timeslots/place/' + $scope.eventPlace.id +'/available')
                 .success(function (data) {
                     $scope.timeslots = data;
+                    if(!isEmpty(searchObject)) {
+                        getTimeslot(searchObject.timeslot);
+                    }
                 })
                 .error(function (data) {
                     console.log("Error when fetching places for creating new event")
@@ -69,7 +74,7 @@ suspyApp
         };
 
         $scope.pay = function(e) {
-            var promise = $http.get('/service/timeslots/' + $scope.eventTime.id)
+            $http.get('/service/timeslots/' + $scope.eventTime.id)
                 .success(function (data) {
                     $scope.timeSlotInfo = data;
                     $scope.openPayment(e);
@@ -83,9 +88,36 @@ suspyApp
             $http.get('/service/places/all')
                 .success(function (data) {
                     $scope.places = data;
+
+                    if(!isEmpty(searchObject)){
+                        getPlace(searchObject.place);
+                    }
                 })
                 .error(function (data) {
                     console.log("Error when fetching places for creating new event")
+                });
+        }
+
+        function getPlace(id) {
+            $http.get('/service/places/'+id)
+                .success(function (data) {
+                    $scope.eventPlace = data;
+                    $scope.updateTimeslots();
+                })
+                .error(function (data) {
+                    console.log("Error when fetching places for creating new event")
+                    $scope.eventPlace = '';
+                });
+        }
+
+        function getTimeslot(id) {
+            $http.get('/service/timeslots/'+id)
+                .success(function (data) {
+                    $scope.eventTime = data;
+                })
+                .error(function (data) {
+                    console.log("Error when fetching places for creating new event")
+                    $scope.eventTime = '';
                 });
         }
 
@@ -151,5 +183,14 @@ suspyApp
         angular.element(window).on('popstate',function() {
             handler.close();
         });
+
+        function isEmpty(obj) {
+            for(var prop in obj) {
+                if(obj.hasOwnProperty(prop))
+                    return false;
+            }
+
+            return true;
+        };
         
-    })
+    });

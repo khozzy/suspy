@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/service/timeslots")
@@ -54,12 +55,25 @@ public class TimeSlotServiceController {
 
     @RequestMapping(value = "/place/{placeId}", method = RequestMethod.GET, headers = "accept=application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<TimeSlot> findForPlace(@PathVariable("placeId") long placeId) {
+    public Collection<TimeSlot> findForPlaceTimeslots(@PathVariable("placeId") long placeId) {
 
         Optional<Place> place = Optional.ofNullable(placeService.findById(placeId));
 
         if (place.isPresent()) {
             return place.get().getTimeSlots();
+        }
+
+        return Collections.emptyList();
+    }
+
+    @RequestMapping(value = "/place/{placeId}/available", method = RequestMethod.GET, headers = "accept=application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<TimeSlot> findForPlaceTimeslotsAvailable(@PathVariable("placeId") long placeId) {
+
+        Optional<Place> place = Optional.ofNullable(placeService.findById(placeId));
+
+        if (place.isPresent()) {
+            return place.get().getTimeSlots().stream().filter(t-> t.getEvent() == null).collect(Collectors.toList());
         }
 
         return Collections.emptyList();

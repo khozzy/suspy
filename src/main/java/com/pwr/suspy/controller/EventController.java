@@ -26,14 +26,7 @@ public class EventController {
 
     
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newEvent(@RequestParam(value = "place", defaultValue = "") String placeID,
-                           @RequestParam(value = "timeslot", defaultValue = "0") String timeslotID,
-                           Model model) {
-
-        AddEvents form = new AddEvents();
-        form.setTimeSlot(Long.valueOf(timeslotID));
-        model.addAttribute(form);
-        
+    public String newEvent() {
         return "newEvent";
     }
 

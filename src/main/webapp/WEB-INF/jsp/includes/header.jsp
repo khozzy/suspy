@@ -18,6 +18,8 @@
           type="image/png"
           href="/public/lib/assets/logo.png">
 
+    <base href="/">
+
     <!-- bower:css -->
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/public/lib/bower_components/bootstrap-material-design/dist/css/material.css" />
