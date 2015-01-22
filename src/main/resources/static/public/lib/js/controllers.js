@@ -276,10 +276,40 @@ suspyApp
                 $http.get('/service/timeslots/place/' + id)
                     .success(function (data) {
                         $scope.timeslots = data;
+                        $scope.getEvents();
                     })
                     .error(function (data) {
                         $scope.timeslots = '';
                     });
+
+        };
+
+        //wiem że dublowanie ale nie chce mi sie przerabiać
+        $scope.getEvents = function() {
+
+            for (index = 0; index < $scope.timeslots.length; ++index) {
+                (function(i) {
+                    var eventID = $scope.timeslots[i].event;
+                    if(eventID) {
+                        $http.get('/service/events/' + eventID)
+                            .success(function (data) {
+                                $scope.timeslots[i].event =
+                                {
+                                    id: eventID,
+                                    name: data.name
+                                };
+                            })
+                            .error(function (data) {
+                                $scope.timeslots[i].event =
+                                {
+                                    id: eventID,
+                                    name: 'Not found'
+                                };
+                            });
+                    }
+                    })(index);
+                    
+            }
 
         };
         
@@ -406,4 +436,5 @@ suspyApp
         $scope.isMyself = function() {
             return isMyselfBool;
         }
+        
     });

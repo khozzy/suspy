@@ -172,7 +172,7 @@
                                                                         <td>{{ timeslot.to | date:'EEEE dd-MM-yy HH:mm' }}</td>
                                                                         <td ng-hide="timeslot.event">{{ timeslot.price }}</td>
                                                                         <td ng-show="timeslot.event">-</td>
-                                                                        <td ng-show="timeslot.event"><a href="../../events/{{ timeslot.event }}">{{ timeslot.event }}</a></td>
+                                                                        <td ng-show="timeslot.event"><a href="../../events/{{ timeslot.event.id }}">{{ timeslot.event.name }}</a></td>
                                                                         <td ng-hide="timeslot.event"><a href='../../events/new?place={{ place.id }}&timeslot={{timeslot.id}}' class="btn btn-material-cyan">Book</a></td>
                                                                     </tr>
                                                                 </table>
